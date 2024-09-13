@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/12 19:14:32 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:53:48 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 typedef enum s_types
 {
     PIPES,
-    CMD
+    CMD,
+    FLAG
 }           t_types;
 
 typedef struct s_envvar
 {
-
+        char     *key;
         char     *value;
         t_envvar *next;
         t_envvar *pev;
@@ -52,8 +53,8 @@ typedef struct s_commands
 
 typedef struct s_shell
 {
-
-    
+    int         exit;
+    char        **cmd_history;
     t_commands  commande;
     t_envvar    envp;
     t_shell     *next;

@@ -6,8 +6,8 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:49:00 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/12 18:49:05 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:30:49 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include 
+#include "../Includes/Minishell.h"
