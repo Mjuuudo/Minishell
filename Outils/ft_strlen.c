@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 15:00:53 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/16 17:10:23 by abait-ou         ###   ########.fr       */
+/*   Created: 2024/09/16 16:59:26 by abait-ou          #+#    #+#             */
+/*   Updated: 2024/09/16 16:59:52 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/Minishell.h"
+#include  "../Includes/Minishell.h"
 
-int main(int ac, char **av, char **env)
+size_t	ft_strlen(const char *str)
 {
-    t_shell     shell;
-    
-    (void)ac;
-    (void)av;
-    shell.envp = ft_environementinit(shell.envp, env);
-    shell.envholder = ft_envholder(env, &shell);
+	size_t	compteur;
 
-
-
-
-
-    
-    // ft_freeenv(shell.envp);
-    // ft_freeenvholder(shell.envholder);
-    
-
-    return (0);
+	compteur = 0;
+	while (str[compteur])
+	{
+		compteur++;
+	}
+	return (compteur);
 }

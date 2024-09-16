@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 15:00:53 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/16 17:10:23 by abait-ou         ###   ########.fr       */
+/*   Created: 2024/09/16 15:22:37 by abait-ou          #+#    #+#             */
+/*   Updated: 2024/09/16 16:39:14 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/Minishell.h"
+#include "../Includes/Minishell.h"
 
-int main(int ac, char **av, char **env)
+
+char *ft_strncpy(char *dst, char *src, unsigned int len)
 {
-    t_shell     shell;
-    
-    (void)ac;
-    (void)av;
-    shell.envp = ft_environementinit(shell.envp, env);
-    shell.envholder = ft_envholder(env, &shell);
+    int counter;
 
-
-
-
-
-    
-    // ft_freeenv(shell.envp);
-    // ft_freeenvholder(shell.envholder);
-    
-
-    return (0);
+    counter = 0;
+    if (len == 0)
+        return (dst);
+    while (src[counter] && counter < len)
+    {
+        dst[counter] = src[counter];
+        counter++;
+    }
+    return (dst);
 }
