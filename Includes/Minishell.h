@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/16 17:08:07 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:50:11 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <signal.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct s_envvar t_envvar;
 typedef struct s_token  t_token;
@@ -40,28 +42,24 @@ struct s_envvar
 
 struct s_token
 {
-        char    *line;
+        char    *cmd;
         t_types  type;
         t_token *next;
-        t_token *prev;
-        
+        t_token *prev;    
 };
 
 struct s_commands
 {
         char       *commande;
-        char       **table;
-        t_commands *next;
-        t_commands *prev;
-        
+        char       **table;     
 };
 
 struct s_shell
 {
+    int         shell_level;
     int         exit;
     char        **envholder;
-    char        **cmd_history;
-    t_commands  *commande;
+    t_commands  commande;
     t_envvar    *envp;
     t_shell     *next;
     t_shell     *prev;
@@ -69,21 +67,35 @@ struct s_shell
 
 // Parsing Environement Variables Functions Prototypes
 
-char *ft_strncpy(char *src, char *dst, unsigned int len);
-
 void      ft_addnodeenv(t_envvar **list, char *value);
 t_envvar *ft_returnlastnodeenv(t_envvar *list);
 void      ft_initnodeenv(t_envvar *node, char *value);
 t_envvar  *ft_environementinit(t_envvar *envliste, char **env);
 char     **ft_envholder(char **env, t_shell *shell);
 
+// Parsing The STDIN Function Prototypes
+        // Lexcer Section
+void    ft_members_init(t_shell *shell);
+void    ft_shell_on(t_shell *shell);
+void    ft_lexcer(char *commande, t_shell *shell);
+void    ft_formatcorrection(t_shell *shell, char *line);
+int     ft_spacecalculation(char *line);
+int     ft_quotes(char *line, int index);
+
 // Error And Memory Management Functions
 
 void ft_freeenv(t_envvar    *list);
 void ft_freeenvholder(char **envholder);
+void ft_freecmd(char *line, char **table);
 
 
 // Tools Function Prototypes
 
 char	*ft_strdup(const char *str);
 size_t	ft_strlen(const char *str);
+char    *ft_strncpy(char *src, char *dst, unsigned int len);
+int	ft_isalpha(int c);
+void	*ft_calloc(size_t nmemb, size_t size);
+int	ft_ispace(char c);
+// char	**ft_split(char  *s, char c);
+char **ft_split(char *line, char sep);

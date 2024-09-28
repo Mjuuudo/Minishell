@@ -7,15 +7,17 @@ Green 	= \033[1;32m
 NAME	 = Shell
 COMPILER = cc
 FLAGS	 = -Wall -Werror -Wextra
-SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Error_management/ft_freelists.c  Outils/ft_strncpy.c Outils/ft_strdup.c Outils/ft_strlen.c
-
+READLINE = -lreadline
+SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Error_management/ft_freelists.c  Outils/ft_strncpy.c\
+				Outils/ft_strdup.c Outils/ft_strlen.c	Parsing/shellon.c Parsing/Struct_init.c Outils/ft_isalpha.c Parsing/shellon_cmdformating.c\
+				Outils/ft_calloc.c  Outils/ft_split.c Outils/ft_isspace.c Error_management/ft_freecmd.c
 
 OBJS	 = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(COMPILER) $(FLAGS) $(OBJS) -o $(NAME)
+	@$(COMPILER) $(FLAGS) $(OBJS) -o $(NAME) $(READLINE)
 %.o: %.c
 	@$(COMPILER) -c $< -o $@
 	@echo "$(Red) [!] Compiling File Named $< In Progress \n"

@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Minishell.c                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 15:00:53 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/21 12:21:59 by abait-ou         ###   ########.fr       */
+/*   Created: 2024/09/28 12:57:29 by abait-ou          #+#    #+#             */
+/*   Updated: 2024/09/28 12:57:40 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/Minishell.h"
+#include "../Includes/Minishell.h"
 
-int main(int ac, char **av, char **env)
+int	ft_ispace(char c)
 {
-    t_shell     shell;
-    
-    (void)ac;
-    (void)av;
-    shell.envp = ft_environementinit(shell.envp, env);
-    shell.envholder = ft_envholder(env, &shell);
-    ft_members_init(&shell);
-    ft_shell_on(&shell);
-    // ft_freeenv(shell.envp);
-    // ft_freeenvholder(shell.envholder);
-    
-
-    return (0);
+	if (c == ' ' || c == '\n' || c == '\t')
+		return (1);
+	return (0);
 }

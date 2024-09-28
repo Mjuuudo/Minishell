@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Minishell.c                                        :+:      :+:    :+:   */
+/*   ft_freecmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 15:00:53 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/21 12:21:59 by abait-ou         ###   ########.fr       */
+/*   Created: 2024/09/28 18:27:36 by abait-ou          #+#    #+#             */
+/*   Updated: 2024/09/28 18:49:52 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/Minishell.h"
+#include "../Includes/Minishell.h"
 
-int main(int ac, char **av, char **env)
+void ft_freecmd(char *line, char **table)
 {
-    t_shell     shell;
-    
-    (void)ac;
-    (void)av;
-    shell.envp = ft_environementinit(shell.envp, env);
-    shell.envholder = ft_envholder(env, &shell);
-    ft_members_init(&shell);
-    ft_shell_on(&shell);
-    // ft_freeenv(shell.envp);
-    // ft_freeenvholder(shell.envholder);
-    
+    int counter;
 
-    return (0);
+    counter = 0;
+    while (table[counter])
+    {
+        free(table[counter]);
+        counter++;
+    }
+    free(table);
+    free(line);
 }

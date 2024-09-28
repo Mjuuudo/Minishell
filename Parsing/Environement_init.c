@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:49:00 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/16 17:00:56 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:56:45 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char **ft_envholder(char **env, t_shell *shell)
     int counter;
     char **new_array;
     
-    new_array = (char *)malloc(sizeof(char *) * (ft_envlength(env) + 1));
+    new_array = (char **)malloc(sizeof(char *) * (ft_envlength(env) + 1));
     if (!new_array)
         return (NULL);
     counter = 0;
