@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:30:08 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/28 18:29:34 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:39:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,30 @@ char **ft_split(char *line, char sep) {
     length = 0; 
     while (line[counter] && length < count_elements(line, sep))
     {
+        
         if (ft_quotes(line, counter))
         {
             start = line + counter;
             i = counter;
             while (ft_quotes(line, counter))
                 counter++;
-            holder[length++] = ft_strndup(start, (counter - i));
-            counter++;
+            holder[length] = ft_strndup(start, (counter - i));
+            length++;
+            printf("counter Quotes : %d\n", counter);
+            if (line[counter] != '\0')
+                counter++;
         }
         else if (!ft_ispace(line[counter]))
         {
             start = line + counter;
             i = counter;
-            while (!ft_ispace(line[counter]))
+            while (!ft_ispace(line[counter]) && line[counter])
                 counter++;
-            holder[length++] = ft_strndup(start, (counter - i));
-            counter++;
+            holder[length] = ft_strndup(start, (counter - i));
+            length++;
+            printf("counter : %d\n", counter);
+            if (line[counter] != '\0')
+                counter++;
         }
         else
             counter++;

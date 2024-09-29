@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/09/28 18:53:30 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/09/29 12:33:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ void ft_formatcorrection(t_shell *shell, char *line)
     if (!spaced_string)
         return ;
     ft_spacedstring(line, spaces, spaced_string, counter_2);
-    (*shell).commande.commande = (char *)malloc(sizeof(char) 
-                                * (ft_strlen(spaced_string) + 2));
-    (*shell).commande.commande  = spaced_string;
+    shell->commande.commande  = spaced_string;
     printf("%s\n", (*shell).commande.commande); // Printf F To Remove
 }
 
@@ -115,8 +113,11 @@ void ft_shell_on(t_shell *shell)
         line = readline("Blackhole_Lover's@Minis(hell):~$");
         if (line)
             ft_lexcer(line, shell);
+        else if (!line)
+            shell->exit = 1;
         else
             printf("\n");
     }
+    free(line);
     
 }
