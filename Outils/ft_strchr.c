@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Struct_init.c                                      :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 19:47:20 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/03 12:55:02 by abait-ou         ###   ########.fr       */
+/*   Created: 2024/10/02 11:39:35 by abait-ou          #+#    #+#             */
+/*   Updated: 2024/10/02 11:39:48 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
 
-void ft_members_init(t_shell *shell)
+int	ft_strchr(int c, const char *s)
 {
-    shell->cmd = NULL;
-    shell->tokens = NULL;
-    shell->actual = NULL;
-    shell->exit = 0;
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return (i + 1);
+		i++;
+	}
+	return (0);
 }

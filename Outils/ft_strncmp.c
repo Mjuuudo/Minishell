@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Struct_init.c                                      :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 19:47:20 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/03 12:55:02 by abait-ou         ###   ########.fr       */
+/*   Created: 2024/10/02 12:00:47 by abait-ou          #+#    #+#             */
+/*   Updated: 2024/10/02 12:00:55 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
 
-void ft_members_init(t_shell *shell)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-    shell->cmd = NULL;
-    shell->tokens = NULL;
-    shell->actual = NULL;
-    shell->exit = 0;
+	size_t	i;
+
+	i = 0;
+	while (i < n && (s1[i] != '\0' || s2[i] != '\0'))
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
 }
