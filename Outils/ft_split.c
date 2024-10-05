@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:30:08 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/02 11:43:06 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/05 13:43:14 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ char	**ft_split(char *str, char *charset)
 						charset) && check_quote(str, j))))
 			j++;
 	}
-	strings[i] = (void *)0;
+	strings[i] = NULL;
 	return (strings);
 }

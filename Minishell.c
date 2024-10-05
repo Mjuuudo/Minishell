@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:00:53 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/03 13:22:31 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:09:56 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ int main(int ac, char **av, char **env)
     shell.envholder = ft_envholder(env, &shell);
     ft_members_init(&shell);
     ft_shell_on(&shell);
-    if (!shell.tokens)
-        printf("NULL\n");
-    // ft_freeenv(shell.envp);
-    // ft_freeenvholder(shell.envholder);
+    ft_freeenv(shell.envp);
+    ft_freeenvholder(shell.envholder);
 
     
 

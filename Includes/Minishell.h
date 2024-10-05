@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/03 18:58:20 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:37:09 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ struct s_cmd
 {
         char    *order;
         char    **args;
-        t_token *next;
-        t_token *prev;    
+        t_cmd *next;
+        t_cmd *prev;    
 };
 
 struct s_commands
@@ -83,10 +83,8 @@ struct s_shell
     int         shell_level;
     int         exit;
     char        **envholder;
-    
     t_commands  commande;
     t_token     *tokens;
-    t_token     *actual;
     t_cmd       *cmd;
     t_envvar    *envp;
     t_shell     *next;
@@ -108,22 +106,27 @@ char     **ft_envholder(char **env, t_shell *shell);
 void    ft_members_init(t_shell *shell);
 void    ft_shell_on(t_shell *shell);
 int     ft_quotes(char *line, int index);
-void  ft_cmdhandler(char *line, t_shell *shell);
-int  count_spaces(char *line);
-char *spaced_string(char *line, t_shell *shell, int spaces, int counter_2);
-void ft_cmdliste(t_shell *shell);
+void    ft_cmdhandler(char *line, t_shell *shell);
+int     count_spaces(char *line);
+char    *spaced_string(char *line, t_shell *shell, int spaces, int counter_2);
+void    ft_cmdliste(t_shell *shell);
 t_token *ft_returnlastnodecmd(t_token *list);
 
         // Parser Section
         
 void ft_parser(t_shell *shell);
+t_cmd *ft_returnlastnodecmd2(t_cmd *list);
+void ft_cmdliste_2(t_shell *shell, t_token *token);
+t_token *ft_addnodecmd(t_shell *shell, t_token *token);
 
 
 // Error And Memory Management Functions
 
 void ft_freeenv(t_envvar    *list);
 void ft_freeenvholder(char **envholder);
-void ft_freecmd(char *line, char **table);
+void ft_freecmdmain(t_shell *shell);
+void ft_freetokenmain(t_shell *shell);
+void ft_freefirstcmd(t_shell *shell);
 
 
 // Tools Function Prototypes
@@ -143,12 +146,13 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 
 
-// Seconde
-void ft_spacedstring(char *line, int spaces, char *dest, int counter_2);
 
-t_cmd *ft_returnlastnodecmd2(t_cmd *list);
-void ft_cmdliste_2(t_shell *shell, t_token *token);
-void ft_addnodecmd(t_shell *shell);
+
+
+
+
+
+
 
 #endif
 

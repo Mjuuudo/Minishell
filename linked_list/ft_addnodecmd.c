@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/02 15:15:06 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:35:54 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ void   ft_initnodecmd(t_token *node, char *value)
 
 t_token *ft_returnlastnodecmd(t_token *list)
 {
-    if (!list)
+   if (!list)
         return NULL;
+    
     while (list->next)
     {
-        list = list->next;   
+        list = list->next;  
     }
     return (list);
 }
@@ -49,7 +50,7 @@ void ft_cmdliste(t_shell *shell)
     int counter;
 
     counter = 0;
-    while (shell->commande.table[counter])
+    while (shell->commande.table[counter] != NULL)
     {
         node = malloc(sizeof(t_token));
         if (!node)
@@ -63,7 +64,7 @@ void ft_cmdliste(t_shell *shell)
         }
         else
         {
-            last_node = ft_returnlastnodeenv(shell->tokens);
+            last_node = ft_returnlastnodecmd(shell->tokens);
             last_node->next = node;
             node->prev  = last_node;
         }   

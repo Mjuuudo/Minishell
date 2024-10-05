@@ -6,13 +6,12 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/03 18:58:04 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:35:41 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
 
-// TODO Create The fucntion That Translate The Previous linked Liste Into A new One Usable
 
 static int ft_nodescalculation(t_shell *shell)
 {
@@ -32,31 +31,12 @@ static int ft_nodescalculation(t_shell *shell)
     return (length);
 }
 
-void ft_ordersfill(t_shell **shell)
-{
-    printf("arg : \n");
-    while ((*shell)->tokens)
-    {
-        printf("[] %s\n", (*shell)->tokens->cmd);
-        (*shell)->tokens = (*shell)->tokens->next;
-    }
-    // while (shell->tokens)
-    // {
-        
-    //     if (shell->tokens->prev == NULL || shell->tokens->prev->type == PIPE)
-    //     {
-            
-    //         shell->cmd->order = ft_strdup(shell->tokens->cmd);
-    //         shell->cmd = shell->cmd->next;
-    //     }
-    //     shell->tokens = shell->tokens->next;
-    // }
-}
 
 void ft_parser(t_shell *shell)
 {
+   ft_cmdliste(shell);
    ft_cmdliste_2(shell, shell->tokens);  
-    
+   ft_freetokenmain(shell);
 }
 
 
@@ -69,8 +49,6 @@ static void ft_lexcer(char *line, t_shell *shell)
     free(line);
     shell->commande.table = ft_split(shell->commande.commande, " \n\t\v\f\r");
     free(shell->commande.commande);
-    ft_cmdliste(shell);
-    
 }
 
 
@@ -80,19 +58,23 @@ void  ft_cmdhandler(char *line, t_shell *shell)
     ft_pipe(line, shell);
     ft_quotesch(line, shell);
     ft_lexcer(line, shell);
-    // int i = 0;
-    // while (shell->tokens && shell->tokens != NULL)
+    ft_parser(shell);
+    ft_freefirstcmd(shell);
+}
+
+
+ //  i = 0;
+    // while (shell->tokens)
     // {
-    //     printf("arg[%d]: %s  %d\n", i, shell->tokens->cmd, shell->tokens->type);
+    //     printf("arg tokens[%d]: %s  %d\n", i, shell->tokens->cmd, shell->tokens->type);
     //     i++;
     //     shell->tokens = shell->tokens->next;
     // }
-    // printf("arg : \n");
+
+  // int i = 0;
     // while (shell->tokens)
     // {
-    //     printf("[] %s\n", shell->tokens->cmd);
+    //     printf("arg tokens[%d]: %s  %d\n", i, shell->tokens->cmd, shell->tokens->type);
+    //     i++;
     //     shell->tokens = shell->tokens->next;
     // }
-    ft_parser(shell);
-    
-}

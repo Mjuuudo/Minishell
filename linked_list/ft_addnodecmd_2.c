@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:20:56 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/03 21:08:25 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:02:07 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int ft_argscalculation(t_token *tokens)
 {
     int length;
+
+    length = 0;
     while (tokens)
     {
         if (tokens->type == PIPE)
@@ -24,39 +26,6 @@ int ft_argscalculation(t_token *tokens)
         tokens = tokens->next;
     }
     return (length);
-}
-// Tokens true
-static t_token *ft_initcmdnode(t_shell *shell, t_cmd **cmd, t_token *tokens)
-{   
-    t_token *tmp;
-    int length;
-
-    tmp = tokens;
-    length = ft_argscalculation(tmp);
-    while ((*cmd))
-    {
-        while (tmp)
-        {
-            if  (tmp->prev->type == PIPE || !tmp->prev)
-            {
-                (*cmd)->order = ft_strdup(tmp->cmd);
-                tmp = tmp->next;
-            }
-            else if (tmp->type == PIPE)
-            {
-                tmp = tmp->next;
-                break ;
-            }
-            else
-                tmp = tmp->next;
-        }
-        (*cmd) = (*cmd)->next;
-    }
-    // while (tokens)
-    // {
-    //     printf("%s\n", tokens->cmd);
-    //     tokens = tokens->next;
-    // }
 }
 
 t_cmd *ft_returnlastnodecmd2(t_cmd *list)
@@ -70,17 +39,48 @@ t_cmd *ft_returnlastnodecmd2(t_cmd *list)
     return (list);
 }
 
+t_token *ft_nodecmdinit(t_cmd **node, t_token *token)
+{
+    int length;
+    
+    (*node)->args = (char **)malloc(sizeof(char *) * (ft_argscalculation(token) + 2));
+    length = 0;
+    while (token)
+    {
+        if (token->type == PIPE)
+        {
+            token = token->next;
+            break ;
+        }
+        else if (!token->prev || (token->prev->type == PIPE && token))
+        {
+            (*node)->order = ft_strdup(token->cmd);
+            token = token->next;
+            continue ;
+        }
+        else if (token->prev || token->prev->type != PIPE)
+        {
+            (*node)->args[length++] = ft_strdup(token->cmd);
+            token = token->next;
+            continue ;
+        }
+    }
+    (*node)->args[length] = NULL;
+    return (token);
+}
 
 
-void ft_addnodecmd(t_shell *shell)
+t_token *ft_addnodecmd(t_shell *shell, t_token *token)
 {
     t_cmd *node;
     t_cmd *last_node;
+    
 
     node = malloc(sizeof(t_cmd));
     if (!node)
-        return ;
+        return (NULL);
     node->next = NULL;
+    token = ft_nodecmdinit(&node, token);
     if (!(shell->cmd))
     {
         (shell->cmd) = node;
@@ -92,8 +92,9 @@ void ft_addnodecmd(t_shell *shell)
         last_node->next = node;
         node->prev  = last_node;
     } 
+    return (token);
 }
-// check tokens true
+
 static int ft_nodescalculation(t_token *token)
 {
     int length;
@@ -101,6 +102,7 @@ static int ft_nodescalculation(t_token *token)
 
     length = 0;
     tokens = token;
+    
     while (tokens)
     {
         if (tokens->type == PIPE)
@@ -111,41 +113,38 @@ static int ft_nodescalculation(t_token *token)
         }
         tokens = tokens->next;
     }
+    
     return (length);
 }
 
-// check tokens true
 void ft_cmdliste_2(t_shell *shell, t_token *token)
 {
-
-    
     int counter;
     int length;
 
     length = ft_nodescalculation(shell->tokens);
-    if (length == 0)
-        length++;
-    while (length-- > 0) 
-        ft_addnodecmd(shell);
-    ft_initcmdnode(shell, shell->cmd, shell->tokens);
-    // int i = 0;
-    // while (shell->tokens)
-    // {
-    //     printf("arg[%d]: %s  %d\n", i, shell->tokens->cmd, shell->tokens->type);
-    //     i++;
-    //     shell->tokens = shell->tokens->next;
-    // }
-    // counter = 0;
-    // ft_addnodecmd(shell);
-    // shell->tokens = ft_initcmdnode(shell, shell->cmd,shell->tokens);
-    // ft_addnodecmd(shell);
-    // shell->tokens = ft_initcmdnode(shell, shell->cmd,shell->actual);
-    // // ft_addnodecmd(shell);
-    // // shell->tokens = ft_initcmdnode(shell, shell->cmd,shell->actual);
-    while (shell->cmd)
-    {
-        printf("%s\n", shell->cmd->order);
-        shell->cmd = shell->cmd->next;
-    }
+    while (length-- >= 0) 
+            token = ft_addnodecmd(shell, token);
 }
+
+
+
+
+
+
+
+
+
+
+ // while (shell->cmd)
+    // {
+    //     printf("arg cmd [ ] %s\n", shell->cmd->order);
+    //     while (shell->cmd->args[i])
+    //     {
+    //             printf("args [%d] %s\n", i, shell->cmd->args[i]);
+    //             i++;
+    //     }
+    //     i = 0;
+    //     shell->cmd = shell->cmd->next;
+    // }
 
