@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/05 16:37:09 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:12:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,11 @@ char    *ft_strncpy(char *src, char *dst, unsigned int len);
 int	ft_isalpha(int c);
 void	*ft_calloc(size_t nmemb, size_t size);
 int	ft_ispace(char c);
-void    ft_redirections(char *line, t_shell *shell);
-void    ft_pipe(char *line, t_shell *shell);
-void    ft_quotesch(char *line, t_shell *shell);
+// 
+int    ft_redirections(char *line, t_shell *shell);
+int    ft_pipe(char *line, t_shell *shell);
+int    ft_quotesch(char *line, t_shell *shell);
+// 
 int	ft_strchr(int c, const char *s);
 char	**ft_split(char *str, char *charset);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -148,7 +150,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 
 
+// 
 
+void ft_expand(t_token *token, t_envvar *env);
 
 
 

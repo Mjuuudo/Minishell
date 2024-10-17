@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:26:55 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/01 20:16:25 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:12:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ static int pipecheck(char *line)
     return (1);
 }
 
-void ft_pipe(char *line, t_shell *shell)
+int ft_pipe(char *line, t_shell *shell)
 {
     if (!pipecheck(line))
     {
         printf("Syntaxe Error\n");
         free(line);
+        return (0);
     }   
+    return (1);
 }

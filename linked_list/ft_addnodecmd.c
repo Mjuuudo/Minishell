@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/05 16:35:54 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:08:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void   ft_initnodecmd(t_token *node, char *value)
 		node->type = PIPE;
 	else
 		node->type = STR;
-   
 }
 
 t_token *ft_returnlastnodecmd(t_token *list)
@@ -57,6 +56,8 @@ void ft_cmdliste(t_shell *shell)
             return ;
         node->next = NULL;
         ft_initnodecmd(node, shell->commande.table[counter]);
+         printf("here\n");
+        ft_expand(node, shell->envp);
         if (!shell->tokens)
         {
             shell->tokens = node;
