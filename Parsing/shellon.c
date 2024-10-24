@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/05 16:35:36 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:32:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void display_cmd(t_shell *shell)
         printf("arg cmd [ ] %s\n", shell->cmd->order);
         while (shell->cmd->args[i])
         {
-                printf("args [%d] %s\n", i, shell->cmd->args[i]);
+                printf("-->  args [%d] %s\n", i, shell->cmd->args[i]);
                 i++;
         }
         i = 0;
@@ -59,14 +59,15 @@ void ft_shell_on(t_shell *shell)
     char *line;
     int rl_status;
     
-    
+    t_shell *s;
     while (shell->exit == 0)
     {
         line = readline("Blackhole_Lover's@Minis(hell):~$");
         if (line)
         {
                 ft_cmdhandler(line, shell);
-                display_cmd(shell);
+                s = shell;
+                display_cmd(s);
                 ft_freecmdmain(shell);
         }
         else if (!line)

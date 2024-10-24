@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/17 13:08:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/18 11:40:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void ft_cmdliste(t_shell *shell)
             return ;
         node->next = NULL;
         ft_initnodecmd(node, shell->commande.table[counter]);
-         printf("here\n");
         ft_expand(node, shell->envp);
         if (!shell->tokens)
         {

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/17 13:11:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/24 10:34:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,18 @@ static int ft_nodescalculation(t_shell *shell)
 
 void ft_parser(t_shell *shell)
 {
-   
+   t_token *tk;
+
    ft_cmdliste(shell);
-    int  i = 0;
-    while (shell->tokens)
-    {
-        printf("arg tokens[%d]: %s  %d\n", i, shell->tokens->cmd, shell->tokens->type);
-        i++;
-        shell->tokens = shell->tokens->next;
-    }
-//    ft_cmdliste_2(shell, shell->tokens);  
+   tk = shell->tokens;
+    // int  i = 0;
+    // while (tk)
+    // {
+    //     printf("arg tokens[%d]: %s  %d\n", i, tk->cmd, tk->type);
+    //     i++;
+    //     tk = tk->next;
+    // }
+   ft_cmdliste_2(shell, shell->tokens);  
    ft_freetokenmain(shell);
 }
 
@@ -64,7 +66,7 @@ void  ft_cmdhandler(char *line, t_shell *shell)
 {
     
     if (ft_quotesch(line, shell) && ft_pipe(line, shell) 
-        && ft_redirections(line, shell))
+        )
     {
         ft_lexcer(line, shell);
         ft_parser(shell);

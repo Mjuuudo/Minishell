@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freecmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:27:36 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/05 16:36:34 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:46:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void ft_freecmdmain(t_shell *shell)
         shell->cmd = shell->cmd->next;
         free(current->order);
         while (current->args[i])
-            free(current->args[i]);
+            free(current->args[i++]);
         free(current->args);
         free(current);
         current = shell->cmd;

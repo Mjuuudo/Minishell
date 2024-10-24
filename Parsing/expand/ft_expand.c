@@ -22,32 +22,29 @@ static int checkclose(char *arg, int i, char quote)
     return (1);
 }
 
-static int isinornot(char *arg)
-{
-    int counter;
-    int i;
+static int isinornot(const char *arg) {
+    int i = 0;
+    int in_quote = 0; // 0: outside quotes, 1: inside single quotes, 2: inside double quotes
+    int single_quote_count = 0;
+    int double_quote_count = 0;
 
-    counter= 0;
-    i = 0;
-    while (arg[counter])
-    {
-        if (arg[counter] == '$')
-        {
-            i = counter;
-            
-            while (arg[i] != '"' && arg[i])
-                i--;
-            if (checkclose(arg, i, arg[i]))
-            {
-                if (arg[i] == '"')
-                    return (1);
-                else if (arg[i] == 39)
-                    return (0);
-            }
-        }   
-        counter++;
+    while (arg[i]) {
+        if (arg[i] == '"' && in_quote != 1) {
+            in_quote = (in_quote == 2) ? 0 : 2; // Toggle double quotes
+            double_quote_count++;
+        } else if (arg[i] == '\'' && in_quote != 2) {
+            in_quote = (in_quote == 1) ? 0 : 1; // Toggle single quotes
+            single_quote_count++;
+        }
+        i++;
     }
-    return (0);
+    if (single_quote_count > double_quote_count) {
+        return 1; // Single quotes are the main quote type
+    } else if (double_quote_count > single_quote_count) {
+        return 2; // Double quotes are the main quote type
+    } else {
+        return 0; // No clear main quote type or equal usage
+    }
 }
 
 static int ft_checkdollar(char *arg)
@@ -119,7 +116,7 @@ static void dupdollarvar(char *str, char *origine)
         if (origine[counter] == '$')
         {
             counter++;
-            while (ft_isalpha(origine[counter]))
+            while (ft_isalpha(origine[counter]) || origine[counter])
             {
                 str[dup] = origine[counter];
                 (dup++, counter++);
@@ -228,13 +225,11 @@ static void ft_replace(t_token *token, t_envvar *env)
     
     if (ft_quotes(token->cmd, indexdol(token->cmd)))
     {
-        // printf("in\n");
-        if (isinornot(token->cmd))
+        if (isinornot(token->cmd) == 2)
         {
-            printf("right\n");
             noquotes(token, env);
         }
-        else
+        else 
             return ;
     }
     else

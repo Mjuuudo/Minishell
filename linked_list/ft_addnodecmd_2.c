@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:20:56 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/05 17:02:07 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/10/24 09:35:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ t_token *ft_nodecmdinit(t_cmd **node, t_token *token)
 }
 
 
+
+
+
+
 t_token *ft_addnodecmd(t_shell *shell, t_token *token)
 {
     t_cmd *node;
@@ -81,6 +85,7 @@ t_token *ft_addnodecmd(t_shell *shell, t_token *token)
         return (NULL);
     node->next = NULL;
     token = ft_nodecmdinit(&node, token);
+    ft_redirectioninit(&node, shell);
     if (!(shell->cmd))
     {
         (shell->cmd) = node;
