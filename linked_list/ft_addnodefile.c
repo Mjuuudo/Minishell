@@ -22,6 +22,7 @@ static t_types get_ident(char *option)
         return (LLESS);
     else if (!ft_strcmp(option, "<"))
         return (LESS);
+    return (NONE);
 }
 
 
@@ -37,7 +38,7 @@ static t_redirection *ft_returnlastnodered(t_redirection *list)
     return (list);
 }
 
-static void *ft_addnodefile(char *option, char *file, t_cmd **liste)
+void *ft_addnodefile(char *option, char *file, t_redirection **liste)
 {
     t_redirection *node;
     t_redirection *last_node;
@@ -49,22 +50,17 @@ static void *ft_addnodefile(char *option, char *file, t_cmd **liste)
     node->next = NULL;
     node->file = ft_strdup(file);
     node->identifier = get_ident(option);
-    printf("The Symbol -> %s\n", node->file);
-    printf("The File - > %d\n", node->identifier);
-
     if (!(*liste))
     {
-        (*liste)->red = node;
+        (*liste) = node;
         node->prev = NULL;
     }
-    // else
-    // {
-    //     last_node = ft_returnlastnodered(liste->red);
-    //     last_node->next = node;
-    //     node->prev  = last_node;
-    // } 
-    // printf("test %s\n", (*liste)->red->file);
-    
+    else
+    {
+        last_node = ft_returnlastnodered((*liste));
+        last_node->next = node;
+        node->prev  = last_node;
+    } 
 }
 
 
@@ -75,19 +71,16 @@ void ft_redirectioninit(t_cmd **node, t_shell *shell)
 
     counter = 0;
     array = (*node);
+    (*node)->red = NULL;
     if (ft_checkred((*node)->args, (*node)->order))
     {
-        // if (ft_isredornot((*node)->order))
-        // {
-        //     ft_addnodefile(((*node)->order), (*node)->args[0], (*node)->red);
-        // }
+        if (ft_isredornot((*node)->order))
+            ft_addnodefile(((*node)->order), (*node)->args[counter++], &(*node)->red);
         while (array->args[counter])
         {
             if (ft_isredornot(array->args[counter]))
             {
-                ft_addnodefile(array->args[counter], 
-                        array->args[counter + 1], (*node));
-            
+                ft_addnodefile(array->args[counter], array->args[counter + 1], &(*node)->red);
                 counter++;
             }
             counter++;
@@ -98,5 +91,4 @@ void ft_redirectioninit(t_cmd **node, t_shell *shell)
         (*node)->red = NULL;
         return ;
     }
-    // printf("from liste %s type %d\n", (*node)->red->file, (*node)->red->identifier);
 }

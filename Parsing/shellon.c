@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/19 12:32:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/24 14:11:24 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int ft_quotes(char *line, int index)
 static void display_cmd(t_shell *shell)
 {
     int i = 0;
+   
     while (shell->cmd)
     {
         printf("arg cmd [ ] %s\n", shell->cmd->order);
@@ -50,8 +51,21 @@ static void display_cmd(t_shell *shell)
         i = 0;
         shell->cmd = shell->cmd->next;
     }
+
     
 }
+
+static void displayred(t_shell *tmp)
+{
+    printf("---------- Redirections -----------\n");
+    while (tmp->cmd->red)
+    {
+        printf("--- > File Name %s\n", tmp->cmd->red->file);
+        printf("--- > Type Number %d\n", tmp->cmd->red->identifier);
+        tmp->cmd->red = tmp->cmd->red->next;
+    }
+     printf("---------- End Table -----------\n");
+} 
 
 
 void ft_shell_on(t_shell *shell)
@@ -65,9 +79,14 @@ void ft_shell_on(t_shell *shell)
         line = readline("Blackhole_Lover's@Minis(hell):~$");
         if (line)
         {
+            if (line[0] == '\0')
+            {    
+                continue ;
+            }
                 ft_cmdhandler(line, shell);
                 s = shell;
-                display_cmd(s);
+                // display_cmd(s);  Only For Testing They Causes Leaks
+                //displayred(s);   //Both Displaying Functions --> Purpose Only Testing 
                 ft_freecmdmain(shell);
         }
         else if (!line)

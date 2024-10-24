@@ -69,11 +69,6 @@ t_token *ft_nodecmdinit(t_cmd **node, t_token *token)
     return (token);
 }
 
-
-
-
-
-
 t_token *ft_addnodecmd(t_shell *shell, t_token *token)
 {
     t_cmd *node;
@@ -130,6 +125,8 @@ void ft_cmdliste_2(t_shell *shell, t_token *token)
     length = ft_nodescalculation(shell->tokens);
     while (length-- >= 0) 
             token = ft_addnodecmd(shell, token);
+
+   
 }
 
 

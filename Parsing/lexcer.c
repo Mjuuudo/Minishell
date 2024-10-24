@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/24 10:34:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/24 14:10:55 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,7 @@ static int ft_nodescalculation(t_shell *shell)
 
 void ft_parser(t_shell *shell)
 {
-   t_token *tk;
-
    ft_cmdliste(shell);
-   tk = shell->tokens;
-    // int  i = 0;
-    // while (tk)
-    // {
-    //     printf("arg tokens[%d]: %s  %d\n", i, tk->cmd, tk->type);
-    //     i++;
-    //     tk = tk->next;
-    // }
    ft_cmdliste_2(shell, shell->tokens);  
    ft_freetokenmain(shell);
 }
@@ -64,29 +54,10 @@ static void ft_lexcer(char *line, t_shell *shell)
 
 void  ft_cmdhandler(char *line, t_shell *shell)
 {
-    
-    if (ft_quotesch(line, shell) && ft_pipe(line, shell) 
-        )
+    if (ft_quotesch(line, shell) && ft_pipe(line, shell))
     {
         ft_lexcer(line, shell);
         ft_parser(shell);
         ft_freefirstcmd(shell);
     }
 }
-
-
- //  i = 0;
-    // while (shell->tokens)
-    // {
-    //     printf("arg tokens[%d]: %s  %d\n", i, shell->tokens->cmd, shell->tokens->type);
-    //     i++;
-    //     shell->tokens = shell->tokens->next;
-    // }
-
-  // int i = 0;
-    // while (shell->tokens)
-    // {
-    //     printf("arg tokens[%d]: %s  %d\n", i, shell->tokens->cmd, shell->tokens->type);
-    //     i++;
-    //     shell->tokens = shell->tokens->next;
-    // }

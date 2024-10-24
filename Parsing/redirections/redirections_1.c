@@ -38,10 +38,8 @@ int ft_checkred(char **tab, char *cmd)
 int ft_isredornot(char *tab)
 {
    
-        if (ft_strncmp(tab, "<<", ft_strlen("<<")) 
-            || ft_strncmp(tab, ">>", ft_strlen(">>")) 
-                || ft_strncmp(tab, "<", ft_strlen("<")) 
-                    || ft_strncmp(tab, ">", ft_strlen(">")))
+        if (!ft_strcmp(tab, ">>") || !ft_strcmp(tab, "<<") 
+        || !ft_strcmp(tab, ">") || !ft_strcmp(tab, "<"))
             return (1);
        else
             return (0);

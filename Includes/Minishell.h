@@ -36,7 +36,8 @@ typedef enum s_types
     GREAT,
     DGREAT,
     LESS,
-    LLESS
+    LLESS,
+    NONE
 }           t_types;
 
 struct s_envvar
@@ -119,6 +120,7 @@ void ft_parser(t_shell *shell);
 t_cmd *ft_returnlastnodecmd2(t_cmd *list);
 void ft_cmdliste_2(t_shell *shell, t_token *token);
 t_token *ft_addnodecmd(t_shell *shell, t_token *token);
+void *ft_addnodefile(char *option, char *file, t_redirection **liste);
 
 
 // Error And Memory Management Functions Prototypes
@@ -156,8 +158,9 @@ void ft_expand(t_token *token, t_envvar *env);
 
 void ft_redirectioninit(t_cmd **node, t_shell *shell);
 int ft_checkred(char **tab, char *cmd);
-
 int ft_isredornot(char *tab);
+
+
 
 
 
