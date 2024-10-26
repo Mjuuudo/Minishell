@@ -89,18 +89,45 @@ static int withoutdollar(char *str)
     int counter;
     int length;
 
+    // Handle NULL input
+    if (!str)
+        return (0);
+
     counter = 0;
     length = 0;
     while (str[counter])
     {
         if (str[counter] == '$')
         {
-            counter++;
-            while (str[counter])
-                counter++;
+            counter++;  // Move past $
+            
+            // Handle $ at end of string
+            if (!str[counter])
+            {
+                length++;  // Count the $ as it's not a variable
+                break;
+            }
+            
+            // Check if it's start of valid variable name
+            if (ft_isalpha(str[counter]) || str[counter] == '_')
+            {
+                counter++;  // Skip first char of variable name
+                // Skip rest of variable name
+                while (str[counter] && (ft_isalnum(str[counter]) || str[counter] == '_'))
+                    counter++;
+            }
+            else
+            {
+                // $ not followed by valid variable name, count it as regular char
+                length++;
+                continue;
+            }
         }
-        counter++;
-        length++;
+        else
+        {
+            length++;
+            counter++;
+        }
     }
     return (length);
 }
@@ -109,20 +136,34 @@ static void dupdollarvar(char *str, char *origine)
     int counter;
     int dup;
 
+    if (!str || !origine)
+        return;
+
     counter = 0;
     dup = 0;
     while (origine[counter])
     {
         if (origine[counter] == '$')
         {
-            counter++;
-            while (ft_isalpha(origine[counter]) || origine[counter])
+            counter++;  // Move past the $
+            // Handle special case of $ at end of string
+            if (!origine[counter])
+                break;
+            
+            // First character must be alpha or underscore
+            if (ft_isalpha(origine[counter]) || origine[counter] == '_')
             {
-                str[dup] = origine[counter];
-                (dup++, counter++);
+                str[dup++] = origine[counter++];
+                // Subsequent characters can be alpha, digit, or underscore
+                while (origine[counter] && (ft_isalnum(origine[counter]) || 
+                       origine[counter] == '_'))
+                {
+                    str[dup++] = origine[counter++];
+                }
             }
         }
-        counter++;
+        else
+            counter++;
     }
     str[dup] = '\0';
 }
@@ -151,37 +192,56 @@ static char *retrivevalue(t_envvar *env,  char *key)
 static char *finalstring(char *str, char *original)
 {
     char *final_str;
+    size_t final_size;
     int counter;
     int i;
     int holder;
 
-    final_str = malloc(sizeof(char) * (withoutdollar(original) + ft_strlen(str) + 1));
+    // Input validation
+    if (!str || !original)
+        return (NULL);
+
+    // Calculate required size
+    final_size = withoutdollar(original) + ft_strlen(str) + 1;
+    final_str = malloc(sizeof(char) * final_size);
     if (!final_str)
-        return NULL;
+        return (NULL);
+
     counter = 0;
-     i = 0;
+    i = 0;
     holder = 0;
-    while (original[counter])
+
+    while (original[counter] && holder < (final_size - 1))
     {
         if (original[counter] == '$')
         {
             counter++;
-            while (ft_isalpha(original[counter]))
-                    counter++;
-            while (str[i])
+            // Check for valid variable name start
+            if (original[counter] && (ft_isalpha(original[counter]) || 
+                original[counter] == '_'))
             {
-                final_str[holder] = str[i];
-                holder++;
-                 i++;
-                continue ;
+                // Skip the variable name
+                while (original[counter] && (ft_isalnum(original[counter]) || 
+                       original[counter] == '_'))
+                    counter++;
+
+                // Copy replacement string
+                while (str[i] && holder < (final_size - 1))
+                    final_str[holder++] = str[i++];
+            }
+            else
+            {
+                // Invalid variable name, treat $ as literal
+                final_str[holder++] = '$';
             }
         }
-            final_str[holder] = original[counter];
-            holder++;
-             counter++;
+        else
+        {
+            final_str[holder++] = original[counter++];
+        }
     }
     final_str[holder] = '\0';
-     return (final_str);
+    return (final_str);
 }
 
 

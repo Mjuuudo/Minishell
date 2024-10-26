@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:20:56 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/24 09:35:53 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/26 10:31:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ t_token *ft_nodecmdinit(t_cmd **node, t_token *token)
     return (token);
 }
 
+
+
+
+
+
 t_token *ft_addnodecmd(t_shell *shell, t_token *token)
 {
     t_cmd *node;
@@ -125,8 +130,6 @@ void ft_cmdliste_2(t_shell *shell, t_token *token)
     length = ft_nodescalculation(shell->tokens);
     while (length-- >= 0) 
             token = ft_addnodecmd(shell, token);
-
-   
 }
 
 

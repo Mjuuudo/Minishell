@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/24 10:25:06 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/25 12:38:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ void ft_parser(t_shell *shell);
 t_cmd *ft_returnlastnodecmd2(t_cmd *list);
 void ft_cmdliste_2(t_shell *shell, t_token *token);
 t_token *ft_addnodecmd(t_shell *shell, t_token *token);
-void *ft_addnodefile(char *option, char *file, t_redirection **liste);
 
 
 // Error And Memory Management Functions Prototypes
@@ -149,6 +148,7 @@ int	ft_strcmp(char *s1, char *s2);
 int	ft_strchr(int c, const char *s);
 char	**ft_split(char *str, char *charset);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int	ft_isalnum(int c);
 
 // Expanding Env Var Args Functions Prototypes
 
@@ -158,9 +158,8 @@ void ft_expand(t_token *token, t_envvar *env);
 
 void ft_redirectioninit(t_cmd **node, t_shell *shell);
 int ft_checkred(char **tab, char *cmd);
+
 int ft_isredornot(char *tab);
-
-
 
 
 

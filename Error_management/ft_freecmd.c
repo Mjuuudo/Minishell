@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:27:36 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/18 11:46:49 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/26 10:36:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,20 @@
 void ft_freecmdmain(t_shell *shell)
 {
     t_cmd *current;
+    t_redirection *tmp;
     int i = 0;
 
     current = shell->cmd;
     while (shell->cmd)
     {
+       tmp = shell->cmd->red;
+       while (tmp)
+       {
+        shell->cmd->red = shell->cmd->red->next;
+        free(tmp->file);
+        free(tmp);
+        tmp = shell->cmd->red;
+       }
         shell->cmd = shell->cmd->next;
         free(current->order);
         while (current->args[i])
@@ -32,7 +41,6 @@ void ft_freecmdmain(t_shell *shell)
         current = shell->cmd;
         i = 0;
     }
-    // free(hell->cmd);
 }
 
 void ft_freetokenmain(t_shell *shell)

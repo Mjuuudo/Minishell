@@ -1,0 +1,6 @@
+{
+   SUPPRESSION_TEST_READLINE
+   Memcheck:Leak
+   ...
+   obj:/**/libreadline.so*
+}
