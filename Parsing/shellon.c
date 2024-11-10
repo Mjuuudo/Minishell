@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/26 10:31:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/28 12:13:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,16 @@ static void display_cmd(t_shell *shell)
                 i++;
         }
         i = 0;
-        // printf("---------- Redirections -------------\n");
-        // while (shell->cmd->red)
-        // {
+        printf("---------- Redirections -------------\n");
+        while (shell->cmd->red)
+        {
             
-        //     printf ("File %s, Type %d\n", shell->cmd->red->file, shell->cmd->red->identifier);
-        //     shell->cmd->red = shell->cmd->red->next;
-        // }
-        // printf("------------ End Redirection -----------\n");
+            printf ("File %s, Type %d\n", shell->cmd->red->file, shell->cmd->red->identifier);
+            shell->cmd->red = shell->cmd->red->next;
+        }
+        printf("------------ End Redirection -----------\n");
         shell->cmd = shell->cmd->next;
     }
-    
 }
 
 
@@ -76,6 +75,7 @@ void ft_shell_on(t_shell *shell)
                 ft_cmdhandler(line, shell);
                 s = shell;
                 // display_cmd(s);
+                // printf("current %s\n", shell->cmd->order);
                 ft_freecmdmain(shell);
         }
         else if (!line)

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/26 10:31:00 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/31 22:10:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static void ft_lexcer(char *line, t_shell *shell)
 void  ft_cmdhandler(char *line, t_shell *shell)
 {
     
-    if (ft_quotesch(line, shell) && ft_pipe(line, shell) 
-        )
+    if (ft_quotesch(line, shell) && ft_pipe(line, shell)
+        && ft_redirections(line, shell))
     {
         ft_lexcer(line, shell);
         ft_parser(shell);

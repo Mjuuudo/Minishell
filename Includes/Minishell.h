@@ -158,7 +158,7 @@ void ft_expand(t_token *token, t_envvar *env);
 
 void ft_redirectioninit(t_cmd **node, t_shell *shell);
 int ft_checkred(char **tab, char *cmd);
-
+void ft_quotesremove(t_cmd **node);
 int ft_isredornot(char *tab);
 
 

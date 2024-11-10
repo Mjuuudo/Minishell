@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:47:58 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/17 13:13:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/31 22:10:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ static int redirectioncheck(char *line)
         {
             if (!checkredirectionum(line, counter))
                 return (0);
-            if (!checkbefore(line, counter))
-                return (0);
+            // if (!checkbefore(line, counter))
+            //     return (0);
             if (!checkafter(line, counter))
                 return (0);
             while ((line[counter] == '>' || line[counter] == '<') 
