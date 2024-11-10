@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/28 12:13:30 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/10 14:40:31 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void ft_shell_on(t_shell *shell)
         {
                 ft_cmdhandler(line, shell);
                 s = shell;
-                // display_cmd(s);
+                display_cmd(s);
                 // printf("current %s\n", shell->cmd->order);
                 ft_freecmdmain(shell);
         }
