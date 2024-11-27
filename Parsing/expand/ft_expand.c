@@ -12,15 +12,15 @@
 
 #include "../../Includes/Minishell.h"
 
-static int checkclose(char *arg, int i, char quote)
-{
-    i++;
-    while (arg[i] != '"'  && arg[i])
-        i++;
-    if (arg[i] != quote || !arg[i])
-        return (0);
-    return (1);
-}
+// static int checkclose(char *arg, int i, char quote)
+// {
+//     i++;
+//     while (arg[i] != '"'  && arg[i])
+//         i++;
+//     if (arg[i] != quote || !arg[i])
+//         return (0);
+//     return (1);
+// }
 
 static int isinornot(const char *arg) {
     int i = 0;
@@ -211,7 +211,7 @@ static char *finalstring(char *str, char *original)
     i = 0;
     holder = 0;
 
-    while (original[counter] && holder < (final_size - 1))
+    while (original[counter] && holder < (int)(final_size - 1))
     {
         if (original[counter] == '$')
         {
@@ -226,7 +226,7 @@ static char *finalstring(char *str, char *original)
                     counter++;
 
                 // Copy replacement string
-                while (str[i] && holder < (final_size - 1))
+                while (str[i] && holder < (int)(final_size - 1))
                     final_str[holder++] = str[i++];
             }
             else
@@ -243,7 +243,24 @@ static char *finalstring(char *str, char *original)
     final_str[holder] = '\0';
     return (final_str);
 }
+static int foundornot(char *line, t_envvar *env)
+{
+    while (env)
+    {
+        if (!ft_strcmp(line, env->key))
+            return (1);
+        env = env->next;
+    }
+    return (0);
+    
+} 
 
+void ft_vide(t_token *token)
+{
+    free ((token->cmd));
+    token->cmd = malloc(sizeof(char) * 1);
+    token->cmd[0] = '\0';
+}
 
 
 static void noquotes(t_token *token, t_envvar *env)
@@ -257,6 +274,13 @@ static void noquotes(t_token *token, t_envvar *env)
     if (!dollarvar)
         return ;
     dupdollarvar(dollarvar, token->cmd);
+    if (!foundornot(dollarvar, env))
+    {
+        ft_vide(token);
+        free(dollarvar);
+        return ;
+    
+    }
     itsvalue = retrivevalue(env, dollarvar);
     if (!itsvalue)
         exit(1) ;

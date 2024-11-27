@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:47:58 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/31 22:10:47 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/27 09:34:08 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,20 @@ static int checkredirectionum(char *line, int counter)
     }
     return (1);
 }
-static int checkbefore(char *line, int counter)
-{
-    while (counter-- > 0)
-    {
-        if (!ft_ispace(line[counter]) && line[counter] != '\0')
-        {
-            if (line[counter] == '>' || line[counter] == '<')
-                return (0);
-            else
-                return (1); 
-        } 
-    }
-    return (0);
-}
+// static int checkbefore(char *line, int counter)
+// {
+//     while (counter-- > 0)
+//     {
+//         if (!ft_ispace(line[counter]) && line[counter] != '\0')
+//         {
+//             if (line[counter] == '>' || line[counter] == '<')
+//                 return (0);
+//             else
+//                 return (1); 
+//         } 
+//     }
+//     return (0);
+// }
 static int checkafter(char *line, int counter)
 {
     while (line[counter] == '>' || line[counter] == '<')
@@ -71,7 +71,6 @@ static int checkafter(char *line, int counter)
 static int redirectioncheck(char *line)
 {
     int counter;
-    int status;
 
     counter = 0;
     while (line[counter])
@@ -97,6 +96,7 @@ static int redirectioncheck(char *line)
 
 int ft_redirections(char *line, t_shell *shell)
 {
+    (void)shell;
     if (!redirectioncheck(line))
     {
         printf("Syntaxe Error\n");

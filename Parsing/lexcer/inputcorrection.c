@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:27:13 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/05 13:42:28 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:36:00 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char *spaced_string(char *line, t_shell *shell, int spaces, int counter_2)
     char  *spaced_string;
     int counter;
     
+    (void)shell;
     spaced_string = malloc(sizeof(char) * (ft_strlen(line) + (spaces * 2 + 1)));
     if (!spaced_string)
         return (NULL);

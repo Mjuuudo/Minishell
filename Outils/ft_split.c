@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:30:08 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/05 13:43:14 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:32:52 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	check_quote(char *str, int a)
 			j = i + 1;
 			while (str[j] && str[j] != str[i])
 				j++;
-			if (j == ft_strlen(str))
+			if (j == (int)ft_strlen(str))
 				return (0);
 			if (a > i && a < j)
 				return (1);

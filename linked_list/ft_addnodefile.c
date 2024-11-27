@@ -61,6 +61,7 @@ void *ft_addnodefile(char *option, char *file, t_redirection **liste)
         last_node->next = node;
         node->prev  = last_node;
     } 
+    return NULL;
 }
 
 
@@ -71,6 +72,7 @@ void ft_redirectioninit(t_cmd **node, t_shell *shell)
 
     counter = 0;
     array = (*node);
+    (void)shell;
     (*node)->red = NULL;
     if (ft_checkred((*node)->args, (*node)->order))
     {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:20:56 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/11/01 15:41:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/27 09:40:22 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ static int ft_nodescalculation(t_token *token)
 
 void ft_cmdliste_2(t_shell *shell, t_token *token)
 {
-    int counter;
     int length;
 
     length = ft_nodescalculation(shell->tokens);

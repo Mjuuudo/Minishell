@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/11/10 14:40:31 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:12:15 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void display_cmd(t_shell *shell)
 void ft_shell_on(t_shell *shell)
 {
     char *line;
-    int rl_status;
     
     t_shell *s;
     while (shell->exit == 0)

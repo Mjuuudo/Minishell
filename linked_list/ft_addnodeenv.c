@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 20:27:57 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/02 11:53:47 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:31:17 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,12 @@
 void   ft_initnodeenv(t_envvar *node, char *value)
 {
     int start;
-    int end;
     int counter;
-    int flag;
 
     counter = 0;
     start   = 0;
-    flag    = 0;
     while(value[counter] && value[counter] != '=' && value[counter] != '\n')
         counter++;
-    flag = 1;
     node->key = malloc(sizeof(char) * (counter + 1));
     if (!node->key)
         return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:25:48 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/10/17 13:12:52 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/27 09:35:14 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int check_double(char  *line)
 
 int ft_quotesch(char *line, t_shell *shell)
 {
+    (void)shell;
     if (!check_double(line))
     {
         printf("Syntaxe Error\n");

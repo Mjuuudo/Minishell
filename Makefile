@@ -6,7 +6,7 @@ Green 	= \033[1;32m
 
 NAME	 = Shell
 COMPILER = cc
-FLAGS	 = -Wall -Werror -Wextra #-g3 -fsanitize=address
+FLAGS	 = #-Wall -Werror -Wextra #-g3 -fsanitize=address
 READLINE = -lreadline
 SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Error_management/ft_freelists.c  Outils/ft_strncpy.c\
 				Outils/ft_strdup.c Outils/ft_strlen.c	Parsing/shellon.c Parsing/Struct_init.c Outils/ft_isalpha.c \
@@ -22,7 +22,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(COMPILER) $(FLAGS) $(OBJS) -o $(NAME) $(READLINE)
 %.o: %.c
-	@$(COMPILER) -c $< -o $@
+	@$(COMPILER) $(FLAGS) -c $< -o $@
 	@echo "$(Red) [!] Compiling File Named $< In Progress \n"
 	@echo "$(Green) [✔] Compilation Complete ... ! "
 	@echo "\n"
