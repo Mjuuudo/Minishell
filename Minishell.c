@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:00:53 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/11/27 10:37:37 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:52:18 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/Minishell.h"
 
+t_shell	shell;
+
 int	main(int ac, char **av, char **env)
 {
-	t_shell shell;
 
 	(void)ac;
 	(void)av;
