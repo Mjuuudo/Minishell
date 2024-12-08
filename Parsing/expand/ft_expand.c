@@ -320,10 +320,36 @@ static void ft_replace(t_token *token, t_envvar *env)
         noquotes(token, env);
 }
 
-void ft_expand(t_token *token, t_envvar *env)
+int wordcount(char *str)
+{
+    int counter;
+    int words;
+
+    counter = 0;
+    words = 0;
+    while (isspace(str[counter]))
+        counter++;
+    if (str[counter] != '\0')
+        words++;
+    while (str[counter])
+    {
+        if (isspace(str[counter]))
+        {
+            while (isspace(str[counter]))
+                counter++;
+            if (str[counter] != '\0')
+                words++;
+        }
+        counter++;
+    }
+    return (words);
+}
+
+int ft_expand(t_token *token, t_envvar *env)
 {
     if (ft_checkdollar(token->cmd))
     {
         ft_replace(token, env);
     }
+    return (wordcount(token->cmd));
 }

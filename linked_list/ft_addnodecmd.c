@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/04 19:58:16 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/08 13:44:07 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,42 @@ t_token *ft_returnlastnodecmd(t_token *list)
     return (list);
 }
 
+void ft_morethan2(t_token *node, t_shell *shell)
+{
+    char **holder;
+    int counter;
+    t_token *last_node;
+
+    holder = ft_split(node->cmd, " \n\t\v\f\r");
+    free(node->cmd);
+    free(node);
+    counter = 0;
+    while (holder[counter] != NULL)
+    {
+        node = malloc(sizeof(t_token));
+        if (!node)
+                return ;
+        ft_initnodecmd(node, holder[counter]);
+        
+            if (!shell->tokens)
+            {
+                shell->tokens = node;
+                node->prev = NULL;
+            }
+            else
+            {
+                last_node = ft_returnlastnodecmd(shell->tokens);
+                last_node->next = node;
+                node->prev  = last_node;
+            }   
+            counter++;
+    }
+    counter = 0;
+    while (holder[counter])
+        free(holder[counter++]);
+    free(holder);
+}
+
 void ft_cmdliste(t_shell *shell)
 {
     t_token *node;
@@ -56,19 +92,26 @@ void ft_cmdliste(t_shell *shell)
             return ;
         node->next = NULL;
         ft_initnodecmd(node, shell->commande.table[counter]);
-        ft_expand(node, shell->envp);
-        if (!shell->tokens)
-        {
-            shell->tokens = node;
-            node->prev = NULL;
+        if (ft_expand(node, shell->envp) <= 1)
+        { 
+            if (!shell->tokens)
+            {
+                shell->tokens = node;
+                node->prev = NULL;
+            }
+            else
+            {
+                last_node = ft_returnlastnodecmd(shell->tokens);
+                last_node->next = node;
+                node->prev  = last_node;
+            }   
+            counter++;
         }
         else
         {
-            last_node = ft_returnlastnodecmd(shell->tokens);
-            last_node->next = node;
-            node->prev  = last_node;
-        }   
-        counter++;
+                ft_morethan2(node, shell);
+                counter++;
+        }
     }
 }
 

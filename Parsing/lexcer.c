@@ -6,30 +6,13 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/11/27 09:34:36 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/08 13:55:22 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
 
 
-// static int ft_nodescalculation(t_shell *shell)
-// {
-//     int length;
-
-//     length = 1;
-//     while (shell->tokens)
-//     {
-//         if (shell->tokens->type == 0)
-//         {
-//             length++;
-//             if (shell->tokens->next->type == 0)
-//                 shell->tokens = shell->tokens->next;
-//         }
-//         shell->tokens = shell->tokens->next;
-//     }
-//     return (length);
-// }
 
 
 void ft_parser(t_shell *shell)
@@ -39,12 +22,12 @@ void ft_parser(t_shell *shell)
    ft_cmdliste(shell);
 //    tk = shell->tokens;
 //     int  i = 0;
-//     while (tk)
-//     {
-//         printf("arg tokens[%d]: %s  %d\n", i, tk->cmd, tk->type);
-//         i++;
-//         tk = tk->next;
-//     }
+    // while (tk)
+    // {
+    //     printf("arg tokens[%d]: %s  %d\n", i, tk->cmd, tk->type);
+    //     i++;
+    //     tk = tk->next;
+    // }
    ft_cmdliste_2(shell, shell->tokens);  
    ft_freetokenmain(shell);
 }

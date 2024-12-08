@@ -72,17 +72,23 @@ void ft_redirectioninit(t_cmd **node, t_shell *shell)
 
     counter = 0;
     array = (*node);
-    (void)shell;
+    (void)shell;  // Unused parameter
     (*node)->red = NULL;
-    if (ft_checkred((*node)->args, (*node)->order))
+
+    // Potential problem starts here
+    if (ft_checkred((*node)->red2, (*node)->order))
     {
+       
         if (ft_isredornot((*node)->order))
-            ft_addnodefile(((*node)->order), (*node)->args[counter++], &(*node)->red);
-        while (array->args[counter])
+            // First potential problematic line
+            ft_addnodefile(((*node)->order), (*node)->red2[counter++], &(*node)->red);
+
+        while (array->red2[counter])  // Potential out-of-bounds access
         {
-            if (ft_isredornot(array->args[counter]))
+            if (ft_isredornot(array->red2[counter]))
             {
-                ft_addnodefile(array->args[counter], array->args[counter + 1], &(*node)->red);
+                // Second potential problematic line
+                ft_addnodefile(array->red2[counter], array->red2[counter + 1], &(*node)->red);
                 counter++;
             }
             counter++;

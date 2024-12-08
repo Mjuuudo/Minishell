@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/08 12:00:35 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:26:36 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ static void display_cmd(t_shell *shell)
                 i++;
         }
         i = 0;
+		while (shell->cmd->red2[i])
+        {
+                printf("-->  redirection in red 2 [%d] %s\n", i, shell->cmd->red2[i]);
+                i++;
+        }
+		i = 0;
         printf("---------- Redirections -------------\n");
         while (shell->cmd->red)
         {

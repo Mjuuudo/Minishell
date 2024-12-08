@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/08 12:01:51 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:14:38 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ struct							s_cmd
 {
 	char						*order; // command
 	char						**args;
+	char						**red2;
 	t_redirection				*red;
 	t_cmd						*next;
 	t_cmd						*prev;
@@ -156,8 +157,7 @@ int								ft_strncmp(const char *s1, const char *s2,
 int								ft_isalnum(int c);
 
 // Expanding Env Var Args Functions Prototypes
-
-void							ft_expand(t_token *token, t_envvar *env);
+int 							ft_expand(t_token *token, t_envvar *env);
 
 // Redirection Apply  Functions Prototypes
 
@@ -174,8 +174,8 @@ int								ft_isredornot(char *tab);
 
 
 
-
-
+void ft_morethan2(t_token *node, t_shell *shell);
+int redcalcu(t_token *tokens);
 
 
 
