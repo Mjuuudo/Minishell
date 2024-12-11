@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/08 13:44:07 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:33:42 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void ft_morethan2(t_token *node, t_shell *shell)
         node = malloc(sizeof(t_token));
         if (!node)
                 return ;
+        node->next = NULL;
         ft_initnodecmd(node, holder[counter]);
         
             if (!shell->tokens)

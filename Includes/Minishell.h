@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/11 09:44:48 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:43:46 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ int								ft_isredornot(char *tab);
 
 void ft_morethan2(t_token *node, t_shell *shell);
 int redcalcu(t_token *tokens);
+char *ft_expandherdoc(char *line, t_envvar *env);
 
 
 
@@ -304,7 +305,7 @@ int redcalcu(t_token *tokens);
 // void	handler(int signum);
 // int 	set_files(t_cmd *cmd, int index);
 // int 	set_files2(t_cmd *cmd, int index);
-void 	implement_heredoc(t_cmd *cmd);
+void 	implement_heredoc(t_cmd *cmd, t_envvar *envp);
 // bool	set_redirections(t_redirection *file);
 // void	reset_redirections(void);
 // bool	execute_builtin(t_cmd *cmd);

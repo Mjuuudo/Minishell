@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/08 13:55:22 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:17:37 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ static void ft_lexcer(char *line, t_shell *shell)
 
     length = count_spaces(line);
     shell->commande.commande = spaced_string(line, shell, length, 0);
+    // int i = 0;
+    // while (shell->commande.commande[i])
+    //     printf("%s\n", shell->commande.commande[i++]);
     free(line);
     shell->commande.table = ft_split(shell->commande.commande, " \n\t\v\f\r");
     free(shell->commande.commande);

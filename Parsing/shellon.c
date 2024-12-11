@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/11 10:09:40 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:47:58 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,15 @@ void ft_shell_on(t_shell *shell)
 			continue ;
 		}
 		add_history(line);
+		  if (ft_quotesch(line, shell) && ft_pipe(line, shell)
+        && ft_redirections(line, shell))
+    {
 		ft_cmdhandler(line, shell);
 		// display_cmd(shell);
-		implement_heredoc(shell->cmd);
+		implement_heredoc(shell->cmd, shell->envp);
 		ft_execution(shell->cmd);
 		ft_freecmdmain(shell);
+	}
     }
 	// ft_freecmdmain(shell);
     printf("Exiting Shell ...\n");
@@ -140,7 +144,7 @@ int set_files2(t_cmd *cmd, int index)
 	return (fd);
 }
 
-void implement_heredoc(t_cmd *cmd)
+void implement_heredoc(t_cmd *cmd, t_envvar *envp)
 {
 	int 			i;
 	int 			fd;
@@ -167,7 +171,7 @@ void implement_heredoc(t_cmd *cmd)
 						line = readline(">");
 						if (!line)
 							break;
-						// ft_expand();
+						// line = ft_expandherdoc(line, envp); //Need More Optimisation
 						if (ft_strcmp(line, temp->file) == 0)
 						{
 							free(line);
