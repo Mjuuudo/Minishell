@@ -7,7 +7,7 @@ RESET 	= \033[0m
 
 NAME	 = minishell
 COMPILER = cc
-FLAGS	 = -g3 #-Wall -Werror -Wextra #-g3 -fsanitize=address
+FLAGS	 =  #-Wall -Werror -Wextra #-g3 -fsanitize=address
 READLINE = -lreadline
 SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Error_management/ft_freelists.c  Outils/ft_strncpy.c\
 				Outils/ft_strdup.c Outils/ft_strlen.c	Parsing/shellon.c Parsing/Struct_init.c Outils/ft_isalpha.c \
@@ -15,8 +15,8 @@ SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Err
 				Parsing/lexcer.c Parsing/Syntaxe_check/pipe.c Parsing/Syntaxe_check/quotes.c Parsing/lexcer/inputcorrection.c\
 				Outils/ft_strchr.c linked_list/ft_addnodecmd.c Outils/ft_strncmp.c linked_list/ft_addnodecmd_2.c Parsing/expand/ft_expand.c\
 				Parsing/redirections/redirections_1.c linked_list/ft_addnodefile.c Outils/ft_strcmp.c Outils/ft_isalnum.c Parsing/quotes_remover/Part_01.c\
-				exec/execute_command.c exec/run_minishell.c exec/run_minnishell_tools.c Redirections/Heredoc.c Redirections/Heredoc2.c Redirections/Heredoc3.c Redirections/pipes.c Redirections/pipes2.c \
-				Redirections/redirects.c Redirections/redirects2.c Builtins/echo.c Builtins/cd.c Builtins/pwd.c Builtins/unset.c Builtins/export.c Builtins/exit.c \
+				exec/Make_Path.c exec/Parse.c exec/Tools2.c Redirections/Tools.c \
+				Builtins/echo.c Builtins/cd.c Builtins/pwd.c Builtins/unset.c Builtins/export.c Builtins/exit.c \
 				Builtins/export_sorting.c Builtins/export_append.c Builtins/env.c
 
 OBJS	 = $(SRCS:.c=.o)

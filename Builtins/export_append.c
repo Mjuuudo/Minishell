@@ -6,39 +6,11 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 10:01:12 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/03 10:09:12 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/11 09:31:11 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
-
-// bool	find_env_var_appending(t_envvar *env_list, char *str)
-// {
-// 	// char	*equal_pos;
-// 	char	*plus_pos;
-// 	char 	*new_str;
-// 	size_t	key_lenght;
-
-// 	// equal_pos = strchr(str, '=');
-// 	printf("str is %s\n", str);
-// 	plus_pos = strchr(str, '+');
-// 	key_lenght = (size_t)(plus_pos - str);
-// 	new_str = strndup(str, key_lenght);
-// 	while (env_list && env_list->next)
-// 	{
-// 		printf("new_str is-============================> %s\n", new_str);
-// 		printf("env_list->key is %s\n", env_list->key);
-// 		printf("key_lenght is %zu\n", key_lenght);
-// 		if (strncmp(env_list->key, new_str, key_lenght) == 0)
-// 		{
-// 			printf("env_list->key is %s\n", env_list->key);
-// 			printf("key_lenght is %zu\n", key_lenght);
-// 			return (true);
-// 		}
-// 		env_list = env_list->next;
-// 	}
-// 	return (false);
-// }
 
 bool	find_env_var_appending(t_envvar *env_list, char *str)
 {
@@ -49,13 +21,10 @@ bool	find_env_var_appending(t_envvar *env_list, char *str)
 	plus_pos = strchr(str, '+');
 	if (!plus_pos)
 		return (false);
-
 	key_length = (size_t)(plus_pos - str);
 	new_str = strndup(str, key_length);
-	// printf("new_str is %s\n", new_str);
 	if (!new_str)
 		return (false);
-
 	while (env_list)
 	{
 		if (strcmp(env_list->key, new_str) == 0)
@@ -65,42 +34,10 @@ bool	find_env_var_appending(t_envvar *env_list, char *str)
 		}
 		env_list = env_list->next;
 	}
-
 	free(new_str);
 	return (false);
 }
 
-// int	update_the_env_var_appending(t_envvar *env_list, char *str)
-// {
-// 	char	*equal_pos;
-// 	char	*plus_pos;
-// 	size_t	key_lenght = 0;
-// 	char *new_str;
-
-// 	printf("str is %s\n", str);
-// 	printf("key_lenght is %zu\n", key_lenght);
-// 	equal_pos = strchr(str, '=');
-// 	plus_pos = strchr(str, '+');
-// 	key_lenght = (size_t)(plus_pos - str);
-// 	new_str = strndup(str, key_lenght);
-// 	printf("new_str is %s\n", new_str);
-// 	while (env_list)
-// 	{
-// 		// printf("looping\n");
-// 		printf("env_list->key is %s\n", env_list->key);
-// 		if (strcmp(env_list->key, new_str) == 0)
-// 		{
-// 			printf("found2\n");
-// 			env_list->value = ft_str_join(env_list->value, equal_pos + 1);
-// 			print_envvar(env_list);
-// 			return (0);
-// 		}
-// 		env_list = env_list->next;
-// 	}
-// 	printf("not found\n");
-// 	print_envvar(env_list);
-// 	return (1);
-// }
 
 int	update_the_env_var_appending(t_envvar *env_list, char *str)
 {

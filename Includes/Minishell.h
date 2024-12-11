@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/08 14:14:38 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/11 09:44:48 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ struct							s_shell
 	char						**envholder;
 	t_commands					commande;
 	t_token						*tokens;
+	char 						*temp_file;
 	t_cmd						*cmd;
 	t_envvar					*envp;
 	t_shell						*next;
@@ -214,6 +215,342 @@ int redcalcu(t_token *tokens);
 
 
 
+// /*
+// ! Builtins file commands prototypes
+// ^(CD)
+// */
+// int		cd_builtin(t_cmd *cmd);
+// void	update_env(char **env, const char *var, const char *value);
+// char	*get_env(char **env, const char *var);
+
+
+
+// /*
+// ! Builtins file commands prototypes
+// ^(ECHO)
+// */
+
+// int		echo_builtin(t_cmd *cmd);
+// void	ft_putstr_flag(char *str, bool n_flag);
+
+
+
+// /*
+// ! Builtins file commands prototypes
+// ^(ENV)
+// */
+
+// int		env_builtin(t_cmd *cmd);
+
+
+// /*
+// ! Builtins file commands prototypes
+// ^(EXIT)
+// */
+
+// int		exit_builtin(t_cmd *cmd);
+// bool	is_valid_number(const char *str);
+// int		normalize_exit_status(int exit_status);
+
+
+// /*
+// ! Builtins file commands prototypes
+// ^(EXPORT)
+// */
+
+// int	export_builtin(t_cmd *cmd);
+// int	is_valid_identifier(const char *str);
+// void	update_the_env_var(t_envvar *env_list, char *str);
+// void	add_to_env_var(t_envvar *env_list, char *str);
+// int	update_the_env_var2(t_envvar *env_list, char *str);
+// void	find_or_update(t_envvar *env_list, char **str, int i);
+// void	find_or_add(t_envvar *env_list, char *str);
+// bool	find_env_var(t_envvar *env_list, char *str);;
+// bool	ft_isalpha2(char c);
+
+
+// /*
+// ! Builtins file commands prototypes
+// ^(EXPORT SORTING)
+// */
+
+// void	sort_the_linkedlist(t_envvar *env_list);
+// void	bubble_sort(t_envvar *env_list);
+// void	swap_nodes(t_envvar *a, t_envvar *b);
+// bool	is_sorted(t_envvar *env_list);
+// void	print_envvar(t_envvar *env_list);
+
+// /*
+// ! Builtins file commands prototypes
+// ^(EXPORT APPENDING)
+// */
+
+// char	*join2(char const *s1, char const *s2);
+// size_t	ft_str_lcpy(char *dst, const char *src, size_t dstsize);
+// char	*ft_str_join(char const *s1, char const *s2);
+// int		appending_env_var(t_envvar *env_list, char *str);
+// int		add_to_env_var_appending(t_envvar *env_list, char *str);
+// int		update_the_env_var_appending(t_envvar *env_list, char *str);
+// bool	find_env_var_appending(t_envvar *env_list, char *str);
+
+
+
+
+// /*
+// ! Builtins file commands prototypes
+// ^(SELLON.C file)
+// */
+
+// void	handler(int signum);
+// int 	set_files(t_cmd *cmd, int index);
+// int 	set_files2(t_cmd *cmd, int index);
+void 	implement_heredoc(t_cmd *cmd);
+// bool	set_redirections(t_redirection *file);
+// void	reset_redirections(void);
+// bool	execute_builtin(t_cmd *cmd);
+// int		execute_without_path(t_cmd *cmd);
+// char 	*get_full_path2(char **paths, t_cmd *cmd);
+// char 	*making_the_path(t_cmd *cmd);
+void	join_order_with_args(t_cmd *cmd, char **args);
+// int		execute_with_path(t_cmd *cmd);
+// int		execute_cmd(t_cmd *cmd);
+// int 	ft_execute(t_cmd *cmd);
+// int		second_child(t_cmd *cmd, int *fd);
+// int		first_child(t_cmd *cmd, int *fd);
+// int		execute_pipe(t_cmd *cmd);
+int		ft_execution(t_cmd *cmd);
+// char	**parse_and_handle_redirection(t_shell *shell);
+// int		count_commands_anf_flags(t_shell *shell);
+// char	**copy_command_and_flags(t_shell *shell, char **only_args);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -260,7 +597,7 @@ int 	exit_builtin(t_cmd *cmd);
 ! exec file commands prototypes
 ^(run_minishell.c file and execute_command.c file)
 */
-int					ft_execution(t_cmd *cmd);
+
 void				execute_command(t_shell *shell, char *order);
 void 				execute_command3(char *full_path, t_shell *shell);
 char				*join_path(const char *base, const char *command);
