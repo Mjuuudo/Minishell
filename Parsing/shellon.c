@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/11 15:47:58 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:21:46 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void implement_heredoc(t_cmd *cmd, t_envvar *envp)
 						line = readline(">");
 						if (!line)
 							break;
-						// line = ft_expandherdoc(line, envp); //Need More Optimisation
+						line = ft_expandherdoc(line, envp); //Leak Check Needded
 						if (ft_strcmp(line, temp->file) == 0)
 						{
 							free(line);
