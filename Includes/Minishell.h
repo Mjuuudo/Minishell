@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/11 15:43:46 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:11:27 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ char *ft_expandherdoc(char *line, t_envvar *env);
 // void	handler(int signum);
 // int 	set_files(t_cmd *cmd, int index);
 // int 	set_files2(t_cmd *cmd, int index);
-void 	implement_heredoc(t_cmd *cmd, t_envvar *envp);
+int 	implement_heredoc(t_cmd *cmd, t_envvar *envp);
 // bool	set_redirections(t_redirection *file);
 // void	reset_redirections(void);
 // bool	execute_builtin(t_cmd *cmd);
@@ -323,9 +323,18 @@ int		ft_execution(t_cmd *cmd);
 // char	**parse_and_handle_redirection(t_shell *shell);
 // int		count_commands_anf_flags(t_shell *shell);
 // char	**copy_command_and_flags(t_shell *shell, char **only_args);
+int ll_max_check(char *str);
 
 
 
+char 	*get_env(char **env, const char *var);
+void 	update_env(char ***env, const char *var, const char *value);
+void 	process_all_heredocs(t_cmd *cmd, t_envvar *envp);
+void 	handle_heredoc_redirections(t_redirection *red, t_cmd *cmd, t_envvar *envp);
+void 	process_heredoc_input(int fd, char *delimiter, t_envvar *envp);
+void 	heredoc_sigint_handler(int signum);
+int 	set_files(t_cmd *cmd, int index);
+void	cd_builtin2(char *old_pwd, char *new_pwd, char *path);
 
 
 
@@ -625,7 +634,7 @@ void    			run_simplecmd(t_shell *shell,t_envvar *envp,char **av);
 void				pid_is_0(char *input_file, char *cmd, t_envvar *envp, t_shell *shell);
 void				execute_command_with_heredoc(char *input_file, char *cmd,
 					t_envvar *envp, t_shell *shell);
-void				process_heredoc_input(char *delimiter, char *filename);
+// void				process_heredoc_input(char *delimiter, char *filename);
 int 				count_heredoc(t_cmd *current);
 void	heredoc_inplementation_0(int heredoc_counter, t_cmd *current,
 		t_shell *shell, char **heredoc_files);

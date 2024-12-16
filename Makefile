@@ -8,6 +8,7 @@ RESET 	= \033[0m
 NAME	 = minishell
 COMPILER = cc
 FLAGS	 =  #-Wall -Werror -Wextra #-g3 -fsanitize=address
+FLAGS	 =  -g3
 READLINE = -lreadline
 SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Error_management/ft_freelists.c  Outils/ft_strncpy.c\
 				Outils/ft_strdup.c Outils/ft_strlen.c	Parsing/shellon.c Parsing/Struct_init.c Outils/ft_isalpha.c \
@@ -17,7 +18,7 @@ SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Err
 				Parsing/redirections/redirections_1.c linked_list/ft_addnodefile.c Outils/ft_strcmp.c Outils/ft_isalnum.c Parsing/quotes_remover/Part_01.c\
 				exec/Make_Path.c exec/Parse.c exec/Tools2.c Redirections/Tools.c \
 				Builtins/echo.c Builtins/cd.c Builtins/pwd.c Builtins/unset.c Builtins/export.c Builtins/exit.c \
-				Builtins/export_sorting.c Builtins/export_append.c Builtins/env.c Outils/ft_realloc.c Parsing/expand_herdoc.c
+				Builtins/export_sorting.c Builtins/export_append.c Builtins/env.c Outils/ft_realloc.c Parsing/expand_herdoc.c exec/Heredoc.c
 
 OBJS	 = $(SRCS:.c=.o)
 

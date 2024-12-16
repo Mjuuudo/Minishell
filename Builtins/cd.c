@@ -6,130 +6,170 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:33:31 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/07 22:35:37 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:32:40 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
 #define MAX_PATH 1024
 
-// Helper function to update environment variables
-/**
- * !Purpose of =========update_env===========:
- * ?The update_env function is designed to update an existing environment variable or add a new one if it doesn't exist.
- * ?It typically takes three parameters:
- * ?the environment array, the name of the variable, and the new value to set.
- */
-/*
-!Purpose of =========get_env===========:
-?The get_env function is designed to retrieve the value of a specific environment variable from the environment array.
-?It takes two parameters:
-?the environment array and the name of the variable you're looking for.
-?It should return the value of that variable if found, or NULL if the variable doesn't exist in the environment.
-*/
-
-
-void update_env(char **env, const char *var, const char *value)
+void	update_existing_env_entry(char ***env, const char *var,
+		const char *value, int i)
 {
-    int i;
-    size_t var_len;
-    char *new_entry;
+	size_t	var_len;
 
-    i = 0;
-    var_len = strlen(var);
-    while (env[i] != NULL)
-    {
-        if (strncmp(env[i], var, var_len) == 0 && (env[i][var_len] == '='))// Variable found, update it
-        {
-            new_entry = malloc(strlen(var) + strlen(value) + 2);// +2 for '=' and null terminator
-            if (new_entry == NULL)
-            {
-                printf("Malloc Error");
-                return;
-            }
-            strcpy(new_entry, var);
-            strcat(new_entry, "=");
-            strcat(new_entry, value);
-            free(env[i]);
-            env[i] = new_entry;
-            return;
-        }
-        i++;
-    }
-}
-char *get_env(char **env, const char *var)
-{
-    int i = 0;
-    size_t var_len = strlen(var);
-
-    while (env[i] != NULL) {
-        if (strncmp(env[i], var, var_len) == 0 && env[i][var_len] == '=') {
-            return &env[i][var_len + 1];
-        }
-        i++;
-    }
-    return NULL;
+	var_len = strlen(var);
+	if (strncmp((*env)[i], var, var_len) == 0 && (*env)[i][var_len] == '=')
+	{
+		free((*env)[i]);
+		(*env)[i] = malloc(strlen(var) + strlen(value) + 2);
+		if (!(*env)[i])
+		{
+			perror("malloc error");
+			return ;
+		}
+		sprintf((*env)[i], "%s=%s", var, value);
+	}
 }
 
-int cd_builtin(t_cmd *cmd)
+void	update_env(char ***env, const char *var, const char *value)
 {
-    char old_pwd[MAX_PATH];
-    char new_pwd[MAX_PATH];
-    char *path = NULL;
+	int		i;
+	char	*new_entry;
 
-    // Get current working directory
-    if (getcwd(old_pwd, sizeof(old_pwd)) == NULL)
-    {
-        perror("cd: getcwd error");
-        return 1;
-    }
-
-    // Determine the path to change to
-    if (cmd->args == NULL || cmd->args[0] == NULL)
-    {
-        // No argument, go to HOME
-        path = get_env(shell.envholder, "HOME");
-        if (path == NULL)
-        {
-            fprintf(stderr, "cd: HOME not set\n");
-            return 1;
-        }
-    }
-    else if (strcmp(cmd->args[0], "-") == 0)
-    {
-        // Go to previous directory
-        path = get_env(shell.envholder, "OLDPWD");
-        if (path == NULL)
-        {
-            fprintf(stderr, "cd: OLDPWD not set\n");
-            return 1;
-        }
-        printf("%s\n", path);
-    }
-    else
-    {
-        // Use provided path
-        path = cmd->args[0];
-    }
-
-    // Change directory
-    if (chdir(path) == -1)
-    {
-		dprintf(2, "path: %s\n", path);
-        perror("cd: chdir error");
-        return 1;
-    }
-
-    // Get new current working directory
-    if (getcwd(new_pwd, sizeof(new_pwd)) == NULL)
-    {
-        perror("cd: getcwd error");
-        return 1;
-    }
-
-    // Update environment variables
-    update_env(shell.envholder, "OLDPWD", old_pwd);
-    update_env(shell.envholder, "PWD", new_pwd);
-
-    return 0;
+	i = 0;
+	while ((*env)[i] != NULL)
+	{
+		update_existing_env_entry(env, var, value, i);
+		i++;
+	}
+	new_entry = malloc(strlen(var) + strlen(value) + 2);
+	if (!new_entry)
+	{
+		perror("malloc error");
+		return ;
+	}
+	sprintf(new_entry, "%s=%s", var, value);
+	*env = realloc(*env, sizeof(char *) * (i + 2));
+	if (!*env)
+	{
+		perror("realloc error");
+		return ;
+	}
+	(*env)[i] = new_entry;
+	(*env)[i + 1] = NULL;
 }
+
+char	*get_env(char **env, const char *var)
+{
+	int		i;
+	size_t	var_len;
+
+	if (!env || !var)
+		return (NULL);
+	var_len = strlen(var);
+	i = 0;
+	while (env[i])
+	{
+		if (strncmp(env[i], var, var_len) == 0 && env[i][var_len] == '=')
+			return (&env[i][var_len + 1]);
+		i++;
+	}
+	return (NULL);
+}
+
+void	get_logical_pwd(char **env, char *old_pwd)
+{
+	char	*logical_pwd;
+
+	logical_pwd = get_env(shell.envholder, "PWD");
+	if (logical_pwd)
+		strncpy(old_pwd, logical_pwd, sizeof(old_pwd) - 1);
+	else
+		old_pwd[0] = '\0';
+}
+
+int	path_from_shell_env(t_cmd *cmd, char **path)
+{
+	*path = get_env(shell.envholder, "HOME");
+	if (!*path)
+	{
+		fprintf(stderr, "cd: HOME not set\n");
+		shell.exit = 1;
+		return (1);
+	}
+	return (0);
+}
+
+int	cd_builtin(t_cmd *cmd)
+{
+	char	old_pwd[MAX_PATH];
+	char	*new_pwd;
+	char	*path;
+
+	new_pwd = NULL;
+	path = NULL;
+	if (!getcwd(old_pwd, sizeof(old_pwd)))
+		get_logical_pwd(shell.envholder, old_pwd);
+	if (!cmd->args || !cmd->args[0])
+	{
+		shell.exit = path_from_shell_env(cmd, &path);
+		if (shell.exit == 1)
+			return (1);
+	}
+	else
+		path = cmd->args[0];
+	cd_builtin2(old_pwd, new_pwd, path);
+	return (0);
+}
+
+void	print_it_norm(char *path)
+{
+	fprintf(stderr, "cd: %s: ", path);
+	perror("");
+	shell.exit = 1;
+}
+
+void	print_it_norm2(char *path)
+{
+	fprintf(stderr,
+		"cd: error retrieving current directory: \
+			getcwd: cannot access parent directories\n");
+	shell.exit = 1;
+}
+
+void	cd_builtin2(char *old_pwd, char *new_pwd, char *path)
+{
+	if (chdir(path) == -1)
+	{
+		print_it_norm(path);
+		return ;
+	}
+	if (strcmp(path, "..") == 0)
+	{
+		new_pwd = getcwd(NULL, 0);
+		if (!new_pwd)
+		{
+			print_it_norm2(path);
+			return ;
+		}
+		free(new_pwd);
+	}
+	new_pwd = getcwd(NULL, 0);
+	if (new_pwd)
+	{
+		update_env(&(shell.envholder), "PWD", new_pwd);
+		free(new_pwd);
+	}
+	else
+		update_env(&(shell.envholder), "PWD", path);
+	update_env(&(shell.envholder), "OLDPWD", old_pwd);
+	shell.exit = 0;
+}
+
+// valgrind --leak-check=full --track-origins=yes ./minishell
+// # Inside minishell:
+// echo "Hello, Pipe!" | grep Hello
+// ls | wc -l
+// cat Makefile | grep all | wc -l
+// exit

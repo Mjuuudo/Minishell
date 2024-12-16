@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:26:57 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/11 09:28:46 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:03:00 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,14 @@ void	print_envvar(t_envvar *env_list)
 {
 	while (env_list)
 	{
-		printf("%s=%s\n", env_list->key, env_list->value);
+		if (ft_strcmp(env_list->key, "_") != 0)
+		{
+			if (env_list->value)
+				printf("declare -x %s=\"%s\"\n", env_list->key, env_list->value);
+			else
+				printf("declare -x %s\n", env_list->key);
+		}
+			// printf("%s=%s\n", env_list->key, env_list->value);
 		env_list = env_list->next;
 	}
 }

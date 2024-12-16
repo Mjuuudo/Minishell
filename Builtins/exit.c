@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:19:02 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/07 21:48:12 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:37:13 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,93 +14,126 @@
 # include <limits.h>
 # include <stdbool.h>
 
-bool is_valid_number(const char *str)
+bool	is_valid_number(const char *str)
 {
-	printf("str: %s\n", str);
-    // Skip leading whitespace
-	while(*str == ' ' || *str == '\t' || *str == '\n'
-		|| *str == '\r' || *str == '\v' || *str == '\f')
+	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\r'
+		|| *str == '\v' || *str == '\f')
 		str++;
-    // Check for sign
-	if(*str == '-' || *str == '+')
+	if (*str == '-' || *str == '+')
 		str++;
-    // Check for empty string or just a sign
-	if(*str == '\0')
-		return(false);
-	while(*str != '\0')
+	if (*str == '\0')
+		return (false);
+	while (*str != '\0')
 	{
 		if (!(*str >= '0' && *str <= '9'))
-			return(false);
+			return (false);
 		str++;
 	}
-	return(true);
+	return (true);
 }
-int normalize_exit_status(int exit_status)
+
+int	normalize_exit_status(int exit_status)
 {
-	if(exit_status < 0)
+	if (exit_status < 0)
 		exit_status = (exit_status + 256);
-	else if(exit_status > 255)
+	else if (exit_status > 255)
 		exit_status = exit_status % 256;
-	return(exit_status);
+	shell.exit = exit_status;
+	return (exit_status);
 }
 
-static	unsigned char	ft_atouc(const char *av)
+static unsigned char	ft_atouc(const char *av)
 {
-	int	res = 0;
-	while(*av >= '0' && *av <= '9')
+	int	res;
+
+	res = 0;
+	while (*av >= '0' && *av <= '9')
 		res = res * 10 + (*av++ - '0');
-	// printf("res ===>%d\n", res);
-	return((unsigned char)res);
+	return ((unsigned char)res);
 }
 
-int exit_builtin(t_cmd *cmd)
+int	handle_overflowing_number(const char *arg)
 {
-	printf("here2\n");
-	// printf("cmd->args[0]: %s\n", shell->cmd->args[0]);
-    unsigned char exit_status;
+	char	*buffer;
 
-    // if (shell->cmd->args[0] && cmd->args[1])
-    // {
-    //     if (is_valid_number(cmd->args[1]) && is_valid_number(cmd->args[2]))
-    //     {
-    //         printf("exit: too many arguments\n");
-    //         exit_status = 1;
-    //     }
-    //     else if (is_valid_number(cmd->args[1]) && !is_valid_number(cmd->args[2]))
-    //     {
-    //         printf("exit: too many arguments\n");
-    //         exit_status = 1;
-    //     }
-    //     else if (!is_valid_number(cmd->args[1]) && is_valid_number(cmd->args[2]))
-    //     {
-    //         printf("exit: numeric argument required\n");
-    //         exit_status = 2;
-    //         exit(2);
-    //     }
-    //     else if (!is_valid_number(cmd->args[1]) && !is_valid_number(cmd->args[2]))
-    //     {
-    //         printf("exit: numeric argument required\n");
-    //         exit_status = 2;
-    //         exit(2);
-    //     }
-    // }
-	printf("here3\n");
-	printf("cmd->args[0]: %s\n", cmd->args[0]);
-    if (cmd->args[0])
-    {
-		printf("here4\n");
-        if (!is_valid_number(cmd->args[0]))
-        {
-            printf("exit: numeric argument required\n");
-            exit_status = 2;
-            exit(2);
-        }
-		printf("here5\n");
-        exit_status = (unsigned char)ft_atouc(cmd->args[0]);
-		printf("exit_status: %d\n", exit_status);
-    }
-    else
-        exit_status = shell.exit;  // Use shell->exit (last_exit_status)
-    exit(normalize_exit_status(exit_status));
+	printf("exit2\n");
+	buffer = ft_strjoin("minishell11: exit: ", arg);
+	if (buffer)
+	{
+		write(2, buffer, ft_strlen(buffer));
+		write(2, ": numeric argument required\n", 28);
+		free(buffer);
+	}
+	shell.exit = 2;
+	return (2);
 }
 
+int	handle_too_many_arguments(void)
+{
+	printf("exit\n");
+	printf("exit: too many arguments\n");
+	shell.exit = 1;
+	return (1);
+}
+
+int	handle_non_numeric_argument(const char *arg)
+{
+	printf("exit\n");
+	printf("exit: numeric argument required\n");
+	shell.exit = 2;
+	return (2);
+}
+
+int	exit_builtin(t_cmd *cmd)
+{
+	unsigned char	exit_status;
+
+	if (cmd->args[0] == NULL)
+	{
+		printf("exit\n");
+		exit(0);
+	}
+	if (!is_valid_number(cmd->args[0]))
+		return (handle_non_numeric_argument(cmd->args[0]));
+	if (is_valid_number(cmd->args[0]) && cmd->args[1])
+		return (handle_too_many_arguments());
+	if (cmd->args[0])
+	{
+		if (ll_max_check(cmd->args[0]))
+			return (handle_overflowing_number(cmd->args[0]));
+		exit_status = (unsigned char)ft_atouc(cmd->args[0]);
+	}
+	else
+		exit_status = shell.exit;
+	shell.exit = normalize_exit_status(exit_status);
+	exit(shell.exit);
+}
+
+int	ll_max_check(char *str)
+{
+	long long int	status;
+	int				sign;
+	int				i;
+
+	status = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
+			sign *= -1;
+	while (str && str[i] && str[i] >= '0' && str[i] <= '9')
+	{
+		if (status > LLONG_MAX / 10 || (status == LLONG_MAX / 10 && (str[i]
+					- '0') > LLONG_MAX % 10))
+		{
+			if (sign == -1 && status == LLONG_MAX / 10 && str[i] == '8' && str[i
+				+ 1] == '\0')
+				return (0);
+			if (sign == 1 || (sign == -1 && status > LLONG_MAX / 10))
+				return (1);
+			return (1);
+		}
+		status = status * 10 + (str[i++] - '0');
+	}
+	return (0);
+}

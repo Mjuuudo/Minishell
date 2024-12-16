@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/12 13:21:46 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:27:19 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void ft_shell_on(t_shell *shell)
     {
 		signal(SIGINT, handler);
         line = readline("Blackhole_Lover's@Minis(hell):~$ ");
+		signal(SIGINT, SIG_IGN);
         if (!line)
 			break ;
 		if (!*line)
@@ -98,19 +99,20 @@ void ft_shell_on(t_shell *shell)
 		add_history(line);
 		  if (ft_quotesch(line, shell) && ft_pipe(line, shell)
         && ft_redirections(line, shell))
-    {
-		ft_cmdhandler(line, shell);
-		// display_cmd(shell);
-		implement_heredoc(shell->cmd, shell->envp);
-		ft_execution(shell->cmd);
-		ft_freecmdmain(shell);
-	}
+    	{
+			ft_cmdhandler(line, shell);
+			// display_cmd(shell);
+			// implement_heredoc(shell->cmd, shell->envp);
+			// ft_execution(shell->cmd);
+			if (implement_heredoc(shell->cmd,shell->envp) == 0)
+				ft_execution(shell->cmd);
+			ft_freecmdmain(shell);
+		}
     }
 	// ft_freecmdmain(shell);
     printf("Exiting Shell ...\n");
     free(line);
 }
-// ft_expand();
 
 int set_files(t_cmd *cmd, int index)
 {
@@ -144,91 +146,81 @@ int set_files2(t_cmd *cmd, int index)
 	return (fd);
 }
 
-void implement_heredoc(t_cmd *cmd, t_envvar *envp)
+void heredoc_sigint_handler(int signum)
 {
-	int 			i;
-	int 			fd;
-	int 			pid;
-	char 			*line;
-	t_cmd			*current;
-	t_redirection 	*temp;
-
-	current = shell.cmd;
-	pid = fork();
-	if (pid == 0)
+	if (signum == SIGINT)
 	{
-		while (current)
-		{
-			temp = current->red;
-			i = 0;
-			while (temp)
-			{
-				if (temp->identifier == 5)
-				{
-					fd = set_files(cmd, i);
-					while (1)
-					{
-						line = readline(">");
-						if (!line)
-							break;
-						line = ft_expandherdoc(line, envp); //Leak Check Needded
-						if (ft_strcmp(line, temp->file) == 0)
-						{
-							free(line);
-							break;
-						}
-						write(fd, line, ft_strlen(line));
-						write(fd, "\n", 1);
-						free(line);
-					}
-					close(fd);
-				}
-				i++;
-				temp = temp->next;
-			}
-			current = current->next;
-		}
-		exit(0);
+		printf("\n");
+		exit(120);
 	}
-	else if (pid > 0)
-		waitpid(pid, NULL, 0);
-	else
-		perror("Fork failed");
 }
 
-bool	set_redirections(t_redirection *file)
+int open_file(t_redirection *file, int index)
 {
-	int	fd;
-	int i = 0;
+    int fd;
 
-	while (file)
-	{
-		if (file->identifier == LESS || file->identifier == LLESS)
-		{
-			set_files2(shell.cmd, i);
-			fd = open(shell.temp_file, O_RDONLY, 0644);
-		}
-		else if (file->identifier == GREAT)
-		{
-			fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		}
-		else if (file->identifier == DGREAT)
-			fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd == -1)
-			return (perror("minishell01$"), false);
-		if (file->identifier == LESS || file->identifier == LLESS)
-			dup2(fd, STDIN_FILENO);
-		else
-		{
-			if(dup2(fd, STDOUT_FILENO) == -1)
-				perror("minishell02$");
-		}
-		close(fd);
-		file = file->next;
-		i++;
-	}
-	return (true);
+    if (file->identifier == LESS || file->identifier == LLESS)
+    {
+        set_files2(shell.cmd, index);
+        fd = open(shell.temp_file, O_RDONLY, 0644);
+    }
+    else if (file->identifier == GREAT)
+        fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    else if (file->identifier == DGREAT)
+        fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    else
+        fd = -1;
+
+    if (fd == -1)
+        perror("minishell01$");
+    return fd;
 }
+
+bool set_fd(t_redirection *file, int fd)
+{
+    if (file->identifier == LESS || file->identifier == LLESS)
+    {
+        if (dup2(fd, STDIN_FILENO) == -1)
+        {
+            perror("minishell02$");
+            return false;
+        }
+    }
+    else
+    {
+        if (dup2(fd, STDOUT_FILENO) == -1)
+        {
+            perror("minishell02$");
+            return false;
+        }
+    }
+    return true;
+}
+
+bool set_redirections(t_redirection *file)
+{
+    int fd;
+    int i = 0;
+
+    while (file)
+    {
+        fd = open_file(file, i);
+        if (fd == -1)
+            return false;
+
+        if (!set_fd(file, fd))
+        {
+            close(fd);
+            return false;
+        }
+
+        close(fd);
+        file = file->next;
+        i++;
+    }
+    return true;
+}
+
 
 void	reset_redirections(void)
 {
@@ -265,21 +257,20 @@ bool	execute_builtin(t_cmd *cmd)
 
 int	execute_without_path(t_cmd *cmd)
 {
-	printf("was here\n");
 	char **args;
 	int i = 0;
 	args = parse_and_handle_redirection(&shell);
 	join_order_with_args(cmd, args);
 	execve(cmd->order, args, shell.envholder);
-	perror("minishell03$");
+	perror("minishell033$");
 	exit(1);
 }
 
 char *get_full_path2(char **paths, t_cmd *cmd)
 {
 	int		i;
-	char	*full_path;
-	char	*temp;
+	char	*full_path = NULL;
+	char	*temp = NULL;
 
 	i = 0;
 	while (paths[i])
@@ -297,8 +288,8 @@ char *get_full_path2(char **paths, t_cmd *cmd)
 
 char 	*making_the_path(t_cmd *cmd)
 {
-	char *path_str;
-	char **paths;
+	char *path_str = NULL;
+	char **paths = NULL;
 
 	path_str = find_path(shell.envp);
 	if (path_str == NULL)
@@ -321,13 +312,16 @@ void	join_order_with_args(t_cmd *cmd, char **args)
 		args[i + 1] = cmd->args[i];
 		i++;
 	}
-	args[i + 1] = NULL;
+	// args[i + 1] = NULL;
 }
 
 int	execute_with_path(t_cmd *cmd)
 {
-	char *path;
-	char **args;
+	char *path = NULL;
+	char **args = NULL;
+	char *test_path = "/bin/ls";
+	char *test_args[] = { "ls", "-l", NULL };
+
 
 	path = making_the_path(cmd);
 	if (path == NULL)
@@ -337,9 +331,10 @@ int	execute_with_path(t_cmd *cmd)
 	}
 	args = parse_and_handle_redirection(&shell);
 	join_order_with_args(cmd, args);
-	if (execve(path, args, shell.envholder) == -1)
+	if (execve(path, args - 1, shell.envholder) == -1)
 	{
 		perror("minishell05$");
+    	free(args);
 		exit(1);
 	}
 	exit(1);
@@ -348,17 +343,21 @@ int	execute_with_path(t_cmd *cmd)
 int	execute_cmd(t_cmd *cmd)
 {
 	pid_t	pid;
-	int		status;
+	int		status = 0;
 
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		if (!set_redirections(cmd->red))
 			exit(1);
-		if (ft_strchr('/', cmd->order))
-			execute_without_path(cmd);
-		else
-			execute_with_path(cmd);
+		if (!execute_builtin(cmd))
+		{
+			if (ft_strchr('/', cmd->order))
+				execute_without_path(cmd);
+			else
+				execute_with_path(cmd);
+		}
 	}
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
@@ -366,6 +365,7 @@ int	execute_cmd(t_cmd *cmd)
 		status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		status = WTERMSIG(status) + 128;
+	signal(SIGINT, SIG_IGN);
 	return (0);
 }
 
@@ -437,25 +437,3 @@ int ft_execution(t_cmd *cmd)
 		ft_execute(cmd);
 	return (0);
 }
-
-
-
-// Blackhole_Lover's@Minis(hell):~$ ls < t| wc -l << r
-// arg cmd [ ] ls
-// -->  redirection in red 2 [0] <
-// -->  redirection in red 2 [1] t
-// ---------- Redirections -------------
-// File t, Type 4
-// ------------ End Redirection -----------
-// arg cmd [ ] wc
-// -->  args [0] -l
-// -->  redirection in red 2 [0] <<
-// -->  redirection in red 2 [1] r
-// ---------- Redirections -------------
-// File r, Type 5
-// ------------ End Redirection -----------
-// Blackhole_Lover's@Minis(hell):~$
-
-
-//TODO to handle
-///bin/ls -laF

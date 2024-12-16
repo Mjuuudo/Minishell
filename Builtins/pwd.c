@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 10:19:38 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/02 09:50:32 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:15:00 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,27 @@
 // +---------------------+
 
 
-void	ft_putstr(char *str)
+int pwd_builtin(t_cmd *cmd)
 {
-	while (*str != '\0')
-	{
-		write(1, str, 1);
-		str++;
-	}
-}
+	char *cwd = NULL;
 
-//char* getcwd( char* buffer, size_t size );
-
-int	pwd_builtin(t_cmd *cmd)
-{
-	// char *buffer[PATH_MAX];
-	char *cwd;
-	
 	(void)cmd;
 	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
+ 	if (!cwd)
 	{
-		ft_putstr("Error: Could not get the current working directory");
-		return (1);
+		cwd = get_env(shell.envholder, "PWD");
+		if (!cwd)
+		{
+			perror("pwd: error retrieving current directory");
+			return 1;
+ 		}
+		printf("%s\n", cwd);
 	}
-	write(1, cwd, strlen(cwd));
-	write(1, "\n", 1);
-	free(cwd);
-	return (0);
+	else
+	{
+		printf("%s\n", cwd);
+		update_env(&(shell.envholder), "PWD", cwd);
+		free(cwd);
+	}
+	return 0;
 }

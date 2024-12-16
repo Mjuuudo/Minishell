@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:47:21 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/08 16:11:32 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:35:26 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ int	echo_builtin(t_cmd *cmd)
 	i = 0;
 	the_n_flag = false;
 	args = cmd->args;
-	/**
-	 *=*=======*Check for -n flags*========*
-	 */
+	if (cmd->args[0])
+	{
+		char exit_status_str[12];
+		sprintf(exit_status_str, "%d", shell.exit);
+		ft_putstr_flag(exit_status_str, false);
+	}
 	while (args[i] && is_there_n_falg(args[i]))
 	{
 		the_n_flag = true;
 		i++;
 	}
-	/**
-	 *=*=======*Print the arguments*========*
-	 */
 	while (args[i])
 	{
 		ft_putstr_flag(args[i], false);
@@ -75,7 +75,6 @@ int	echo_builtin(t_cmd *cmd)
 	}
 	if (!the_n_flag)
 		write(1, "\n", 1);
-	
 	return (0);
 }
 

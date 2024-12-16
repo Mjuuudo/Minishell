@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:45:28 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/07 21:49:26 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:42:30 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ bool	find_env_var(t_envvar *env_list, char *str)
 	char	*equal_pos;
 	size_t	key_lenght;
 
-
 	equal_pos = strchr(str, '=');
 	if (equal_pos == NULL)
 		key_lenght = strlen(str);
@@ -71,7 +70,6 @@ bool	find_env_var(t_envvar *env_list, char *str)
 			return (true);
 		env_list = env_list->next;
 	}
-	// printf("str is not found\n");
 	return (false);
 }
 
@@ -82,34 +80,22 @@ int	is_valid_identifier(char *str)
 	char	*equals_pos;
 
 	if (!str || *str == '\0')
-	{
-		printf("str is empty\n");
 		return (false);
-	}
 	equals_pos = strchr(str, '=');
 	if (!ft_isalpha2(*str) && *str != '_')
-	{
-		printf("str is not alpha\n");
 		return (3);
-	}
 	str++;
 	while (*str && (equals_pos == NULL || str < equals_pos))
 	{
 		if (!ft_isalnum(*str) && *str != '_')
 		{
 			if (*str == '+' && *(str + 1) == '=')
-			{
 				return (2);
-			}
 			else
-			{
-				printf("str is not alnum\n");
 				return (1);
-			}
 		}
 		str++;
 	}
-	// printf("str is valid\n");
 	return (0);
 }
 
@@ -197,39 +183,25 @@ int	add_to_env_var(t_envvar *env_list, char *str)
 	}
 	else
 	{
-		// printf("env_list->next->key: %s\n", env_list->next->key);
-		// printf("env_list->next->value: %s\n", env_list->next->value);
 		env_list->next->key = strndup(str, key_lenght);
 		env_list->next->value = strdup(equal_pos + 1);
-		// printf("env_list->next->key: %s\n", env_list->next->key);
-		// printf("env_list->next->value: %s\n", env_list->next->value);
 	}
-	// print_envvar(env_list);
 	return (0);
 }
 
 void	find_or_update(t_envvar *env_list, char **str, int i)
 {
 
-		printf("debug : adding the env var\n");
 		find_or_add(env_list, str[i]);
-		printf("debug : updating the env var\n");
 		update_the_env_var2(env_list, str[i]);
-	printf("=============done===================\n");
 }
 
 void	find_or_add(t_envvar *env_list, char *str)
 {
 	if (find_env_var(env_list, str))
-	{
-		printf("debug : found so updating\n");
 		update_the_env_var(env_list, str);
-	}
 	else
-	{
-		printf("debug : not found so adding\n");
 		add_to_env_var(env_list, str);
-	}
 }
 
 int	export_builtin(t_cmd *cmd)
@@ -239,27 +211,18 @@ int	export_builtin(t_cmd *cmd)
 	i = 0;
 	if (!cmd->args[0])
 		sort_the_linkedlist(shell.envp);
-	printf("===============we startnig here================\n");
 	while (cmd->args[i])
 	{
-		printf("cmd->args[%d] is %s\n",i,cmd->args[i]);
-		printf("debug : checking if valid identifier\n");
+
 		if (is_valid_identifier(cmd->args[i]) == 2)
-		{
-			printf("debug : valid and appending\n");
-			printf("appending\n");
 			appending_env_var(shell.envp, cmd->args[i]);
-		}
 		else if (is_valid_identifier(cmd->args[i]) == 0)
-		{
-			printf("debug : valid and adding or updating\n");
 			find_or_update(shell.envp, cmd->args, i);
-		}
 		else
 		{
 			printf("Error: Unknown option %s\n",cmd->args[i]);
 			// error_occured = true; // idont remeber why i  did this
-			exit(1);
+			// exit(1);
 		}
 		// TODO IF EEROR OCCURED THE EXIT STATUS SHOULD BE 1s
 		i++;

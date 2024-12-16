@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_minnishell_tools.c                             :+:      :+:    :+:   */
+/*   Tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 12:02:15 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/11/28 12:07:53 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:20:02 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,14 @@ char	*find_path(t_envvar *envp)
 char	**split_path(char *path_string)
 {
 	int		counter;
-	char	*temp;
-	char	**paths;
-	char	*path_copy;
+	char	*temp = NULL;
+	char	**paths = NULL;
+	char	*path_copy = NULL;
 
 	counter = 1;
 	temp = path_string;
 	counter = counte_temp(temp);
+	// printf("couter = %d\n", counter);
 	paths = malloc(sizeof(char *) * (counter + 1));
 	if (paths == NULL)
 		return (NULL);
@@ -87,7 +88,7 @@ char	**split_path(char *path_string)
 char	**split_path3(char **paths, char *path_copy)
 {
 	int		index;
-	char	*current;
+	char	*current = NULL;
 
 	index = 0;
 	current = ft_strtok(path_copy, ':');
@@ -108,6 +109,7 @@ char	**split_path3(char **paths, char *path_copy)
 		current = ft_strtok(NULL, ':');
 	}
 	paths[index] = NULL;
+	index = 0;
 	free(path_copy);
 	return (paths);
 }
