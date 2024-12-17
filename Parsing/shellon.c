@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/16 17:27:19 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:12:19 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,20 @@ void	handler(int signum)
 	}
 }
 
+static int  videornot(char *line)
+{
+	int counter;
+
+	counter = 0;
+	if (!line)
+		return (1);
+	while (ft_ispace(line[counter]))
+		counter++;
+	if (line[counter] == '\0')
+		return (1);
+	return (0);
+}
+
 void ft_shell_on(t_shell *shell)
 {
     char *line;
@@ -91,7 +105,7 @@ void ft_shell_on(t_shell *shell)
 		signal(SIGINT, SIG_IGN);
         if (!line)
 			break ;
-		if (!*line)
+		if (!*line || videornot(line))
 		{
 			free(line);
 			continue ;

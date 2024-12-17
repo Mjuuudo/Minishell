@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/16 17:11:27 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:07:47 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_commands		t_commands;
 typedef struct s_shell			t_shell;
 typedef struct s_cmd			t_cmd;
 typedef struct s_redirection	t_redirection;
-
+typedef struct s_iterators 		t_iterators;
 // Global Variable
 extern t_shell	shell;
 
@@ -84,6 +84,12 @@ struct							s_redirection
 	t_redirection				*prev;
 };
 
+struct							s_iterators
+{
+	int 						a;
+	int 						j;
+	int 						i;
+};
 struct							s_shell
 {
 	int							shell_level;
@@ -96,6 +102,7 @@ struct							s_shell
 	t_envvar					*envp;
 	t_shell						*next;
 	t_shell						*prev;
+	t_iterators					iter;
 };
 
 // Parsing Environement Variables Functions Prototypes
