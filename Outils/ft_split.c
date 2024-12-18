@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:30:08 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/11/27 09:32:52 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:29:35 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ static char	*ft_words(char *str, char *charset)
 	word[i] = '\0';
 	return (word);
 }
-
-// free_str(&str, i), Removed From The return Ft- Word char !str[i] To check after
 
 char	**ft_split(char *str, char *charset)
 {

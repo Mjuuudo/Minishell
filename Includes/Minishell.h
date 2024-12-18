@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 17:09:25 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/19 00:03:17 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ struct							s_shell
 	char 						*temp_file;
 	t_cmd						*cmd;
 	t_envvar					*envp;
+	size_t 						max_possible_len;
+	int 						counter;
 	t_shell						*next;
 	t_shell						*prev;
 };
@@ -118,7 +120,7 @@ void							ft_cmdhandler(char *line, t_shell *shell);
 int								count_spaces(char *line);
 char							*spaced_string(char *line, t_shell *shell,
 									int spaces, int counter_2);
-void							ft_cmdliste(t_shell *shell);
+void 							ft_cmdliste(t_shell *shell, int counter);
 t_token							*ft_returnlastnodecmd(t_token *list);
 
 // Parser Section
@@ -162,8 +164,7 @@ int 							ft_expand(t_token *token, t_envvar *env);
 
 // Redirection Apply  Functions Prototypes
 
-void							ft_redirectioninit(t_cmd **node,
-									t_shell *shell);
+void							ft_redirectioninit(t_cmd **node, int counter);
 int								ft_checkred(char **tab, char *cmd);
 void							ft_quotesremove(t_cmd **node);
 int								ft_isredornot(char *tab);
@@ -174,10 +175,44 @@ int								ft_isredornot(char *tab);
 
 
 
-
-void ft_morethan2(t_token *node, t_shell *shell);
+int ft_videornor(char *line);
+int redcalcu(t_token *tokens);
+void ft_morethan2(t_token *node, t_shell *shell, int counter);
 int redcalcu(t_token *tokens);
 char *ft_expandherdoc(char *line, t_envvar *env);
+int ft_checkdollar(char *arg);
+char *retrivevalue(t_envvar *env,  char *key);
+int foundornot(char *line, t_envvar *env);
+int is_valid_var_start(char c);
+int is_alnum_or_underscore(char *str);
+int extract_var_name(char *input, char *holder, int *index);
+int handle_env_var(char *new_string, char *holder, t_envvar *env, 
+                          int *counter);
+void ft_replace(t_token *token, t_envvar *env);
+void noquotes(t_token *token, t_envvar *env);
+char *spaced_string(char *line, t_shell *shell, int spaces, int counter_2);
+int count_spaces(char *line);
+int ft_nodescalculation(t_token *token);
+int ft_checkdollarher(char *arg);
+char *retrivevalueher(t_envvar *env,  char *key);
+int foundornother(char *line, t_envvar *env);
+int is_valid_var_char(char c);
+int read_var_name(char *line, int *i, char *holder);
+char  *ft_replaceher(char *line, t_envvar *env);
+char	*noquotesher(char *line, t_envvar *env, int i, int j);
+char	*process_dollar_token(char *line,  char *new_string, int *i,  int *j);
+char	*replace_env_var(t_envvar *env, char *holder, char *new_string);
+char *ft_expandherdoc(char *line, t_envvar *env);
+int	isinornot(const char *arg, int in_quote , int i, int double_quote_count);
+int	norm_3(int in_quotes);
+int	norm_2(int in_quotes);
+int	handle_dollar_sign(char *input, char *new_string, int *i, int *counter);
+int	ft_arcal(t_token *tokens);
+void norm_4(t_token *node);
+void	norm_5(t_token *node);
+int	handle_env_var(char *new_string, char *holder, t_envvar *env, int *counter);
+int	extract_var_name(char *input, char *holder, int *index);
+int	is_alnum_or_underscore(char *str);
 
 
 

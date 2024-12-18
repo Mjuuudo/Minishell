@@ -1,18 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_herdoc.c                                    :+:      :+:    :+:   */
+/*   ft_expande_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 13:41:53 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/18 14:17:50 by abait-ou         ###   ########.fr       */
+/*   Created: 2024/12/18 09:29:36 by abait-ou          #+#    #+#             */
+/*   Updated: 2024/12/18 15:09:58 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/Minishell.h"
+#include "../../Includes/Minishell.h"
 
-int	ft_checkdollarher(char *arg)
+int	isinornot(const char *arg, int in_quote, int i, int double_quote_count)
+{
+	int	single_quote_count;
+
+	single_quote_count = 0;
+	while (arg[i])
+	{
+		if (arg[i] == '"' && in_quote != 1)
+		{
+			in_quote = norm_2(in_quote);
+			double_quote_count++;
+		}
+		else if (arg[i] == '\'' && in_quote != 2)
+		{
+			in_quote = norm_3(in_quote);
+			single_quote_count++;
+		}
+		i++;
+	}
+	if (single_quote_count > double_quote_count)
+		return (1);
+	else if (double_quote_count > single_quote_count)
+		return (2);
+	else
+		return (0);
+}
+
+int	ft_checkdollar(char *arg)
 {
 	int	counter;
 
@@ -28,7 +55,7 @@ int	ft_checkdollarher(char *arg)
 	return (0);
 }
 
-char	*retrivevalueher(t_envvar *env, char *key)
+char	*retrivevalue(t_envvar *env, char *key)
 {
 	char	*value;
 
@@ -44,7 +71,7 @@ char	*retrivevalueher(t_envvar *env, char *key)
 	return (value);
 }
 
-int	foundornother(char *line, t_envvar *env)
+int	foundornot(char *line, t_envvar *env)
 {
 	if (!line || !env)
 		return (0);
@@ -59,18 +86,7 @@ int	foundornother(char *line, t_envvar *env)
 	return (0);
 }
 
-int	is_valid_var_char(char c)
+int	is_valid_var_start(char c)
 {
-	return (ft_isalnum(c) || c == '_');
-}
-
-int	read_var_name(char *line, int *i, char *holder)
-{
-	int	a;
-
-	a = 0;
-	while (line[*i] && is_valid_var_char(line[*i]))
-		holder[a++] = line[(*i)++];
-	holder[a] = '\0';
-	return (a);
+	return (ft_isalpha(c) || c == '_');
 }

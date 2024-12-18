@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 23:37:31 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/19 00:03:27 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void ft_shell_on(t_shell *shell)
 		signal(SIGINT, SIG_IGN);
         if (!line)
 			break ;
-		if (!*line)
+		if (!*line || ft_videornor(line))
 		{
 			free(line);
 			continue ;

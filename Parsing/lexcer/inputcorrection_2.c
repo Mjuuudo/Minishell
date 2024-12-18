@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   inputcorrection_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 11:20:52 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 15:29:17 by abait-ou         ###   ########.fr       */
+/*   Created: 2024/12/18 10:02:38 by abait-ou          #+#    #+#             */
+/*   Updated: 2024/12/18 11:28:48 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/Minishell.h"
+#include "../../Includes/Minishell.h"
 
-int	ft_isalpha(int c)
+int	count_spaces(char *line)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+	int	counter;
+	int	spaces;
+
+	counter = 0;
+	spaces = 0;
+	while (line[counter])
 	{
-		return (1);
+		if (line[counter] == '|' || line[counter] == '<'
+			|| line[counter] == '>')
+			spaces++;
+		if (line[counter] && ((line[counter] == '>' && line[counter + 1] == '>')
+				|| (line[counter] == '<' && line[counter + 1] == '<')))
+			spaces--;
+		counter++;
 	}
-	return (0);
+	return (spaces);
 }

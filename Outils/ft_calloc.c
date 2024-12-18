@@ -12,7 +12,6 @@
 
 #include "../Includes/Minishell.h"
 
-
 static void	ft_bzero(void *dst, size_t n)
 {
 	size_t	compteur;
@@ -27,8 +26,8 @@ static void	ft_bzero(void *dst, size_t n)
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	the_size;
-	void	*ptr;
+	size_t the_size;
+	void *ptr;
 
 	if (nmemb == 0 || size == 0)
 	{

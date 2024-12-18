@@ -18,7 +18,8 @@ SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Err
 				Parsing/redirections/redirections_1.c linked_list/ft_addnodefile.c Outils/ft_strcmp.c Outils/ft_isalnum.c Parsing/quotes_remover/Part_01.c\
 				exec/Make_Path.c exec/Parse.c exec/Tools2.c Redirections/Tools.c \
 				Builtins/echo.c Builtins/cd.c Builtins/pwd.c Builtins/unset.c Builtins/export.c Builtins/exit.c \
-				Builtins/export_sorting.c Builtins/export_append.c Builtins/env.c Outils/ft_realloc.c Parsing/expand_herdoc.c exec/Heredoc.c
+				Builtins/export_sorting.c Builtins/export_append.c Builtins/env.c Parsing/expand_herdoc.c exec/Heredoc.c\
+				Parsing/expand/ft_expande_2.c Parsing/expand/ft_expande_3.c Parsing/lexcer/inputcorrection_2.c Parsing/expand_herdoc_2.c Parsing/expand/ft_expande_4.c\
 
 OBJS	 = $(SRCS:.c=.o)
 
