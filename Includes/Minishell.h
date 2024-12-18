@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/16 23:30:12 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:09:25 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,13 +329,22 @@ int ll_max_check(char *str);
 
 char 	*get_env(char **env, const char *var);
 void 	update_env(char ***env, const char *var, const char *value);
-void 	process_all_heredocs(t_cmd *cmd, t_envvar *envp);
-void 	handle_heredoc_redirections(t_redirection *red, t_cmd *cmd, t_envvar *envp);
+void 	process_all_heredocs(int fd,t_cmd *cmd, t_envvar *envp);
+void 	handle_heredoc_redirections(int fd,t_redirection *red, t_cmd *cmd, t_envvar *envp);
 void 	process_heredoc_input(int fd, char *delimiter, t_envvar *envp);
 void 	heredoc_sigint_handler(int signum);
-int 	set_files(t_cmd *cmd, int index);
+int 	set_files(t_cmd *cmd);
 void	cd_builtin2(char *old_pwd, char *new_pwd, char *path);
+void	reset_redirections(void);
 
+
+int open_file(t_redirection *file, int index);
+bool set_fd(t_redirection *file, int fd);
+bool	execute_builtin(t_cmd *cmd);
+bool set_redirections(t_redirection *file);
+int	execute_cmd(t_cmd *cmd);
+int	execute_with_path(t_cmd *cmd);
+int	execute_without_path(t_cmd *cmd);
 
 
 

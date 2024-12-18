@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/16 23:38:29 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/18 23:37:31 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,16 @@ void	handler(int signum)
 		rl_redisplay();
 	}
 }
+void cleanup_temp_files(void)
+{
+    if (shell.temp_file)
+    {
+        unlink(shell.temp_file); // Remove the temporary file
+        free(shell.temp_file);
+        shell.temp_file = NULL;
+    }
+}
+
 
 void ft_shell_on(t_shell *shell)
 {
@@ -105,7 +115,10 @@ void ft_shell_on(t_shell *shell)
 			// implement_heredoc(shell->cmd, shell->envp);
 			// ft_execution(shell->cmd);
 			if (implement_heredoc(shell->cmd,shell->envp) == 0)
+			{
 				ft_execution(shell->cmd);
+				cleanup_temp_files();
+			}
 			ft_freecmdmain(shell);
 		}
     }
@@ -114,37 +127,35 @@ void ft_shell_on(t_shell *shell)
     free(line);
 }
 
-int set_files(t_cmd *cmd, int index)
-{
-	char *file_name;
-	char *num;
-	int fd;
-
-	file_name = ft_strdup("mont_");
-	num = ft_itoa(index);
-	shell.temp_file = ft_strjoin(file_name, num);
-	free(file_name);
-	free(num);
-	fd = open(shell.temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-		perror("minishell00$");
-	// close(fd);
-	return (fd);
+int set_files(t_cmd *cmd) {
+    char template[] = "mont_XXXXXX"; // Template for mkstemp
+    int fd = mkstemp(template);
+    if (fd == -1) {
+        perror("minishell: Failed to create temporary file");
+        return -1;
+    }
+    shell.temp_file = strdup(template); // Store the file name
+    return fd;
 }
 
-int set_files2(t_cmd *cmd, int index)
-{
-	char *file_name;
-	char *num;
-	int fd;
 
-	file_name = ft_strdup("mont_");
-	num = ft_itoa(index);
-	shell.temp_file = ft_strjoin(file_name, num);
-	free(file_name);
-	free(num);
-	return (fd);
-}
+
+// int set_files2(t_cmd *cmd, int index)
+// {
+// 	char *file_name;
+// 	char *num;
+// 	int fd;
+
+// 	file_name = ft_strdup("lo");
+// 	num = ft_itoa(index);
+// 	shell.temp_file = ft_strjoin(file_name, num);
+// 	printf("shell.temp_file = %s\n", shell.temp_file);
+// 	fd = open(shell.temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+// 	free(file_name);
+// 	free(num);
+// 	close(fd);
+// 	return (fd);
+// }
 
 void heredoc_sigint_handler(int signum)
 {
@@ -155,82 +166,7 @@ void heredoc_sigint_handler(int signum)
 	}
 }
 
-int open_file(t_redirection *file, int index)
-{
-    int fd;
 
-    if (file->identifier == LESS || file->identifier == LLESS)
-    {
-        set_files2(shell.cmd, index);
-        fd = open(shell.temp_file, O_RDONLY, 0644);
-    }
-    else if (file->identifier == GREAT)
-        fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    else if (file->identifier == DGREAT)
-        fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-    else
-        fd = -1;
-
-    if (fd == -1)
-        perror("minishell01$");
-    return fd;
-}
-
-bool set_fd(t_redirection *file, int fd)
-{
-    if (file->identifier == LESS || file->identifier == LLESS)
-    {
-        if (dup2(fd, STDIN_FILENO) == -1)
-        {
-            perror("minishell02$");
-            return false;
-        }
-    }
-    else
-    {
-        if (dup2(fd, STDOUT_FILENO) == -1)
-        {
-            perror("minishell02$");
-            return false;
-        }
-    }
-    return true;
-}
-
-bool set_redirections(t_redirection *file)
-{
-    int fd;
-    int i = 0;
-
-    while (file)
-    {
-        fd = open_file(file, i);
-        if (fd == -1)
-            return false;
-
-        if (!set_fd(file, fd))
-        {
-            close(fd);
-            return false;
-        }
-
-        close(fd);
-        file = file->next;
-        i++;
-    }
-    return true;
-}
-
-
-void	reset_redirections(void)
-{
-	int	fd;
-
-	fd = open("/dev/tty", O_RDWR);
-	dup2(fd, STDIN_FILENO);
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
-}
 
 bool	execute_builtin(t_cmd *cmd)
 {
@@ -259,6 +195,7 @@ int	execute_without_path(t_cmd *cmd)
 {
 	char **args;
 	int i = 0;
+
 	args = parse_and_handle_redirection(&shell);
 	join_order_with_args(cmd, args);
 	execve(cmd->order, args, shell.envholder);
@@ -290,6 +227,8 @@ char 	*making_the_path(t_cmd *cmd)
 {
 	char *path_str = NULL;
 	char **paths = NULL;
+	char *full_path = NULL;
+	int i = 0;
 
 	path_str = find_path(shell.envp);
 	if (path_str == NULL)
@@ -298,7 +237,16 @@ char 	*making_the_path(t_cmd *cmd)
 		return (NULL);
 	}
 	paths = split_path(path_str);
-	return (get_full_path2(paths, cmd));
+	if (paths == NULL)
+		return (NULL);
+	full_path = get_full_path2(paths, cmd);
+	while(paths[i])
+	{
+		free(paths[i]);
+		i++;
+	}
+	free(paths);
+	return (full_path);
 }
 
 void	join_order_with_args(t_cmd *cmd, char **args)
@@ -312,59 +260,49 @@ void	join_order_with_args(t_cmd *cmd, char **args)
 		args[i + 1] = cmd->args[i];
 		i++;
 	}
-	args[i + 1] = NULL;
+	// args[i + 1] = NULL;
 }
 
 int	execute_with_path(t_cmd *cmd)
 {
-	char *path = NULL;
-	char **args = NULL;
+	char	*path = NULL;
+	char *test_path;
+	char	**args = NULL;
+	int 	i = 0;
 
 	path = making_the_path(cmd);
 	if (path == NULL)
 	{
 		fprintf(stderr, "minishell04$: command not found: %s\n", cmd->order);
+		free(path);
 		exit(127);
 	}
+
 	args = parse_and_handle_redirection(&shell);
 	join_order_with_args(cmd, args);
+	// int j = 0;
+	// while(j)
+	// {
+	// 	printf("args[%d] = %s\n", j, args[j]);
+	// 	j++;
+	// }
+	// test_path = "/bin/wc";
 	if (execve(path, args , shell.envholder) == -1)
 	{
 		perror("minishell05$");
-    	free(args);
+    	while(args[i])
+		{
+			free(args[i]);
+			i++;
+		}
+		free(args);
+		free(path);
 		exit(1);
 	}
 	exit(1);
 }
 
-int	execute_cmd(t_cmd *cmd)
-{
-	pid_t	pid;
-	int		status = 0;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		if (!set_redirections(cmd->red))
-			exit(1);
-		if (!execute_builtin(cmd))
-		{
-			if (ft_strchr('/', cmd->order))
-				execute_without_path(cmd);
-			else
-				execute_with_path(cmd);
-		}
-	}
-	signal(SIGINT, SIG_IGN);
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		status = WTERMSIG(status) + 128;
-	signal(SIGINT, SIG_IGN);
-	return (0);
-}
 
 int ft_execute(t_cmd *cmd)
 {
@@ -384,6 +322,8 @@ int	first_child(t_cmd *cmd, int *fd)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		execute_cmd(cmd);
+		// ft_freeenv(shell.envp);
+		// ft_freeenvholder(shell.envholder);
 		exit(1);
 	}
 	return (pid);
@@ -400,6 +340,8 @@ int	second_child(t_cmd *cmd, int *fd)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		ft_execution(cmd);
+		// ft_freeenv(shell.envp);
+		// ft_freeenvholder(shell.envholder);
 		exit(1);
 	}
 	return (pid);
@@ -429,8 +371,12 @@ int	execute_pipe(t_cmd *cmd)
 int ft_execution(t_cmd *cmd)
 {
 	if (cmd->next)
+	{
 		execute_pipe(cmd);
+	}
 	else
+	{
 		ft_execute(cmd);
+	}
 	return (0);
 }

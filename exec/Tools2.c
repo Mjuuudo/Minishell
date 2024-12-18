@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 12:02:15 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/16 23:44:55 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/18 09:35:50 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char	**split_path3(char **paths, char *path_copy)
 			}
 			free(paths);
 			free(path_copy);
+			return(NULL);
 		}
 		index++;
 		current = ft_strtok(NULL, ':');
