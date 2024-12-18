@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 12:02:15 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/16 12:20:02 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/16 23:44:55 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	**split_path(char *path_string)
 	char	**paths = NULL;
 	char	*path_copy = NULL;
 
-	counter = 1;
+	counter = 0;
 	temp = path_string;
 	counter = counte_temp(temp);
 	// printf("couter = %d\n", counter);

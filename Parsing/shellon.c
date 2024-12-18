@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellon.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/17 16:12:19 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/16 23:38:29 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,6 @@ void	handler(int signum)
 	}
 }
 
-static int  videornot(char *line)
-{
-	int counter;
-
-	counter = 0;
-	if (!line)
-		return (1);
-	while (ft_ispace(line[counter]))
-		counter++;
-	if (line[counter] == '\0')
-		return (1);
-	return (0);
-}
-
 void ft_shell_on(t_shell *shell)
 {
     char *line;
@@ -105,7 +91,7 @@ void ft_shell_on(t_shell *shell)
 		signal(SIGINT, SIG_IGN);
         if (!line)
 			break ;
-		if (!*line || videornot(line))
+		if (!*line)
 		{
 			free(line);
 			continue ;
@@ -326,16 +312,13 @@ void	join_order_with_args(t_cmd *cmd, char **args)
 		args[i + 1] = cmd->args[i];
 		i++;
 	}
-	// args[i + 1] = NULL;
+	args[i + 1] = NULL;
 }
 
 int	execute_with_path(t_cmd *cmd)
 {
 	char *path = NULL;
 	char **args = NULL;
-	char *test_path = "/bin/ls";
-	char *test_args[] = { "ls", "-l", NULL };
-
 
 	path = making_the_path(cmd);
 	if (path == NULL)
@@ -345,7 +328,7 @@ int	execute_with_path(t_cmd *cmd)
 	}
 	args = parse_and_handle_redirection(&shell);
 	join_order_with_args(cmd, args);
-	if (execve(path, args - 1, shell.envholder) == -1)
+	if (execve(path, args , shell.envholder) == -1)
 	{
 		perror("minishell05$");
     	free(args);

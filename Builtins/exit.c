@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:19:02 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/16 12:37:13 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:24:49 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	exit_builtin(t_cmd *cmd)
 
 	if (cmd->args[0] == NULL)
 	{
-		printf("exit\n");
+		(printf("exit\n"), ft_freecmdmain(&shell));
+		(ft_freeenv(shell.envp), ft_freeenvholder(shell.envholder));
 		exit(0);
 	}
 	if (!is_valid_number(cmd->args[0]))
@@ -106,7 +107,8 @@ int	exit_builtin(t_cmd *cmd)
 	else
 		exit_status = shell.exit;
 	shell.exit = normalize_exit_status(exit_status);
-	exit(shell.exit);
+	(ft_freeenv(shell.envp), ft_freeenvholder(shell.envholder));
+	(ft_freecmdmain(&shell), exit(shell.exit));
 }
 
 int	ll_max_check(char *str)
