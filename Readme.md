@@ -36,19 +36,4 @@ Parsing Function :
         ft_spacedstring() -> this function Makes a spaced string and retuns it 
         ft_quotes() -> this fucntion check if The char given is in double or single
             quote or not
-
-
-
-
-=============================================================errors======================================
-< dd 
-change the message 
-shlvl
-exit status 
-env -i  (protected from segfault)
-expand herdoc
-
-
-
-
         

@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 10:01:12 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/11 09:31:11 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:29:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	find_env_var_appending(t_envvar *env_list, char *str)
 {
 	char	*plus_pos;
-	char 	*new_str;
+	char	*new_str;
 	size_t	key_length;
 
 	plus_pos = strchr(str, '+');
@@ -38,15 +38,15 @@ bool	find_env_var_appending(t_envvar *env_list, char *str)
 	return (false);
 }
 
-
 int	update_the_env_var_appending(t_envvar *env_list, char *str)
 {
 	char	*equal_pos;
 	char	*plus_pos;
-	size_t	key_lenght = 0;
-	char *new_str;
-	char *old_value;
+	size_t	key_lenght;
+	char	*new_str;
+	char	*old_value;
 
+	key_lenght = 0;
 	equal_pos = strchr(str, '=');
 	plus_pos = strchr(str, '+');
 	if (!equal_pos || !plus_pos)
@@ -153,24 +153,17 @@ char	*join2(char const *s1, char const *s2)
 	size_t	len2;
 	char	*ptr;
 
-	// If both are NULL, return NULL
 	if (!s1 && !s2)
 		return (NULL);
-
-	// If s1 is NULL, duplicate s2
 	if (!s1)
 		return (strdup(s2));
-
-	// If s2 is NULL, duplicate s1
 	if (!s2)
 		return (strdup(s1));
-
 	len1 = strlen(s1);
 	len2 = strlen(s2);
 	ptr = malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!ptr)
 		return (NULL);
-
 	strcpy(ptr, s1);
 	strcat(ptr, s2);
 	return (ptr);

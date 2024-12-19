@@ -1,0 +1,158 @@
+
+
+
+
+
+
+//flags dyal fds rekia
+
+
+
+
+
+
+======================================done==================================
+//TODO unseting the env -i. DONE in 4.0.
+
+<< sig fualt
+
+//heredoc signals
+
+//TODO fix when you make a folder inside other one and the you delete the first the bash cd is working yours not there pwd is working me now.
+========> pwd works
+========> cd .. not
+========> cd works
+
+//exit big number. done (only need to print that number in the error).
+
+//Try ctrl-\ after running a blocking command like cat.
+
+//exit segf.
+============================================================================
+
+
+===============================his to handle================================
+
+============================================================================
+
+=================================to be handle===============================
+//exit 1 | exit 2 | exit 3
+
+//hide the PATH in env -i.
+
+//fix echo $_
+
+//TODO try to fix the incrementation of the shelvl.
+
+//TODO unset PWD from env -i.
+
+//TODO cat well always over lap for the file.
+
+//TODO env liste $_ do  not get updated
+============================================================================
+
+
+
+//look back at this input minishell: ''.
+
+//this one
+Blackhole_Lover's@Minis(hell):~$ ""
+here
+Blackhole_Lover's@Minis(hell):~$ ''
+here
+Blackhole_Lover's@Minis(hell):~$ cd ""
+path:
+cd: chdir error: No such file or directory
+Blackhole_Lover's@Minis(hell):~$ cd ''
+path:
+cd: chdir error: No such file or directory
+Blackhole_Lover's@Minis(hell):~$ cd "'"
+path: '
+cd: chdir error: No such file or directory
+Blackhole_Lover's@Minis(hell):~$ "'"
+here
+minishell04$: command not found: '
+Blackhole_Lover's@Minis(hell):~$
+
+
+
+
+
+
+
+
+
+
+
+
+
+===============================================memory error test============================================
+valgrind --leak-check=full --track-origins=yes ./minishell
+# Inside minishell:
+nonexistent_command
+/bin/nonexistent
+echo "Test" | nonexistent_command
+exit
+
+valgrind --leak-check=full --track-origins=yes ./minishell
+# Inside minishell:
+echo "Hello, Pipe!" | grep Hello
+ls | wc -l
+cat Makefile | grep all | wc -l
+exit
+=============================================================================================================
+
+
+echo nonsense | ls
+
+cat << EOF
+Hello, World!
+EOF
+
+cat << EOF
+EOF
+
+cat << EOF
+Line 1
+Line 2
+Line 3
+EOF
+
+
+cat << EOF | cat
+Hello
+EOF
+
+cat << A << B
+Content A
+A
+Content B
+B
+
+
+cat << EOF > output.txt
+This will go to a file
+EOF
+cat output.txt
+
+
+grep 'pattern' << EOF
+pattern found
+no match
+EOF
+
+cat << EOF
+<Paste many lines>
+EOF
+
+cat << EOF
+^C
+
+cat << "EOF"
+$USER
+EOF
+
+
+=============================================================================================================
+
+

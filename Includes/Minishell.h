@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/19 00:03:17 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:16:16 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ struct							s_shell
 {
 	int							shell_level;
 	int							exit;
+	int							env_flag;
 	char						**envholder;
 	t_commands					commande;
 	t_token						*tokens;
@@ -175,6 +176,10 @@ int								ft_isredornot(char *tab);
 
 
 
+
+
+
+int redcalcu(t_token *tokens);
 int ft_videornor(char *line);
 int redcalcu(t_token *tokens);
 void ft_morethan2(t_token *node, t_shell *shell, int counter);
@@ -186,7 +191,7 @@ int foundornot(char *line, t_envvar *env);
 int is_valid_var_start(char c);
 int is_alnum_or_underscore(char *str);
 int extract_var_name(char *input, char *holder, int *index);
-int handle_env_var(char *new_string, char *holder, t_envvar *env, 
+int handle_env_var(char *new_string, char *holder, t_envvar *env,
                           int *counter);
 void ft_replace(t_token *token, t_envvar *env);
 void noquotes(t_token *token, t_envvar *env);
@@ -213,6 +218,7 @@ void	norm_5(t_token *node);
 int	handle_env_var(char *new_string, char *holder, t_envvar *env, int *counter);
 int	extract_var_name(char *input, char *holder, int *index);
 int	is_alnum_or_underscore(char *str);
+void ft_exitstatus(char *line, int *i, char *new_string);
 
 
 
@@ -337,49 +343,44 @@ int	is_alnum_or_underscore(char *str);
 // ^(SELLON.C file)
 // */
 
-// void	handler(int signum);
-// int 	set_files(t_cmd *cmd, int index);
-// int 	set_files2(t_cmd *cmd, int index);
-int 	implement_heredoc(t_cmd *cmd, t_envvar *envp);
-// bool	set_redirections(t_redirection *file);
-// void	reset_redirections(void);
-// bool	execute_builtin(t_cmd *cmd);
-// int		execute_without_path(t_cmd *cmd);
-// char 	*get_full_path2(char **paths, t_cmd *cmd);
-// char 	*making_the_path(t_cmd *cmd);
+void	handler(int signum);
+int 	set_files(t_cmd *cmd, int index);
+int 	set_files2(t_cmd *cmd, int index);
+int 	implement_heredoc(t_cmd *cmd);
+bool	set_redirections(t_redirection *file);
+void	reset_redirections(void);
+bool	execute_builtin(t_cmd *cmd);
+int		execute_without_path(t_cmd *cmd);
+char 	*get_full_path2(char **paths, t_cmd *cmd);
+char 	*making_the_path(t_cmd *cmd);
 void	join_order_with_args(t_cmd *cmd, char **args);
-// int		execute_with_path(t_cmd *cmd);
-// int		execute_cmd(t_cmd *cmd);
-// int 	ft_execute(t_cmd *cmd);
+int		execute_with_path(t_cmd *cmd);
+int		execute_cmd(t_cmd *cmd);
+int 	ft_execute(t_cmd *cmd);
 // int		second_child(t_cmd *cmd, int *fd);
 // int		first_child(t_cmd *cmd, int *fd);
-// int		execute_pipe(t_cmd *cmd);
+int		execute_pipe(t_cmd *cmd);
 int		ft_execution(t_cmd *cmd);
 // char	**parse_and_handle_redirection(t_shell *shell);
 // int		count_commands_anf_flags(t_shell *shell);
 // char	**copy_command_and_flags(t_shell *shell, char **only_args);
-int ll_max_check(char *str);
 
+void		updating_shlvl(t_envvar *env_list);
+void 		edit_env(t_envvar *env_list, char *key, char *value);
+t_envvar 	*find_env(t_envvar *env_list, char *str);
+char 		**rebuild_envp(t_envvar *env_list);
+int 		count_heredoc(t_cmd *cmd);
+char 		*get_env(char **env, const char *var);
+void 		heredoc_sigint_handler(int signum);
+void 		update_env(char ***env, const char *var, const char *value);
+void 		cd_builtin2(char *old_pwd, char *new_pwd, char *path);
+int 		implement_heredoc(t_cmd *cmd);
+void		handle_parent_process(pid_t pid);
+void		setup_child_signals(void);
 
 
-char 	*get_env(char **env, const char *var);
-void 	update_env(char ***env, const char *var, const char *value);
-void 	process_all_heredocs(int fd,t_cmd *cmd, t_envvar *envp);
-void 	handle_heredoc_redirections(int fd,t_redirection *red, t_cmd *cmd, t_envvar *envp);
-void 	process_heredoc_input(int fd, char *delimiter, t_envvar *envp);
-void 	heredoc_sigint_handler(int signum);
-int 	set_files(t_cmd *cmd);
-void	cd_builtin2(char *old_pwd, char *new_pwd, char *path);
-void	reset_redirections(void);
 
 
-int open_file(t_redirection *file, int index);
-bool set_fd(t_redirection *file, int fd);
-bool	execute_builtin(t_cmd *cmd);
-bool set_redirections(t_redirection *file);
-int	execute_cmd(t_cmd *cmd);
-int	execute_with_path(t_cmd *cmd);
-int	execute_without_path(t_cmd *cmd);
 
 
 
@@ -612,12 +613,10 @@ int	execute_without_path(t_cmd *cmd);
 
 
 
-
-
-
-
-
-
+int				ft_atoi(const char *nptr);
+int				ft_isdigit(int c);
+long long int 	ft_atoll(const char *str);
+int 			ll_max_check(char *str);
 
 
 /*
@@ -632,6 +631,8 @@ size_t	ft_str_lcpy(char *dst, const char *src, size_t dstsize);
 int		appending_env_var(t_envvar *env_list, char *str);
 char	*join2(char const *s1, char const *s2);
 void 	execute_shell_commands(t_shell *shell);
+char	*ft_itoa(int n);
+int	ft_count_len(int n);
 
 /*
 ! Builtins file commands prototypes
@@ -652,8 +653,6 @@ int 	exit_builtin(t_cmd *cmd);
 ^(run_minishell.c file and execute_command.c file)
 */
 
-void				execute_command(t_shell *shell, char *order);
-void 				execute_command3(char *full_path, t_shell *shell);
 char				*join_path(const char *base, const char *command);
 char				*get_full_path(char **paths, t_cmd *cmd);
 void				check_command_access2(char **paths, t_shell *shell, t_cmd *cmd);
@@ -678,8 +677,7 @@ void    			run_simplecmd(t_shell *shell,t_envvar *envp,char **av);
 void				pid_is_0(char *input_file, char *cmd, t_envvar *envp, t_shell *shell);
 void				execute_command_with_heredoc(char *input_file, char *cmd,
 					t_envvar *envp, t_shell *shell);
-// void				process_heredoc_input(char *delimiter, char *filename);
-int 				count_heredoc(t_cmd *current);
+void				process_heredoc_input(char *delimiter, char *filename);
 void	heredoc_inplementation_0(int heredoc_counter, t_cmd *current,
 		t_shell *shell, char **heredoc_files);
 void	heredoc_inplementation(int heredoc_counter, t_cmd *current,
@@ -739,8 +737,8 @@ int			execute_redirections(t_shell *shell);
 ^(redirects2.c file)
 */
 int	handle_single_redirections2(t_redirection *current);
-int	open_output_file(char *file, t_types identifier);
-int	open_input_file(char *file);
+// int	open_output_file(char *file, t_types identifier);
+// int	open_input_file(char *file);
 
 
 #endif

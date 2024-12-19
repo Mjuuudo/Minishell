@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_herdoc_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:12:14 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 14:51:41 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:15:51 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*process_dollar_token(char *line, char *new_string, int *i, int *j)
 			*j = 0;
 		}
 	}
+	else if(line[*i] == '?')
+		ft_exitstatus(line, i, new_string);
 	else
 	{
 		new_string[shell.counter++] = '$';

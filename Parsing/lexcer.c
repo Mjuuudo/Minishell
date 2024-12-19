@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 14:53:27 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:16:00 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,17 @@ void	ft_cmdhandler(char *line, t_shell *shell)
 		ft_parser(shell);
 		ft_freefirstcmd(shell);
 	}
+}
+
+void ft_exitstatus(char *line, int *i, char *new_string)
+{
+	char	*status;
+	int		j;
+
+	status = ft_itoa(shell.exit);
+	j = 0;
+	while (status[j])
+		new_string[shell.counter++] = status[j++];
+	free(status);
+	(*i)++;
 }

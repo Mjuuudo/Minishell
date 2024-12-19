@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:33:31 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/16 13:32:40 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:50:26 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ void	cd_builtin2(char *old_pwd, char *new_pwd, char *path)
 			print_it_norm2(path);
 			return ;
 		}
-		free(new_pwd);
 	}
 	new_pwd = getcwd(NULL, 0);
 	if (new_pwd)
@@ -166,10 +165,3 @@ void	cd_builtin2(char *old_pwd, char *new_pwd, char *path)
 	update_env(&(shell.envholder), "OLDPWD", old_pwd);
 	shell.exit = 0;
 }
-
-// valgrind --leak-check=full --track-origins=yes ./minishell
-// # Inside minishell:
-// echo "Hello, Pipe!" | grep Hello
-// ls | wc -l
-// cat Makefile | grep all | wc -l
-// exit

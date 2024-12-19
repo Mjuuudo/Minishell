@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:20:56 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 15:49:40 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:51:40 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,42 @@ t_token	*ft_nodecmdinit(t_cmd **node, t_token *token, int counter, int length)
 	(*node)->red2 = (char **)malloc(sizeof(char *) * (redcalcu(token) + 2));
 	while (token)
 	{
+
 		if (token->type == PIPE)
 		{
 			token = token->next;
 			break ;
 		}
 		else if (!token->prev || (token->prev->type == PIPE && token))
-			((*node)->order = ft_strdup(token->cmd), token = token->next);
+		{
+				if (!ft_strcmp(token->cmd, "$?"))
+				{
+					(*node)->order = ft_itoa(shell.exit);
+					token = token->next;
+					continue ;
+				}
+				(*node)->order = ft_strdup(token->cmd);
+				 token = token->next;
+		}
 		else if ((token->type == GREAT || token->type == DGREAT
 				|| token->type == LESS || token->type == LLESS)
 			|| (token->prev->type == GREAT || token->prev->type == DGREAT
 				|| token->prev->type == LESS || token->prev->type == LLESS))
-			((*node)->red2[counter++] = ft_strdup(token->cmd),
-				token = token->next);
+		{
+			(*node)->red2[counter++] = ft_strdup(token->cmd);
+				token = token->next;
+		}
 		else if (token->prev || token->prev->type != PIPE)
-			((*node)->args[length++] = ft_strdup(token->cmd),
-				token = token->next);
+		{
+			if (!ft_strcmp(token->cmd, "$?"))
+			{
+					(*node)->args[length++] = ft_itoa(shell.exit);
+					token = token->next;
+					continue ;
+			}
+			(*node)->args[length++] = ft_strdup(token->cmd),
+			token = token->next;
+		}
 	}
 	(*node)->args[length] = NULL;
 	(*node)->red2[counter] = NULL;

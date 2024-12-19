@@ -6,13 +6,11 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 10:19:38 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/14 17:15:00 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:12:42 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../Includes/Minishell.h"
-
-
+#include "../Includes/Minishell.h"
 
 // +---------------------+
 // |                     |  <-- Buffer Pointer (buffer)
@@ -32,21 +30,21 @@
 // |                     |
 // +---------------------+
 
-
-int pwd_builtin(t_cmd *cmd)
+int	pwd_builtin(t_cmd *cmd)
 {
-	char *cwd = NULL;
+	char	*cwd;
 
+	cwd = NULL;
 	(void)cmd;
 	cwd = getcwd(NULL, 0);
- 	if (!cwd)
+	if (!cwd)
 	{
 		cwd = get_env(shell.envholder, "PWD");
 		if (!cwd)
 		{
 			perror("pwd: error retrieving current directory");
-			return 1;
- 		}
+			return (1);
+		}
 		printf("%s\n", cwd);
 	}
 	else
@@ -55,5 +53,5 @@ int pwd_builtin(t_cmd *cmd)
 		update_env(&(shell.envholder), "PWD", cwd);
 		free(cwd);
 	}
-	return 0;
+	return (0);
 }

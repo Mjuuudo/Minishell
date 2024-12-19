@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:47:21 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/13 11:35:26 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:12:23 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,35 +46,48 @@ static bool	is_there_n_falg(char *arg)
 	return (true);
 }
 
+bool	parse_n_flag(char **args, int *index)
+{
+	bool	the_n_flag;
+
+	the_n_flag = false;
+	while (args[*index] && is_there_n_falg(args[*index]))
+	{
+		the_n_flag = true;
+		(*index)++;
+	}
+	return (the_n_flag);
+}
+
+void	print_arguments(char **args, int index)
+{
+	while (args[index])
+	{
+		ft_putstr_flag(args[index], false);
+		if (args[index + 1])
+			write(1, " ", 1);
+		index++;
+	}
+}
+
 int	echo_builtin(t_cmd *cmd)
 {
 	int		i;
 	bool	the_n_flag;
 	char	**args;
+	char	exit_status_str[12];
 
 	i = 0;
-	the_n_flag = false;
 	args = cmd->args;
-	if (cmd->args[0])
-	{
-		char exit_status_str[12];
-		sprintf(exit_status_str, "%d", shell.exit);
-		ft_putstr_flag(exit_status_str, false);
-	}
-	while (args[i] && is_there_n_falg(args[i]))
-	{
-		the_n_flag = true;
-		i++;
-	}
-	while (args[i])
-	{
-		ft_putstr_flag(args[i], false);
-		if (args[i + 1])
-			write(1, " ", 1);
-		i++;
-	}
+	// if (cmd->args[0])
+	// {
+	// 	sprintf(exit_status_str, "%d", shell.exit);
+	// 	ft_putstr_flag(exit_status_str, false);
+	// }
+	the_n_flag = parse_n_flag(args, &i);
+	print_arguments(args, i);
 	if (!the_n_flag)
 		write(1, "\n", 1);
+	shell.exit = 0;
 	return (0);
 }
-
