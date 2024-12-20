@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:13:21 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 14:32:23 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:08:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ int	execute_without_path(t_cmd *cmd)
 	int		i;
 
 	i = 0;
-	args = parse_and_handle_redirection(&shell);
-	join_order_with_args(cmd, args);
+	// args = parse_and_handle_redirection(&shell);
+	// join_order_with_args(cmd, args);
+	args = construct_args(cmd);
 	if (access(cmd->order, F_OK) != 0)
 	{
 		fprintf(stderr, "minishell$: %s: No such file or directory\n",
@@ -90,78 +91,38 @@ int execute_with_path(t_cmd *cmd)
 	char	*path;
 	char	**args;
 
-
 	check_order0(cmd);
 	path = making_the_path(cmd);
+	// path = NULL;  //TODO.
 	if (path == NULL)
 	{
 		fprintf(stderr, "minishell04$: command not found: %s\n", cmd->order);
+		ft_freeenv(shell.envp);
+		ft_freeenvholder(shell.envholder);
+		ft_freecmdmain(&shell);
 		exit(127);
 	}
-
-	args = parse_and_handle_redirection(&shell);
-	join_order_with_args(cmd, args);
-
+	// args = parse_and_handle_redirection(&shell);
+	// join_order_with_args(cmd, args);
+	args = construct_args(cmd);
 	if (execve(path, args, shell.envholder) == -1)
 	{
-		perror("minishell05$");
+		perror("execve failed");
+		free(path);
+		for (int i = 0; args[i] != NULL; i++)
+			free(args[i]);
+		free(args);
+		// ft_freeenv(shell.envp);
+		// ft_freeenvholder(shell.envholder);
 		exit(1);
- 	}
+	}
 	exit(1);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// void	check_order0(t_cmd *cmd)
-// {
-// 	if (cmd->order[0])
-// 	{
-// 		if (cmd->order[0] == '>' || cmd->order[0] == '<' || cmd->order[0] == '<<' || cmd->order[0] == '>>')
-// 			exit(1);
-// 	}
-// }
-
-// int	execute_with_path(t_cmd *cmd)
-// {
-// 	char	*path;
-// 	char	**args;
-
-// 	path = making_the_path(cmd);
-// 	if (path == NULL)
-// 	{
-// 		fprintf(stderr, "minishell04$: command not found: %s\n", cmd->order);
-// 		exit(127);
-// 	}
-// 	args = parse_and_handle_redirection(&shell);
-// 	join_order_with_args(cmd, args);
-// 	// if (cmd->order[0])
-// 	// {
-
-// 	// 	exit(0);
-// 	// }
-// 	check_order0(cmd);
-// 	if (execve(path, args, shell.envholder) == -1)
-// 	{
-// 		perror("minishell05$");
-// 		exit(1);
-// 	}
-// 	exit(1);
-// }
+void cleanup_and_exit(int status)
+{
+	ft_freeenv(shell.envp);
+	ft_freeenvholder(shell.envholder);
+	ft_freecmdmain(&shell);
+	exit(status);
+}

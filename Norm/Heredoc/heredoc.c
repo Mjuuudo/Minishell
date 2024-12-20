@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:16:53 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 10:16:47 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:30:38 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	count_heredoc(t_cmd *cmd)
 		current = current->next;
 	}
 	if (heredoc_counter > 16)
-		printf("minishell$: maximum here-document count exceded");
+		printf("minishell$: maximum here-document count exceded\n");
 	return (heredoc_counter);
 }
 
@@ -99,9 +99,14 @@ int	implement_heredoc(t_cmd *cmd)
 {
 	int	pid;
 	int	status;
+	int	count;
 
+	count = count_heredoc(cmd);
 	status = -1;
-	count_heredoc(cmd);
+	if (count > 16)
+		exit(2);
+	else if (count == 0)
+		return (0);
 	pid = fork();
 	if (pid == 0)
 		handle_child_process(cmd);

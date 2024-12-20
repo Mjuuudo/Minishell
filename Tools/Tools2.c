@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 12:02:15 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 10:26:06 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 11:33:24 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_putstr_fd(char *s, int fd)
 char	*ft_strtok(char *string, char c)
 {
 	static char	*last_pos = NULL;
-	char		*start;
+	char		*start = NULL;
 
 	if (string != NULL)
 		last_pos = string;

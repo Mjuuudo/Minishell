@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:50:34 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/19 14:42:42 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:09:28 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,15 @@ static void display_cmd(t_shell *shell)
 
 void ft_shell_on(t_shell *shell)
 {
-    char *line;
-    int i = 0;
+	char *line;
+	int i = 0;
 	signal(SIGQUIT, SIG_IGN);
-    while (true)
-    {
+	while (true)
+	{
 		signal(SIGINT, handler);
-        line = readline("Blackhole_Lover's@Minis(hell):~$ ");
+		line = readline("Blackhole_Lover's@Minis(hell):~$ ");
 		signal(SIGINT, SIG_IGN);
-        if (!line)
+		if (!line)
 			break ;
 		if (!*line || ft_videornor(line))
 		{
@@ -93,13 +93,14 @@ void ft_shell_on(t_shell *shell)
 			ft_cmdhandler(line, shell);
 			// display_cmd(shell);
 			// if counter dyal l heredoc > 0
+
 			implement_heredoc(shell->cmd);
 			ft_execution(shell->cmd);
 		}
 		ft_freecmdmain(shell);
-    }
-    printf("exit\n");
-    free(line);
+	}
+	printf("exit\n");
+	free(line);
 }
 
 // bool	set_redirections(t_redirection *file)

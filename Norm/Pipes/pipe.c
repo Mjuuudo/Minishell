@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 09:54:40 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 09:55:11 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:35:02 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 int	first_child(t_cmd *cmd, int *fd)
 {
 	int	pid;
-
+	
 	pid = fork();
 	if (pid == 0)
 	{
+		// printf("first child pid %d\n",getpid);
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
@@ -35,6 +36,7 @@ int	second_child(t_cmd *cmd, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
+		// printf("second child pid %d\n",getpid);
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);

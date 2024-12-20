@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:38:04 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 10:09:54 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 11:32:36 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	counte_temp(char *temp)
 
 char	**split_path(char *path_string)
 {
-	int		counter;
-	char	*temp;
-	char	**paths;
-	char	*path_copy;
+	int		counter = 0;
+	char	*temp = NULL;
+	char	**paths = NULL;
+	char	*path_copy = NULL;
 
 	counter = 1;
 	temp = path_string;
@@ -45,7 +45,12 @@ char	**split_path(char *path_string)
 		free(paths);
 		return (NULL);
 	}
-	paths = split_path3(paths, path_copy);
+	if (!split_path3(paths, path_copy))
+	{
+		free(path_copy);
+		free(paths);
+		return (NULL);
+	}
 	return (paths);
 }
 
@@ -64,7 +69,13 @@ char	*making_the_path(t_cmd *cmd)
 {
 	char	*path_str;
 	char	**paths;
+	char	*result;
+	int		i;
 
+	i = 0;
+	path_str = NULL;
+	paths = NULL;
+	result = NULL;
 	path_str = find_path(shell.envp);
 	if (path_str == NULL)
 	{
@@ -72,5 +83,14 @@ char	*making_the_path(t_cmd *cmd)
 		return (NULL);
 	}
 	paths = split_path(path_str);
-	return (get_full_path2(paths, cmd));
+	if(paths == NULL)
+		return (NULL);
+	result = get_full_path2(paths, cmd);
+	while(paths[i])
+	{
+		free(paths[i]);
+		i++;
+	}
+	free(paths);
+	return (result);
 }
