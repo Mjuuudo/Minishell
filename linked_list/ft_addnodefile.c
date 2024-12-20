@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodefile.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:47:27 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/18 15:27:12 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:48:21 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	*ft_addnodefile(char *option, char *file, t_redirection **liste)
 	t_redirection	*node;
 	t_redirection	*last_node;
 
-	node = malloc(sizeof(t_redirection));
+	// node = malloc(sizeof(t_redirection));
+	node = ft_malloc(sizeof(t_redirection), 'm');
 	if (!node)
 		return (NULL);
 	node->next = NULL;

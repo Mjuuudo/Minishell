@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:29:37 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/16 09:34:40 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:35:21 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_envvar	*create_env_node(char *key, char *value, int is_exported)
 {
 	t_envvar	*new;
 
-	new = (t_envvar *)malloc(sizeof(t_envvar));
+	// new = (t_envvar *)malloc(sizeof(t_envvar));
+	new = ft_malloc(sizeof(t_envvar), 'm');
 	if (!new)
 		return (NULL);
 	new->key = key;

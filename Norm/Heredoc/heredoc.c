@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:16:53 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 23:30:38 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:32:13 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static void	handle_child_process(t_cmd *cmd)
 		process_heredoc(temp, cmd);
 		current = current->next;
 	}
+	ft_malloc(0, 'f');
 	exit(0);
 }
 
@@ -104,7 +105,10 @@ int	implement_heredoc(t_cmd *cmd)
 	count = count_heredoc(cmd);
 	status = -1;
 	if (count > 16)
+	{
+		ft_malloc(0, 'f');
 		exit(2);
+	}
 	else if (count == 0)
 		return (0);
 	pid = fork();

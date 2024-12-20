@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:45:28 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/15 21:11:58 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:36:24 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,8 @@ int	add_to_env_var(t_envvar *env_list, char *str)
 		key_lenght = (size_t)(equal_pos - str);
 	while (env_list && env_list->next)
 		env_list = env_list->next;
-	env_list->next = malloc(sizeof(t_envvar));
+	// env_list->next = malloc(sizeof(t_envvar));
+	env_list->next = ft_malloc(sizeof(t_envvar), 'm');
 	// TODO HANDLE LEAKS
 	env_list->next->next = NULL;
 	env_list->next->prev = env_list;

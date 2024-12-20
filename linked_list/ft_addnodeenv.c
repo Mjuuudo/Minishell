@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodeenv.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 20:27:57 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 15:20:09 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:48:04 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_initnodeenv(t_envvar *node, char *value)
 	start = 0;
 	while (value[counter] && value[counter] != '=' && value[counter] != '\n')
 		counter++;
-	node->key = malloc(sizeof(char) * (counter + 1));
+	// node->key = malloc(sizeof(char) * (counter + 1));
+	node->key = ft_malloc(sizeof(char) * (counter + 1), 'm');
 	if (!node->key)
 		return ;
 	ft_strncpy(node->key, value, counter);
@@ -29,7 +30,8 @@ void	ft_initnodeenv(t_envvar *node, char *value)
 	start = counter;
 	while (value[counter] && value[counter != '\n'])
 		counter++;
-	node->value = malloc(sizeof(char) * (counter - start + 1));
+	// node->value = malloc(sizeof(char) * (counter - start + 1));
+	node->value = ft_malloc(sizeof(char) * (counter - start + 1), 'm');
 	if (!node->value)
 		return ;
 	ft_strncpy(node->value, value + start, counter - start);
@@ -53,7 +55,8 @@ void	ft_addnodeenv(t_envvar **list, char *value)
 	t_envvar	*last_node;
 
 	if (value)
-		node = malloc(sizeof(t_envvar));
+		// node = malloc(sizeof(t_envvar));
+		node = ft_malloc(sizeof(t_envvar), 'm');
 	if (!node)
 		return ;
 	node->next = NULL;

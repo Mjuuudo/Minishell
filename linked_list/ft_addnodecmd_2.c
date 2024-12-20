@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:20:56 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/19 12:51:40 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:44:56 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ int	redcalcu(t_token *tokens)
 
 t_token	*ft_nodecmdinit(t_cmd **node, t_token *token, int counter, int length)
 {
-	(*node)->args = (char **)malloc(sizeof(char *) * (ft_arcal(token) + 2));
-	(*node)->red2 = (char **)malloc(sizeof(char *) * (redcalcu(token) + 2));
+	// (*node)->args = (char **)malloc(sizeof(char *) * (ft_arcal(token) + 2));
+	(*node)->args = (char **)ft_malloc(sizeof(char *) * (ft_arcal(token) + 2), 'm');
+	// (*node)->red2 = (char **)malloc(sizeof(char *) * (redcalcu(token) + 2));
+	(*node)->red2 = (char **)ft_malloc(sizeof(char *) * (redcalcu(token) + 2), 'm');
 	while (token)
 	{
 
@@ -104,7 +106,8 @@ t_token	*ft_addnodecmd(t_shell *shell, t_token *token)
 	t_cmd	*node;
 	t_cmd	*last_node;
 
-	node = malloc(sizeof(t_cmd));
+	// node = malloc(sizeof(t_cmd));
+	node = ft_malloc(sizeof(t_cmd), 'm');
 	if (!node)
 		return (NULL);
 	node->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:33:31 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/15 17:50:26 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:35:05 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	update_existing_env_entry(char ***env, const char *var,
 	if (strncmp((*env)[i], var, var_len) == 0 && (*env)[i][var_len] == '=')
 	{
 		free((*env)[i]);
-		(*env)[i] = malloc(strlen(var) + strlen(value) + 2);
+		// (*env)[i] = malloc(strlen(var) + strlen(value) + 2);
+		(*env)[i] = ft_malloc(0, 'm');
 		if (!(*env)[i])
 		{
 			perror("malloc error");
@@ -43,7 +44,8 @@ void	update_env(char ***env, const char *var, const char *value)
 		update_existing_env_entry(env, var, value, i);
 		i++;
 	}
-	new_entry = malloc(strlen(var) + strlen(value) + 2);
+	// new_entry = malloc(strlen(var) + strlen(value) + 2);
+	new_entry = ft_malloc(0, 'm');
 	if (!new_entry)
 	{
 		perror("malloc error");

@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 10:01:12 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/15 18:29:44 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:36:05 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int	add_to_env_var_appending(t_envvar *env_list, char *str)
 	key_lenght = (size_t)(plus_pos - str);
 	while (env_list && env_list->next)
 		env_list = env_list->next;
-	env_list->next = malloc(sizeof(t_envvar));
+	// env_list->next = malloc(sizeof(t_envvar));
+	env_list->next = ft_malloc(sizeof(t_envvar), 'm');
 	// TODO HANDLE LEAKS
 	env_list->next->next = NULL;
 	env_list->next->prev = env_list;
@@ -120,7 +121,8 @@ char	*ft_str_join(char const *s1, char const *s2)
 	len2 = 0;
 	len1 = strlen(s1);
 	len2 = strlen(s2);
-	ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	// ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	ptr = (char *)ft_malloc(sizeof(char) * (len1 + len2 + 1), 'm');
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
@@ -161,7 +163,8 @@ char	*join2(char const *s1, char const *s2)
 		return (strdup(s1));
 	len1 = strlen(s1);
 	len2 = strlen(s2);
-	ptr = malloc(sizeof(char) * (len1 + len2 + 1));
+	// ptr = malloc(sizeof(char) * (len1 + len2 + 1));
+	ptr = ft_malloc(sizeof(char) * (len1 + len2 + 1), 'm');
 	if (!ptr)
 		return (NULL);
 	strcpy(ptr, s1);

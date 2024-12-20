@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:19:02 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 13:08:57 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:29:58 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	exit_builtin(t_cmd *cmd)
 	if (cmd->args[0] == NULL)
 	{
 		printf("exit\n");
+		ft_malloc(0, 'f');
 		exit(0);
 	}
 	if (!is_valid_number(cmd->args[0]))
@@ -106,6 +107,7 @@ int	exit_builtin(t_cmd *cmd)
 	else
 		exit_status = shell.exit;
 	shell.exit = normalize_exit_status(exit_status);
+	ft_malloc(0, 'f');
 	exit(shell.exit);
 }
 

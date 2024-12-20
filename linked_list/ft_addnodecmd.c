@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 15:48:50 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:47:36 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	ft_morethan2(t_token *node, t_shell *shell, int counter)
 	free(node);
 	while (holder[counter] != NULL)
 	{
-		node = malloc(sizeof(t_token));
+		// node = malloc(sizeof(t_token));
+		node = ft_malloc(sizeof(t_token), 'm');
 		if (!node)
 			return ;
 		node->next = NULL;
@@ -76,7 +77,8 @@ void	ft_cmdliste(t_shell *shell, int counter)
 
 	while (shell->commande.table[counter] != NULL)
 	{
-		node = malloc(sizeof(t_token));
+		// node = malloc(sizeof(t_token));
+		node = ft_malloc(sizeof(t_token), 'm');
 		if (!node)
 			return ;
 		node->next = NULL;

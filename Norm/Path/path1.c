@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:38:04 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 11:32:36 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:37:49 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ char	**split_path(char *path_string)
 	counter = 1;
 	temp = path_string;
 	counter = counte_temp(temp);
-	paths = malloc(sizeof(char *) * (counter + 1));
+	// paths = malloc(sizeof(char *) * (counter + 1));
+	paths = ft_malloc(sizeof(char *) * (counter + 1), 'm');
 	if (paths == NULL)
 		return (NULL);
 	path_copy = strdup(path_string);

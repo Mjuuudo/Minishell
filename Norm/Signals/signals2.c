@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:15:31 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 10:16:08 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:33:17 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	heredoc_sigint_handler(int signum)
 	if (signum == SIGINT)
 	{
 		printf("\n");
+		ft_malloc(0, 'f');
 		exit(120);
 	}
 }

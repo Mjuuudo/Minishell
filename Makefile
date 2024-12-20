@@ -20,9 +20,10 @@ SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Err
 				Builtins/export_sorting.c Builtins/export_append.c Builtins/env.c Parsing/expand_herdoc.c \
 				Parsing/expand/ft_expande_2.c Parsing/expand/ft_expande_3.c Parsing/lexcer/inputcorrection_2.c \
 				Parsing/expand_herdoc_2.c Parsing/expand/ft_expande_4.c Norm/Parse/Parse.c\
-				Norm/Heredoc/heredoc.c Norm/Executing/execute.c Norm/Executing/execute2.c \
+				Norm/Heredoc/heredoc.c Norm/Executing/execute.c Norm/Executing/execute2.c Norm/GarbegCollector/gc.c \
 				Norm/Pipes/pipe.c Norm/Redirections/redirections.c Norm/Path/path1.c Norm/Path/path2.c \
-				Norm/Signals/signals.c Norm/Signals/signals2.c Norm/SetFiles/set_files.c Tools/Tools.c Tools/Tools2.c
+				Norm/Signals/signals.c Norm/Signals/signals2.c Norm/SetFiles/set_files.c \
+				Tools/Tools.c Tools/Tools2.c
 
 OBJS	 = $(SRCS:.c=.o)
 

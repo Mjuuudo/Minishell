@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 09:54:40 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 23:35:02 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:41:22 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	first_child(t_cmd *cmd, int *fd)
 {
 	int	pid;
-	
+
 	pid = fork();
 	if (pid == 0)
 	{
@@ -24,6 +24,7 @@ int	first_child(t_cmd *cmd, int *fd)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		execute_cmd(cmd);
+		ft_malloc(0, 'f');
 		exit(1);
 	}
 	return (pid);
@@ -41,6 +42,7 @@ int	second_child(t_cmd *cmd, int *fd)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		ft_execution(cmd);
+		ft_malloc(0, 'f');
 		exit(1);
 	}
 	return (pid);
@@ -64,5 +66,6 @@ int	execute_pipe(t_cmd *cmd)
 		status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		status = WTERMSIG(status) + 128;
+	// ft_malloc(0, 'f');
 	return (0);
 }

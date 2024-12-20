@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/20 11:44:47 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:21:21 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,10 +378,11 @@ int 		implement_heredoc(t_cmd *cmd);
 void		handle_parent_process(pid_t pid);
 void		setup_child_signals(void);
 void		free_args(char **args);
-char **prepare_command_args(t_cmd *cmd, char **args);
-char **construct_args(t_cmd *cmd);
-void cleanup_and_exit(int status);
-void free_args(char **args);
+char		**prepare_command_args(t_cmd *cmd, char **args);
+char		**construct_args(t_cmd *cmd);
+void		cleanup_and_exit(int status);
+void		free_args(char **args);
+void		*ft_malloc(size_t size, char f_or_m);
 
 
 

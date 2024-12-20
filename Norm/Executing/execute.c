@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:19:40 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 23:33:03 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:40:01 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static void	execute_command(t_cmd *cmd)
 {
 	if (!set_redirections(cmd->red))
+	{
+		ft_malloc(0, 'f');
 		exit(1);
+	}
 	if (!execute_builtin(cmd))
 	{
 		if (ft_strchr('/', cmd->order))
@@ -23,6 +26,7 @@ static void	execute_command(t_cmd *cmd)
 		else
 			execute_with_path(cmd);
 	}
+	ft_malloc(0, 'f');
 	exit(0);
 }
 
@@ -35,6 +39,7 @@ int	execute_cmd(t_cmd *cmd)
 	{
 		setup_child_signals();
 		execute_command(cmd);
+		ft_malloc(0, 'f');
 	}
 	else if (pid > 0)
 		handle_parent_process(pid);

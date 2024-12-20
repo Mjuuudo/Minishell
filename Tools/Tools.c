@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Heredoc2.c                                         :+:      :+:    :+:   */
+/*   Tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:34:37 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/11 09:49:31 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:38:21 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len2 = 0;
 	len1 = strlen(s1);
 	len2 = strlen(s2);
-	ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	// ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	ptr = (char *)ft_malloc(sizeof(char) * (len1 + len2 + 1), 'm');
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
@@ -82,7 +83,8 @@ char	*ft_itoa(int n)
 	len = ft_len(n);
 	if (n == -2147483648)
 		return (strdup("-2147483648"));
-	str = malloc(len + 1);
+	// str = malloc(len + 1);
+	str = ft_malloc(len + 1, 'm');
 	if (!str)
 		return (NULL);
 	if (n < 0)
