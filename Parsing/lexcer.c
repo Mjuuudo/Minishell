@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 11:27:50 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:48:03 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static void	ft_lexcer(char *line, t_shell *shell)
 
 	length = count_spaces(line);
 	shell->commande.commande = spaced_string(line, shell, length, 0);
-	// free(line);
 	shell->commande.table = ft_split(shell->commande.commande, " \n\t\v\f\r");
-	// free(shell->commande.commande);
 }
 
 void	ft_cmdhandler(char *line, t_shell *shell)
@@ -41,7 +39,7 @@ void	ft_cmdhandler(char *line, t_shell *shell)
 	}
 }
 
-void ft_exitstatus(char *line, int *i, char *new_string)
+void	ft_exitstatus(char *line, int *i, char *new_string)
 {
 	char	*status;
 	int		j;
@@ -50,6 +48,5 @@ void ft_exitstatus(char *line, int *i, char *new_string)
 	j = 0;
 	while (status[j])
 		new_string[shell.counter++] = status[j++];
-	// free(status);
 	(*i)++;
 }

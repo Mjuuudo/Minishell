@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_herdoc_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:12:14 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/21 14:41:28 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:38:39 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*replace_env_var(t_envvar *env, char *holder, char *new_string)
 	j = 0;
 	while (value && value[j])
 		new_string[shell.counter++] = value[j++];
-	// free(value);
 	return (NULL);
 }
 
@@ -43,7 +42,7 @@ char	*process_dollar_token(char *line, char *new_string, int *i, int *j)
 			*j = 0;
 		}
 	}
-	else if(line[*i] == '?')
+	else if (line[*i] == '?')
 		ft_exitstatus(line, i, new_string);
 	else
 	{
@@ -59,7 +58,6 @@ char	*noquotesher(char *line, t_envvar *env, int i, int j)
 	char	*new_string;
 
 	shell.counter = 0;
-	// new_string = malloc(sizeof(char) * (ft_strlen(line) * 500));
 	new_string = ft_malloc(sizeof(char) * (ft_strlen(line) * 500), 'm');
 	if (!new_string)
 		return (NULL);
@@ -75,7 +73,6 @@ char	*noquotesher(char *line, t_envvar *env, int i, int j)
 			new_string[shell.counter++] = line[i++];
 	}
 	new_string[shell.counter] = '\0';
-	// free(line);
 	return (new_string);
 }
 

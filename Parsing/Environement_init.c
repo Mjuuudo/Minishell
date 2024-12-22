@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Environement_init.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:49:00 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/21 09:28:53 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:39:38 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ char	**ft_envholder(char **env, t_shell *shell)
 	char	**new_array;
 
 	(void)shell;
-	// new_array = (char **)malloc(sizeof(char *) * (ft_envlength(env) + 1));
-	new_array = (char **)ft_malloc(sizeof(char *) * (ft_envlength(env) + 1), 'm');
+	new_array = (char **)ft_malloc(sizeof(char *)
+			* (ft_envlength(env) + 1), 'm');
 	if (!new_array)
 		return (NULL);
 	counter = 0;

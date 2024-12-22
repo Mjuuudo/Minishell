@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputcorrection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:27:13 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/21 09:29:19 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:41:58 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static char	*prepare_spaced_string(size_t max_possible_len)
 {
 	char	*spaced_string;
 
-	// spaced_string = malloc(max_possible_len);
 	spaced_string = ft_malloc(max_possible_len, 'm');
 	if (!spaced_string)
 		return (NULL);

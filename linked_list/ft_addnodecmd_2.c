@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:20:56 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/20 22:44:56 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:43:19 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,61 +52,37 @@ int	redcalcu(t_token *tokens)
 
 t_token	*ft_nodecmdinit(t_cmd **node, t_token *token, int counter, int length)
 {
-	// (*node)->args = (char **)malloc(sizeof(char *) * (ft_arcal(token) + 2));
-	(*node)->args = (char **)ft_malloc(sizeof(char *) * (ft_arcal(token) + 2), 'm');
-	// (*node)->red2 = (char **)malloc(sizeof(char *) * (redcalcu(token) + 2));
-	(*node)->red2 = (char **)ft_malloc(sizeof(char *) * (redcalcu(token) + 2), 'm');
+	(*node)->args = (char **)ft_malloc(sizeof(char *) * (ft_arcal(token) + 2),
+			'm');
+	(*node)->red2 = (char **)ft_malloc(sizeof(char *) * (redcalcu(token) + 2),
+			'm');
 	while (token)
 	{
-
 		if (token->type == PIPE)
 		{
 			token = token->next;
 			break ;
 		}
 		else if (!token->prev || (token->prev->type == PIPE && token))
-		{
-				if (!ft_strcmp(token->cmd, "$?"))
-				{
-					(*node)->order = ft_itoa(shell.exit);
-					token = token->next;
-					continue ;
-				}
-				(*node)->order = ft_strdup(token->cmd);
-				 token = token->next;
-		}
-		else if ((token->type == GREAT || token->type == DGREAT
-				|| token->type == LESS || token->type == LLESS)
-			|| (token->prev->type == GREAT || token->prev->type == DGREAT
-				|| token->prev->type == LESS || token->prev->type == LLESS))
+			token = ft_norm9(node, token, &counter, &length);
+		else if (ft_norm8(token))
 		{
 			(*node)->red2[counter++] = ft_strdup(token->cmd);
-				token = token->next;
-		}
-		else if (token->prev || token->prev->type != PIPE)
-		{
-			if (!ft_strcmp(token->cmd, "$?"))
-			{
-					(*node)->args[length++] = ft_itoa(shell.exit);
-					token = token->next;
-					continue ;
-			}
-			(*node)->args[length++] = ft_strdup(token->cmd),
 			token = token->next;
 		}
+		else if (token->prev || token->prev->type != PIPE)
+			token = ft_norm10(node, token, &counter, &length);
 	}
 	(*node)->args[length] = NULL;
 	(*node)->red2[counter] = NULL;
 	return (token);
 }
-// here
 
 t_token	*ft_addnodecmd(t_shell *shell, t_token *token)
 {
 	t_cmd	*node;
 	t_cmd	*last_node;
 
-	// node = malloc(sizeof(t_cmd));
 	node = ft_malloc(sizeof(t_cmd), 'm');
 	if (!node)
 		return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/21 09:35:59 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:39:44 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,8 @@ void	ft_morethan2(t_token *node, t_shell *shell, int counter)
 	char	**holder;
 
 	holder = ft_split(node->cmd, " \n\t\v\f\r");
-	// free(node->cmd);
-	// free(node);
 	while (holder[counter] != NULL)
 	{
-		// node = malloc(sizeof(t_token));
 		node = ft_malloc(sizeof(t_token), 'm');
 		if (!node)
 			return ;
@@ -65,9 +62,6 @@ void	ft_morethan2(t_token *node, t_shell *shell, int counter)
 		counter++;
 	}
 	counter = 0;
-	// while (holder[counter])
-	// 	free(holder[counter++]);
-	// free(holder);
 }
 
 void	ft_cmdliste(t_shell *shell, int counter)
@@ -77,7 +71,6 @@ void	ft_cmdliste(t_shell *shell, int counter)
 
 	while (shell->commande.table[counter] != NULL)
 	{
-		// node = malloc(sizeof(t_token));
 		node = ft_malloc(sizeof(t_token), 'm');
 		if (!node)
 			return ;

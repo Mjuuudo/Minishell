@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 00:33:14 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:20:26 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,11 @@ int	handle_env_var(char *new_string, char *holder, t_envvar *env, int *counter);
 int	extract_var_name(char *input, char *holder, int *index);
 int	is_alnum_or_underscore(char *str);
 void ft_exitstatus(char *line, int *i, char *new_string);
+void ft_norm6(t_cmd **node, t_token *token, int *counter, int *length);
+int ft_norm8(t_token *token);
+void ft_norm7(t_cmd **node, t_token *token, int *counter, int *length);
+t_token *ft_norm9(t_cmd **node, t_token *token, int *counter, int *length);
+t_token *ft_norm10(t_cmd **node, t_token *token, int *counter, int *length);
 
 
 

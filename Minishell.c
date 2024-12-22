@@ -18,7 +18,6 @@ t_shell	shell;
 
 int	main(int ac, char **av, char **env)
 {
-
 	(void)ac;
 	(void)av;
 	shell.envp = NULL;

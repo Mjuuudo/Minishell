@@ -1,13 +1,12 @@
 
 
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <unistd.h>
-# include <stdlib.h>	
-# include <stdio.h>
 # include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -16,8 +15,6 @@
 char	*get_next_line(int fd);
 
 #endif
-
-
 
 #include "get_next_line.h"
 
@@ -33,8 +30,8 @@ char	*ft_strdup(char *src)
 	i = 0;
 	while (src[i])
 	{
-	   dest[i] = src[i];
-	   i++;
+		dest[i] = src[i];
+		i++;
 	}
 	dest[i] = '\0';
 	return (dest);
@@ -45,7 +42,7 @@ char	*get_next_line(int fd)
 	static char	buffer[BUFFER_SIZE];
 	char		line[70000];
 	static int	buffer_read;
-	static int 	buffer_pos;
+	static int	buffer_pos;
 	int			i;
 
 	i = 0;
@@ -71,9 +68,11 @@ char	*get_next_line(int fd)
 	return (ft_strdup(line));
 }
 /*
-int main()
+int	main(void)
 {
-    int fd = open("./txt.txt", O_RDONLY);
+	int	fd;
+
+    fd = open("./txt.txt", O_RDONLY);
     printf("%s", get_next_line(fd));
     return (0);
 }
