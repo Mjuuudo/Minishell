@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:09:57 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 11:35:02 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:36:58 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*join_path(const char *base, const char *command)
 	if (!mid_path)
 		return (NULL);
 	full_path = ft_strjoin(mid_path, command);
-	free(mid_path);
+	// free(mid_path);
 	return (full_path);
 }
 
@@ -70,7 +70,7 @@ char	*get_full_path2(char **paths, t_cmd *cmd)
 		{
 			return (temp);
 		}
-		free(temp);
+		// free(temp);
 		i++;
 	}
 	return (NULL);
@@ -91,15 +91,15 @@ char	**split_path3(char **paths, char *path_copy)
 			while (index > 0)
 			{
 				index--;
-				free(paths[index]);
+				// free(paths[index]);
 			}
-			free(paths);
-			free(path_copy);
+			// free(paths);
+			// free(path_copy);
 		}
 		index++;
 		current = ft_strtok(NULL, ':');
 	}
 	paths[index] = NULL;
-	free(path_copy);
+	// free(path_copy);
 	return (paths);
 }

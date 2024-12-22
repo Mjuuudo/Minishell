@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:29:37 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:35:21 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:32:11 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	free_env(t_envvar *env)
 	{
 		tmp = env;
 		env = env->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
+		// free(tmp->key);
+		// free(tmp->value);
+		// free(tmp);
 	}
 }
 

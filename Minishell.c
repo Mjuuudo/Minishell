@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:00:53 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/19 03:34:47 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 19:50:00 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int ac, char **av, char **env)
 	// updating_shlvl(shell.envp);
 	ft_members_init(&shell);
 	ft_shell_on(&shell);
-	ft_freeenv(shell.envp);
-	ft_freeenvholder(shell.envholder);
+	// ft_freeenv(shell.envp);
+	// ft_freeenvholder(shell.envholder);
 	return (0);
 }

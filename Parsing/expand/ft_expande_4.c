@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expande_4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 09:30:39 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 15:53:55 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:37:48 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int	handle_env_var(char *new_string, char *holder, t_envvar *env, int *counter)
 	}
 	while (itsvalue[val_index])
 		new_string[(*counter)++] = itsvalue[val_index++];
-	free(itsvalue);
+	// free(itsvalue);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:19:02 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:29:58 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 20:44:38 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	handle_overflowing_number(const char *arg)
 	{
 		write(2, buffer, ft_strlen(buffer));
 		write(2, ": numeric argument required\n", 28);
-		free(buffer);
+		// free(buffer);
 	}
 	shell.exit = 2;
 	return (2);
@@ -81,7 +81,9 @@ int	handle_non_numeric_argument(const char *arg)
 	printf("exit\n");
 	printf("exit: numeric argument required\n");
 	shell.exit = 2;
-	return (2);
+	ft_malloc(0, 'f');
+	exit(2);
+	// return (2);
 }
 
 int	exit_builtin(t_cmd *cmd)

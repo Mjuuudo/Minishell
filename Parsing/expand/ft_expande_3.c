@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expande_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 09:30:39 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 16:02:10 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:37:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	noquotes(t_token *token, t_envvar *env)
 	i = 0;
 	counter = 0;
 	new_len = ft_strlen(token->cmd) * 100;
-	new_string = malloc(sizeof(char) * new_len);
+	// new_string = malloc(sizeof(char) * new_len);
+	new_string = ft_malloc(sizeof(char) * new_len, 'm');
 	if (!new_string)
 		return ;
 	while (token->cmd[i])
@@ -63,6 +64,6 @@ void	noquotes(t_token *token, t_envvar *env)
 			new_string[counter++] = token->cmd[i++];
 	}
 	new_string[counter] = '\0';
-	free(token->cmd);
+	// free(token->cmd);
 	token->cmd = new_string;
 }

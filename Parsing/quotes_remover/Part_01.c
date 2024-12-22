@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Part_01.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:14:30 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 14:12:10 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:40:35 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static char	*removequotes(char *line, int i, int flag, int counter)
 	char	*new_str;
 	char	sym;
 
-	new_str = malloc(sizeof(char) * (ft_strlen(line) * 2 + 1));
+	// new_str = malloc(sizeof(char) * (ft_strlen(line) * 2 + 1));
+	sym = 0;
+	new_str = ft_malloc(sizeof(char) * (ft_strlen(line) * 2 + 1), 'm');
 	if (!new_str)
 		return (NULL);
 	while (line[counter])
@@ -64,18 +66,18 @@ void	ft_quotesremove(t_cmd **node)
 	if (quote_or_not((*node)->order))
 	{
 		new = removequotes((*node)->order, 0, 0, 0);
-		free((*node)->order);
+		// free((*node)->order);
 		(*node)->order = ft_strdup(new);
-		free(new);
+		// free(new);
 	}
 	while ((*node)->args[counter])
 	{
 		if (quote_or_not((*node)->args[counter]))
 		{
 			new = removequotes((*node)->args[counter], 0, 0, 0);
-			free((*node)->args[counter]);
+			// free((*node)->args[counter]);
 			(*node)->args[counter] = ft_strdup(new);
-			free(new);
+			// free(new);
 		}
 		counter++;
 	}

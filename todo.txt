@@ -49,6 +49,7 @@
 //TODO cat well always over lap for the file.
 
 //TODO env liste $_ do  not get updated
+ctl + c should etun 130
 ============================================================================
 
 

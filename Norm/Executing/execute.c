@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:19:40 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:40:01 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:56:38 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	execute_command(t_cmd *cmd)
 int	execute_cmd(t_cmd *cmd)
 {
 	pid_t	pid;
-	// fprintf(stderr, "1 heeerereee fooooork ============================================================\n");
 	pid = fork();
 	if (pid == 0)
 	{

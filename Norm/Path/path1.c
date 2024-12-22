@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:38:04 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:37:49 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 10:39:36 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ char	**split_path(char *path_string)
 	paths = ft_malloc(sizeof(char *) * (counter + 1), 'm');
 	if (paths == NULL)
 		return (NULL);
-	path_copy = strdup(path_string);
+	path_copy = ft_strdup(path_string);
 	if (path_copy == NULL)
 	{
-		free(paths);
+		// free(paths);
 		return (NULL);
 	}
 	if (!split_path3(paths, path_copy))
 	{
-		free(path_copy);
-		free(paths);
+		// free(path_copy);
+		// free(paths);
 		return (NULL);
 	}
 	return (paths);
@@ -87,11 +87,5 @@ char	*making_the_path(t_cmd *cmd)
 	if(paths == NULL)
 		return (NULL);
 	result = get_full_path2(paths, cmd);
-	while(paths[i])
-	{
-		free(paths[i]);
-		i++;
-	}
-	free(paths);
 	return (result);
 }

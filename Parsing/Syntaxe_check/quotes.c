@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:25:48 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 11:36:03 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:38:13 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_quotesch(char *line, t_shell *shell)
 	if (!check_double(line))
 	{
 		printf("Syntaxe Error\n");
-		free(line);
+		// free(line);
 		return (0);
 	}
 	return (1);

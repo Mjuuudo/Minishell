@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/20 22:21:21 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 00:33:14 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,7 +372,7 @@ char 		**rebuild_envp(t_envvar *env_list);
 int 		count_heredoc(t_cmd *cmd);
 char 		*get_env(char **env, const char *var);
 void 		heredoc_sigint_handler(int signum);
-void 		update_env(char ***env, const char *var, const char *value);
+// void 		update_env(char ***env, const char *var, const char *value);
 void 		cd_builtin2(char *old_pwd, char *new_pwd, char *path);
 int 		implement_heredoc(t_cmd *cmd);
 void		handle_parent_process(pid_t pid);
@@ -383,7 +383,13 @@ char		**construct_args(t_cmd *cmd);
 void		cleanup_and_exit(int status);
 void		free_args(char **args);
 void		*ft_malloc(size_t size, char f_or_m);
-
+bool set_fd(t_redirection *file, int fd);
+int set_the_files(t_cmd *cmd);
+void	update_env(char ***env, const char *var, const char *value);
+char *ft_strcat(char *dest, const char *src);
+char *ft_strcpy(char *dst, const char *src);
+void *ft_realloc(void *ptr, size_t old_size, size_t new_size);
+void update_env2(char *key, char *value);
 
 
 

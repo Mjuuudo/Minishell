@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:47:58 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 11:36:18 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:38:16 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_redirections(char *line, t_shell *shell)
 	if (!redirectioncheck(line))
 	{
 		printf("Syntaxe Error\n");
-		free(line);
+		// free(line);
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:12:14 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/19 13:15:51 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:41:28 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*replace_env_var(t_envvar *env, char *holder, char *new_string)
 	j = 0;
 	while (value && value[j])
 		new_string[shell.counter++] = value[j++];
-	free(value);
+	// free(value);
 	return (NULL);
 }
 
@@ -59,7 +59,8 @@ char	*noquotesher(char *line, t_envvar *env, int i, int j)
 	char	*new_string;
 
 	shell.counter = 0;
-	new_string = malloc(sizeof(char) * (ft_strlen(line) * 500));
+	// new_string = malloc(sizeof(char) * (ft_strlen(line) * 500));
+	new_string = ft_malloc(sizeof(char) * (ft_strlen(line) * 500), 'm');
 	if (!new_string)
 		return (NULL);
 	while (line[i])
@@ -68,13 +69,13 @@ char	*noquotesher(char *line, t_envvar *env, int i, int j)
 		{
 			i++;
 			if (!process_dollar_token(line, new_string, &i, &j))
-				break ;
+				continue ;
 		}
 		else
 			new_string[shell.counter++] = line[i++];
 	}
 	new_string[shell.counter] = '\0';
-	free(line);
+	// free(line);
 	return (new_string);
 }
 

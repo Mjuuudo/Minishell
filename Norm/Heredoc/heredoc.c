@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:16:53 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:32:13 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:18:20 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,37 @@ static void	process_heredoc_line(int fd, char *delimiter)
 		line = ft_expandherdoc(line, shell.envp);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
-			free(line);
+			// free(line);
 			break ;
 		}
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
-		free(line);
+		// free(line);
 	}
 }
 
-static void	process_heredoc(t_redirection *temp, t_cmd *cmd)
+int set_the_files(t_cmd *cmd) {
+    char template[] = "mont_XXXXXX"; // Template for mkstemp
+    int fd = mkstemp(template);
+    if (fd == -1) {
+        perror("minishell: Failed to create temporary file");
+        return -1;
+    }
+    shell.temp_file = ft_strdup(template); // Store the file name
+    return fd;
+}
+
+static void	process_heredoc(t_redirection *temp, t_cmd *cmd,int fd)
 {
 	int	i;
-	int	fd;
+	// int	fd;
 
 	i = 0;
 	while (temp)
 	{
 		if (temp->identifier == 5)
 		{
-			fd = set_files(cmd, i);
+			// fd = set_the_files(cmd);
 			process_heredoc_line(fd, temp->file);
 			close(fd);
 		}
@@ -80,7 +91,7 @@ static void	process_heredoc(t_redirection *temp, t_cmd *cmd)
 	}
 }
 
-static void	handle_child_process(t_cmd *cmd)
+static void	handle_child_process(t_cmd *cmd,int fd)
 {
 	t_cmd			*current;
 	t_redirection	*temp;
@@ -89,11 +100,23 @@ static void	handle_child_process(t_cmd *cmd)
 	while (current)
 	{
 		temp = current->red;
-		process_heredoc(temp, cmd);
+		process_heredoc(temp, cmd,fd);
 		current = current->next;
 	}
 	ft_malloc(0, 'f');
 	exit(0);
+}
+
+int set_files3(t_cmd *cmd) {
+    char template[] = "mont_XXXXXX"; // Template for mkstemp
+    int fd = mkstemp(template);
+    if (fd == -1) {
+        perror("minishell: Failed to create temporary file");
+        return -1;
+    }
+    shell.temp_file = ft_strdup(template); // Store the file name
+	close(fd);
+	return fd;
 }
 
 int	implement_heredoc(t_cmd *cmd)
@@ -101,6 +124,7 @@ int	implement_heredoc(t_cmd *cmd)
 	int	pid;
 	int	status;
 	int	count;
+	int fd;
 
 	count = count_heredoc(cmd);
 	status = -1;
@@ -111,9 +135,10 @@ int	implement_heredoc(t_cmd *cmd)
 	}
 	else if (count == 0)
 		return (0);
+	fd = set_files3(cmd);
 	pid = fork();
 	if (pid == 0)
-		handle_child_process(cmd);
+		handle_child_process(cmd,fd);
 	else if (pid == -1)
 		perror("Fork failed");
 	waitpid(-1, &status, 0);

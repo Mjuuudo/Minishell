@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:45:28 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:36:24 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:17:59 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	update_the_env_var(t_envvar *env_list, char *str)
 	{
 		if (strncmp(env_list->key, str, key_lenght) == 0)
 		{
-			env_list->value = strdup(equal_pos + 1);
+			env_list->value = ft_strdup(equal_pos + 1);
 			return (0);
 		}
 		env_list = env_list->next;
@@ -100,7 +100,7 @@ int	update_existing_env_var(t_envvar *env_list, char *key, char *new_value)
 	{
 		if (strcmp(env_list->key, key) == 0)
 		{
-			free(env_list->value);
+			// free(env_list->value);
 			env_list->value = new_value;
 			return (0);
 		}
@@ -121,10 +121,10 @@ int	parse_key_value(char *value, char **key, char **new_value)
 	*key = strndup(value, key_length);
 	if (!*key)
 		return (1);
-	*new_value = strdup(equal_pos + 1);
+	*new_value = ft_strdup(equal_pos + 1);
 	if (!*new_value)
 	{
-		free(*key);
+		// free(*key);
 		return (1);
 	}
 	return (0);
@@ -141,11 +141,11 @@ int	update_the_env_var2(t_envvar *env_list, char *value)
 		return (1);
 	if (!update_existing_env_var(env_list, key, new_value))
 	{
-		free(key);
+		// free(key);
 		return (0);
 	}
-	free(key);
-	free(new_value);
+	// free(key);
+	// free(new_value);
 	return (1);
 }
 
@@ -168,13 +168,13 @@ int	add_to_env_var(t_envvar *env_list, char *str)
 	env_list->next->prev = env_list;
 	if (equal_pos == NULL)
 	{
-		env_list->next->key = strdup(str);
-		env_list->next->value = strdup("");
+		env_list->next->key = ft_strdup(str);
+		env_list->next->value = ft_strdup("");
 	}
 	else
 	{
 		env_list->next->key = strndup(str, key_lenght);
-		env_list->next->value = strdup(equal_pos + 1);
+		env_list->next->value = ft_strdup(equal_pos + 1);
 	}
 	return (0);
 }

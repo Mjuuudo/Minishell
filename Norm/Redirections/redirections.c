@@ -6,50 +6,30 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 09:58:02 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 10:57:37 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:48:52 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/Minishell.h"
 
-// bool	set_redirections(t_redirection *file)
-// {
-// 	int	fd, i;
 
-// 	i = 0;
-// 	while (file)
-// 	{
-// 		if (file->identifier == LESS || file->identifier == LLESS)
-// 		{
-// 			set_files2(shell.cmd, i);
-// 			fd = open(shell.temp_file, O_RDONLY, 0644);
-// 		}
-// 		else if (file->identifier == GREAT)
-// 			fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 		else if (file->identifier == DGREAT)
-// 			fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-// 		if (fd == -1)
-// 			return (perror("minishell01$"), false);
-// 		if (file->identifier == LESS || file->identifier == LLESS)
-// 			dup2(fd, STDIN_FILENO);
-// 		else
-// 		{
-// 			if(dup2(fd, STDOUT_FILENO) == -1)
-// 				perror("minishell02$");
-// 		}
-// 		close(fd);
-// 		file = file->next;
-// 		i++;
-// 	}
-// 	return (true);
-// }
-
-static int	open_input_file(int i)
+static int	open_input_file(t_redirection file,int i,t_types type)
 {
 	int	fd;
-
-	set_files2(shell.cmd, i);
-	fd = open(shell.temp_file, O_RDONLY, 0644);
+	if(type == 4)
+	{
+		// set_files(shell.cmd, i);
+		fd = open(file.file, O_RDONLY, 0644);
+	}
+	else
+	{
+		// set_files2(shell.cmd, i);
+		printf("shell.temp_file: %s\n", shell.temp_file);
+		fd = open(shell.temp_file, O_RDONLY, 0644);
+	}
+	// set_files2(shell.cmd, i);
+	// fd = open(shell.temp_file, O_RDONLY, 0644);
+	// printf("shell.temp_file: %s\n", shell.temp_file);
 	return (fd);
 }
 
@@ -84,8 +64,10 @@ bool	set_redirections(t_redirection *file)
 	i = 0;
 	while (file)
 	{
-		if (file->identifier == LESS || file->identifier == LLESS)
-			fd = open_input_file(i);
+		if (file->identifier == LESS)
+			fd = open_input_file(*file,i, 4);
+		else if (file->identifier == LLESS)
+			fd = open_input_file(*file,i,5);
 		else
 			fd = open_output_file(file);
 		if (fd == -1)

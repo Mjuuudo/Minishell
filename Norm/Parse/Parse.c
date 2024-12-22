@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:08:32 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:37:40 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:18:47 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char **construct_args(t_cmd *cmd)
         exit(1);
     }
 
-    args[0] = strdup(cmd->order); // Copy the command
+    args[0] = ft_strdup(cmd->order); // Copy the command
     if (!args[0])
     {
         perror("strdup failed");
@@ -110,7 +110,7 @@ char	**copy_command_and_flags(t_shell *shell, char **only_args)
 
 	arg_index = 0;
 	i = 0;
-	only_args[arg_index++] = strdup(shell->cmd->order);
+	only_args[arg_index++] = ft_strdup(shell->cmd->order);
 	while (shell->cmd->args[i] != NULL)
 	{
 		if (strcmp(shell->cmd->args[i], "<") != 0 && strcmp(shell->cmd->args[i],
@@ -121,7 +121,7 @@ char	**copy_command_and_flags(t_shell *shell, char **only_args)
 					&& strcmp(shell->cmd->args[i - 1], ">") != 0
 					&& strcmp(shell->cmd->args[i - 1], ">>") != 0)))
 		{
-			only_args[arg_index++] = strdup(shell->cmd->args[i]);
+			only_args[arg_index++] = ft_strdup(shell->cmd->args[i]);
 		}
 		i++;
 	}

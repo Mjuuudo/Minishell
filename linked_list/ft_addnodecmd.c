@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/20 22:47:36 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:35:59 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	ft_morethan2(t_token *node, t_shell *shell, int counter)
 	char	**holder;
 
 	holder = ft_split(node->cmd, " \n\t\v\f\r");
-	free(node->cmd);
-	free(node);
+	// free(node->cmd);
+	// free(node);
 	while (holder[counter] != NULL)
 	{
 		// node = malloc(sizeof(t_token));
@@ -65,9 +65,9 @@ void	ft_morethan2(t_token *node, t_shell *shell, int counter)
 		counter++;
 	}
 	counter = 0;
-	while (holder[counter])
-		free(holder[counter++]);
-	free(holder);
+	// while (holder[counter])
+	// 	free(holder[counter++]);
+	// free(holder);
 }
 
 void	ft_cmdliste(t_shell *shell, int counter)

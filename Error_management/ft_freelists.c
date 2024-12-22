@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freelists.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 21:18:24 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/18 11:34:31 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:35:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	ft_freeenv(t_envvar *list)
 	while (tmp)
 	{
 		tmp = current->next;
-		free(current->key);
-		free(current->value);
-		free(current);
+		// free(current->key);
+		// free(current->value);
+		// free(current);
 		current = tmp;
 	}
 }
@@ -36,10 +36,10 @@ void	ft_freeenvholder(char **envholder)
 	counter = 0;
 	while (envholder[counter])
 	{
-		free(envholder[counter]);
+		// free(envholder[counter]);
 		counter++;
 	}
-	free(envholder);
+	// free(envholder);
 }
 
 t_cmd	*ft_returnlastnodecmd2(t_cmd *list)

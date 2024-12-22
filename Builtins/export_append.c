@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 10:01:12 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:36:05 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:17:30 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ bool	find_env_var_appending(t_envvar *env_list, char *str)
 	{
 		if (strcmp(env_list->key, new_str) == 0)
 		{
-			free(new_str);
+			// free(new_str);
 			return (true);
 		}
 		env_list = env_list->next;
 	}
-	free(new_str);
+	// free(new_str);
 	return (false);
 }
 
@@ -59,12 +59,12 @@ int	update_the_env_var_appending(t_envvar *env_list, char *str)
 		{
 			old_value = env_list->value;
 			env_list->value = join2(old_value, equal_pos + 1);
-			free(new_str);
+			// free(new_str);
 			return (0);
 		}
 		env_list = env_list->next;
 	}
-	free(new_str);
+	// free(new_str);
 	return (1);
 }
 
@@ -86,7 +86,7 @@ int	add_to_env_var_appending(t_envvar *env_list, char *str)
 	env_list->next->prev = env_list;
 	{
 		env_list->next->key = strndup(str, key_lenght);
-		env_list->next->value = strdup(equal_pos + 1);
+		env_list->next->value = ft_strdup(equal_pos + 1);
 	}
 	return (0);
 }
@@ -158,9 +158,9 @@ char	*join2(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
-		return (strdup(s2));
+		return (ft_strdup(s2));
 	if (!s2)
-		return (strdup(s1));
+		return (ft_strdup(s1));
 	len1 = strlen(s1);
 	len2 = strlen(s2);
 	// ptr = malloc(sizeof(char) * (len1 + len2 + 1));
