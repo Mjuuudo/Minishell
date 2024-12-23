@@ -6,7 +6,7 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:41:53 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/18 15:09:44 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:09:55 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ int	indexdol(char *s)
 
 void	ft_replace(t_token *token, t_envvar *env)
 {
-	if (ft_quotes(token->cmd, indexdol(token->cmd)))
+	t_replace	vars;
+
+	init_replace_vars(&vars, token);
+	while (vars.str[vars.i])
 	{
-		if (isinornot(token->cmd, 0, 0, 0) == 2)
-		{
-			noquotes(token, env);
-		}
-		else
-			return ;
+		if (handle_quotes(&vars))
+			continue ;
+		handle_char(&vars);
 	}
-	else
-		noquotes(token, env);
+	vars.new_string[vars.counter] = '\0';
+	token->cmd = vars.new_string;
 }
 
 int	wordcount(char *str)

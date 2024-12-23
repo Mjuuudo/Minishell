@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:01:38 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/23 01:34:28 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 01:49:49 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ struct							s_redirection
 	t_redirection				*next;
 	t_redirection				*prev;
 };
+
+typedef struct s_replace
+{
+	char						*str;
+	char						*new_string;
+	int							i;
+	int							in_single_quotes;
+	int							in_double_quotes;
+	int							counter;
+}								t_replace;
 
 struct							s_shell
 {
@@ -274,6 +284,21 @@ long long int					ft_atoll(const char *str);
 int								ll_max_check(char *str);
 int								handle_non_numeric_argument(const char *arg);
 int								handle_too_many_arguments(void);
+void							ft_norm6(t_cmd **node, t_token *token,
+									int *counter, int *length);
+int								ft_norm8(t_token *token);
+void							ft_norm7(t_cmd **node, t_token *token,
+									int *counter, int *length);
+t_token							*ft_norm9(t_cmd **node, t_token *token,
+									int *counter, int *length);
+t_token							*ft_norm10(t_cmd **node, t_token *token,
+									int *counter, int *length);
+void							init_replace_vars(t_replace *vars,
+									t_token *token);
+int								handle_quotes(t_replace *vars);
+
+void							handle_char(t_replace *vars);
+void							ft_replace(t_token *token, t_envvar *env);
 
 /*
 ! Builtins file commands prototypes
@@ -400,7 +425,7 @@ void							print_it_norm2(char *path);
 void							get_logical_pwd(char **env, char *old_pwd);
 void							free_env(t_envvar *env);
 void							env_add_back(t_envvar **env, t_envvar *new);
-char 							*ft_strchr2(const char *s, int c);
-char 							*ft_strndup(const char *s, size_t n);
+char							*ft_strchr2(const char *s, int c);
+char							*ft_strndup(const char *s, size_t n);
 
 #endif

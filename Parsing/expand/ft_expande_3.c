@@ -6,38 +6,11 @@
 /*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 09:30:39 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 11:42:25 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 01:53:54 by abait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/Minishell.h"
-
-int	handle_dollar_sign(char *input, char *new_string, int *i, int *counter)
-{
-	char	holder[1024];
-	int		var_len;
-	int		j;
-
-	(*i)++;
-	j = 0;
-	if (!is_valid_var_start(input[*i]))
-	{
-		new_string[(*counter)++] = '$';
-		if (input[*i])
-			new_string[(*counter)++] = input[(*i)++];
-		return (1);
-	}
-	var_len = extract_var_name(input, holder, i);
-	if (var_len == 0)
-		return (new_string[(*counter)++] = '$', 1);
-	if (!handle_env_var(new_string, holder, shell.envp, counter))
-	{
-		new_string[(*counter)++] = '$';
-		while (j < var_len)
-			new_string[(*counter)++] = holder[j++];
-	}
-	return (1);
-}
 
 void	noquotes(t_token *token, t_envvar *env)
 {
@@ -64,4 +37,33 @@ void	noquotes(t_token *token, t_envvar *env)
 	}
 	new_string[counter] = '\0';
 	token->cmd = new_string;
+}
+
+int	handle_dollar_sign(char *input, char *new_string, int *i, int *counter)
+{
+	char	holder[1024];
+
+	int (var_len), (j);
+	(*i)++;
+	j = 0;
+	if (!is_valid_var_start(input[*i]))
+	{
+		new_string[(*counter)++] = '$';
+		if (input[*i])
+			new_string[(*counter)++] = input[(*i)++];
+		return (1);
+	}
+	var_len = extract_var_name(input, holder, i);
+	if (var_len == 0)
+	{
+		new_string[(*counter)++] = '$';
+		return (1);
+	}
+	if (!handle_env_var(new_string, holder, shell.envp, counter))
+	{
+		new_string[(*counter)++] = '$';
+		while (j < var_len)
+			new_string[(*counter)++] = holder[j++];
+	}
+	return (1);
 }

@@ -30,39 +30,39 @@
 // 	return (fd);
 // }
 
-static int get_counter(void)
+static int	get_counter(void)
 {
-    static int counter = 0;
-    return (counter++);
+	static int	counter = 0;
+
+	return (counter++);
 }
 
-int set_files3(t_cmd *cmd)
+int	set_files3(t_cmd *cmd)
 {
-    char    *filename;
-    int     fd;
-    char    *temp;
-    int     counter;
-    char    *base;
+	char	*filename;
+	int		fd;
+	char	*temp;
+	int		counter;
+	char	*base;
 
-    counter = get_counter();
-    temp = ft_itoa(counter);
-    base = ft_strjoin("/tmp/minishell-", temp);
-
-    while (1)
-    {
-        fd = open(base, O_CREAT | O_RDWR | O_EXCL, 0600);
-        if (fd != -1)
-            break;
-        if (errno == EEXIST)
-        {
-            counter++;
-            temp = ft_itoa(counter);
-            base = ft_strjoin("/tmp/minishell-", temp);
-            continue;
-        }
-        return (-1);
-    }
-    return (shell.temp_file = base, fd);
+	counter = get_counter();
+	temp = ft_itoa(counter);
+	base = ft_strjoin("/tmp/minishell-", temp);
+	while (1)
+	{
+		fd = open(base, O_CREAT | O_RDWR | O_EXCL, 0600);
+		if (fd != -1)
+			break ;
+		if (errno == EEXIST)
+		{
+			counter++;
+			temp = ft_itoa(counter);
+			base = ft_strjoin("/tmp/minishell-", temp);
+			continue ;
+		}
+		return (-1);
+	}
+	return (shell.temp_file = base, fd);
 }
 
 int	set_files2(t_cmd *cmd, int index)

@@ -26,7 +26,7 @@ SRCS	 = Minishell.c  Parsing/Environement_init.c linked_list/ft_addnodeenv.c Err
 				Tools/Tools.c Tools/Tools2.c linked_list/ft_norms.c \
 				Builtins/Export/export.c Builtins/Export/export2.c \
 				Builtins/Export/export_append.c Builtins/Export/export_sorting.c \
-				Builtins/Cd/cd.c Builtins/Cd/cdtools.c Builtins/tools.c Builtins/tools2.c \
+				Builtins/Cd/cd.c Builtins/Cd/cdtools.c Builtins/tools.c Builtins/tools2.c Parsing/expand/ft_expand_5.c\
 
 OBJS	 = $(SRCS:.c=.o)
 
