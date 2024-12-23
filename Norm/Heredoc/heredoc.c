@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:16:53 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/22 11:18:20 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 01:12:59 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,30 @@
 
 int	count_heredoc(t_cmd *cmd)
 {
-	int				heredoc_counter;
-	t_cmd			*current;
-	t_redirection	*temp;
+	int		heredoc_counter;
+	t_cmd	*current;
+	int		i;
 
 	heredoc_counter = 0;
 	current = shell.cmd;
-	temp = current->red;
 	while (current)
 	{
-		if (temp)
+		if (current->red2)
 		{
-			while (temp)
+			i = 0;
+			while (current->red2[i])
 			{
-				if (temp->identifier == 5)
+				if (ft_strcmp(current->red2[i], "<<") == 0)
+				{
 					heredoc_counter++;
-				temp = temp->next;
+				}
+				i++;
 			}
 		}
 		current = current->next;
 	}
 	if (heredoc_counter > 16)
-		printf("minishell$: maximum here-document count exceded\n");
+		printf("minishell$: maximum here-document count exceeded\n");
 	return (heredoc_counter);
 }
 
@@ -52,37 +54,22 @@ static void	process_heredoc_line(int fd, char *delimiter)
 		line = ft_expandherdoc(line, shell.envp);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
-			// free(line);
 			break ;
 		}
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
-		// free(line);
 	}
 }
 
-int set_the_files(t_cmd *cmd) {
-    char template[] = "mont_XXXXXX"; // Template for mkstemp
-    int fd = mkstemp(template);
-    if (fd == -1) {
-        perror("minishell: Failed to create temporary file");
-        return -1;
-    }
-    shell.temp_file = ft_strdup(template); // Store the file name
-    return fd;
-}
-
-static void	process_heredoc(t_redirection *temp, t_cmd *cmd,int fd)
+static void	process_heredoc(t_redirection *temp, t_cmd *cmd, int fd)
 {
 	int	i;
-	// int	fd;
 
 	i = 0;
 	while (temp)
 	{
 		if (temp->identifier == 5)
 		{
-			// fd = set_the_files(cmd);
 			process_heredoc_line(fd, temp->file);
 			close(fd);
 		}
@@ -91,7 +78,7 @@ static void	process_heredoc(t_redirection *temp, t_cmd *cmd,int fd)
 	}
 }
 
-static void	handle_child_process(t_cmd *cmd,int fd)
+static void	handle_child_process(t_cmd *cmd, int fd)
 {
 	t_cmd			*current;
 	t_redirection	*temp;
@@ -100,48 +87,34 @@ static void	handle_child_process(t_cmd *cmd,int fd)
 	while (current)
 	{
 		temp = current->red;
-		process_heredoc(temp, cmd,fd);
+		process_heredoc(temp, cmd, fd);
 		current = current->next;
 	}
 	ft_malloc(0, 'f');
 	exit(0);
 }
 
-int set_files3(t_cmd *cmd) {
-    char template[] = "mont_XXXXXX"; // Template for mkstemp
-    int fd = mkstemp(template);
-    if (fd == -1) {
-        perror("minishell: Failed to create temporary file");
-        return -1;
-    }
-    shell.temp_file = ft_strdup(template); // Store the file name
-	close(fd);
-	return fd;
-}
-
 int	implement_heredoc(t_cmd *cmd)
 {
-	int	pid;
-	int	status;
-	int	count;
-	int fd;
-
+	int (pid), (status), (count), (fd);
 	count = count_heredoc(cmd);
 	status = -1;
 	if (count > 16)
-	{
-		ft_malloc(0, 'f');
-		exit(2);
-	}
+		(ft_malloc(0, 'f'), exit(2));
 	else if (count == 0)
 		return (0);
 	fd = set_files3(cmd);
+	if (fd == -1)
+		return (1);
 	pid = fork();
 	if (pid == 0)
-		handle_child_process(cmd,fd);
+		(handle_child_process(cmd, fd), close(fd), exit(0));
 	else if (pid == -1)
-		perror("Fork failed");
-	waitpid(-1, &status, 0);
+	{
+		(perror("Fork failed"), close(fd));
+		return (1);
+	}
+	(close(fd), waitpid(pid, &status, 0));
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))

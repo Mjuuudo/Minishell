@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:19:40 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/21 14:56:38 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 23:02:01 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	execute_command(t_cmd *cmd)
 int	execute_cmd(t_cmd *cmd)
 {
 	pid_t	pid;
+
 	pid = fork();
 	if (pid == 0)
 	{
@@ -61,4 +62,30 @@ int	ft_execution(t_cmd *cmd)
 	else
 		ft_execute(cmd);
 	return (0);
+}
+
+int	execute_without_path(t_cmd *cmd)
+{
+	char	**args;
+	int		i;
+
+	i = 0;
+	args = construct_args(cmd);
+	if (access(cmd->order, F_OK) != 0)
+	{
+		fprintf(stderr, "minishell$: %s: No such file or directory\n",
+			cmd->order);
+		ft_malloc(0, 'f');
+		exit(127);
+	}
+	if (access(cmd->order, X_OK) != 0)
+	{
+		fprintf(stderr, "minishell$: %s: Permission denied\n", cmd->order);
+		ft_malloc(0, 'f');
+		exit(126);
+	}
+	execve(cmd->order, args, shell.envholder);
+	perror("minishell$");
+	ft_malloc(0, 'f');
+	exit(1);
 }

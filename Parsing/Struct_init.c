@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:47:20 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/19 00:07:01 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:19:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
 
-void	ft_members_init(t_shell *shell)
+void	ft_members_init(g_shell *shell)
 {
 	shell->cmd = NULL;
 	shell->tokens = NULL;

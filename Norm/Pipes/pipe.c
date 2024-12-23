@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 09:54:40 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/20 22:41:22 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 22:45:07 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	first_child(t_cmd *cmd, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		// printf("first child pid %d\n",getpid);
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
@@ -37,7 +36,6 @@ int	second_child(t_cmd *cmd, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		// printf("second child pid %d\n",getpid);
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
@@ -66,6 +64,5 @@ int	execute_pipe(t_cmd *cmd)
 		status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		status = WTERMSIG(status) + 128;
-	// ft_malloc(0, 'f');
 	return (0);
 }

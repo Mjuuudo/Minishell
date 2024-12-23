@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:09:57 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/21 09:36:58 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 22:44:18 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,28 @@ void	join_order_with_args(t_cmd *cmd, char **args)
 		args[i + 1] = cmd->args[i];
 		i++;
 	}
-	// args[i + 1] = NULL;
 }
 
 char	*join_path(const char *base, const char *command)
 {
-	char	*mid_path = NULL;
-	char	*full_path = NULL;
+	char	*mid_path;
+	char	*full_path;
 
+	mid_path = NULL;
+	full_path = NULL;
 	mid_path = ft_strjoin(base, "/");
 	if (!mid_path)
 		return (NULL);
 	full_path = ft_strjoin(mid_path, command);
-	// free(mid_path);
 	return (full_path);
 }
 
 char	*get_full_path(char **paths, t_cmd *cmd)
 {
-	char	*full_path = NULL;
+	char	*full_path;
 	int		i;
 
+	full_path = NULL;
 	i = 0;
 	while (paths[i] != NULL)
 	{
@@ -58,8 +59,9 @@ char	*get_full_path(char **paths, t_cmd *cmd)
 char	*get_full_path2(char **paths, t_cmd *cmd)
 {
 	int		i;
-	char	*temp = NULL;
+	char	*temp;
 
+	temp = NULL;
 	i = 0;
 	while (paths[i])
 	{
@@ -70,7 +72,6 @@ char	*get_full_path2(char **paths, t_cmd *cmd)
 		{
 			return (temp);
 		}
-		// free(temp);
 		i++;
 	}
 	return (NULL);
@@ -79,8 +80,9 @@ char	*get_full_path2(char **paths, t_cmd *cmd)
 char	**split_path3(char **paths, char *path_copy)
 {
 	int		index;
-	char	*current = NULL;
+	char	*current;
 
+	current = NULL;
 	index = 0;
 	current = ft_strtok(path_copy, ':');
 	while (current != NULL)
@@ -91,15 +93,11 @@ char	**split_path3(char **paths, char *path_copy)
 			while (index > 0)
 			{
 				index--;
-				// free(paths[index]);
 			}
-			// free(paths);
-			// free(path_copy);
 		}
 		index++;
 		current = ft_strtok(NULL, ':');
 	}
 	paths[index] = NULL;
-	// free(path_copy);
 	return (paths);
 }

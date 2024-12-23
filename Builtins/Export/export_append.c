@@ -6,11 +6,11 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 10:01:12 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/22 11:17:30 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 01:34:53 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/Minishell.h"
+#include "../../Includes/Minishell.h"
 
 bool	find_env_var_appending(t_envvar *env_list, char *str)
 {
@@ -18,7 +18,7 @@ bool	find_env_var_appending(t_envvar *env_list, char *str)
 	char	*new_str;
 	size_t	key_length;
 
-	plus_pos = strchr(str, '+');
+	plus_pos = ft_strchr2(str, '+');
 	if (!plus_pos)
 		return (false);
 	key_length = (size_t)(plus_pos - str);
@@ -29,12 +29,10 @@ bool	find_env_var_appending(t_envvar *env_list, char *str)
 	{
 		if (strcmp(env_list->key, new_str) == 0)
 		{
-			// free(new_str);
 			return (true);
 		}
 		env_list = env_list->next;
 	}
-	// free(new_str);
 	return (false);
 }
 
@@ -47,8 +45,8 @@ int	update_the_env_var_appending(t_envvar *env_list, char *str)
 	char	*old_value;
 
 	key_lenght = 0;
-	equal_pos = strchr(str, '=');
-	plus_pos = strchr(str, '+');
+	equal_pos = ft_strchr2(str, '=');
+	plus_pos = ft_strchr2(str, '+');
 	if (!equal_pos || !plus_pos)
 		return (1);
 	key_lenght = (size_t)(plus_pos - str);
@@ -59,12 +57,10 @@ int	update_the_env_var_appending(t_envvar *env_list, char *str)
 		{
 			old_value = env_list->value;
 			env_list->value = join2(old_value, equal_pos + 1);
-			// free(new_str);
 			return (0);
 		}
 		env_list = env_list->next;
 	}
-	// free(new_str);
 	return (1);
 }
 
@@ -74,18 +70,16 @@ int	add_to_env_var_appending(t_envvar *env_list, char *str)
 	char	*plus_pos;
 	size_t	key_lenght;
 
-	equal_pos = strchr(str, '=');
-	plus_pos = strchr(str, '+');
+	equal_pos = ft_strchr2(str, '=');
+	plus_pos = ft_strchr2(str, '+');
 	key_lenght = (size_t)(plus_pos - str);
 	while (env_list && env_list->next)
 		env_list = env_list->next;
-	// env_list->next = malloc(sizeof(t_envvar));
 	env_list->next = ft_malloc(sizeof(t_envvar), 'm');
-	// TODO HANDLE LEAKS
 	env_list->next->next = NULL;
 	env_list->next->prev = env_list;
 	{
-		env_list->next->key = strndup(str, key_lenght);
+		env_list->next->key = ft_strndup(str, key_lenght);
 		env_list->next->value = ft_strdup(equal_pos + 1);
 	}
 	return (0);
@@ -119,9 +113,8 @@ char	*ft_str_join(char const *s1, char const *s2)
 		return (NULL);
 	len1 = 0;
 	len2 = 0;
-	len1 = strlen(s1);
-	len2 = strlen(s2);
-	// ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
 	ptr = (char *)ft_malloc(sizeof(char) * (len1 + len2 + 1), 'm');
 	if (ptr == NULL)
 		return (NULL);
@@ -129,45 +122,5 @@ char	*ft_str_join(char const *s1, char const *s2)
 	i += ft_str_lcpy(ptr + i, s1, len1 + 1);
 	i += ft_str_lcpy(ptr + i, s2, len2 + 1);
 	ptr[len1 + len2] = '\0';
-	return (ptr);
-}
-
-size_t	ft_str_lcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-
-	i = 0;
-	if (dstsize > 0)
-	{
-		while (src[i] != '\0' && i < dstsize - 1)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (strlen(src));
-}
-
-char	*join2(char const *s1, char const *s2)
-{
-	size_t	len1;
-	size_t	len2;
-	char	*ptr;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	len1 = strlen(s1);
-	len2 = strlen(s2);
-	// ptr = malloc(sizeof(char) * (len1 + len2 + 1));
-	ptr = ft_malloc(sizeof(char) * (len1 + len2 + 1), 'm');
-	if (!ptr)
-		return (NULL);
-	strcpy(ptr, s1);
-	strcat(ptr, s2);
 	return (ptr);
 }

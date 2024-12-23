@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:47:58 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 11:39:52 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:19:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	redirectioncheck(char *line)
 	return (1);
 }
 
-int	ft_redirections(char *line, t_shell *shell)
+int	ft_redirections(char *line, g_shell *shell)
 {
 	(void)shell;
 	if (!redirectioncheck(line))

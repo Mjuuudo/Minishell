@@ -6,18 +6,11 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:47:21 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/19 13:12:23 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:00:39 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
-
-/**
- * ?===========================Improvement===============================?
- * ?Improvement: You can optimize this function by using strlen()
- * ?and writing the entire string in one go instead of character by character,
- * ?reducing the number of system calls:
- */
 
 void	ft_putstr_flag(char *str, bool n_flag)
 {
@@ -79,11 +72,6 @@ int	echo_builtin(t_cmd *cmd)
 
 	i = 0;
 	args = cmd->args;
-	// if (cmd->args[0])
-	// {
-	// 	sprintf(exit_status_str, "%d", shell.exit);
-	// 	ft_putstr_flag(exit_status_str, false);
-	// }
 	the_n_flag = parse_n_flag(args, &i);
 	print_arguments(args, i);
 	if (!the_n_flag)

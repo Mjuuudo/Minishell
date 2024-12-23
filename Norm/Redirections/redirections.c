@@ -6,30 +6,30 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 09:58:02 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/21 15:48:52 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 01:26:28 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/Minishell.h"
 
-
-static int	open_input_file(t_redirection file,int i,t_types type)
+static int	open_input_file(t_redirection file, int i, t_types type)
 {
 	int	fd;
-	if(type == 4)
+
+	if (type == 4)
 	{
-		// set_files(shell.cmd, i);
 		fd = open(file.file, O_RDONLY, 0644);
+	}
+	else if (type == 5 && shell.temp_file)
+	{
+		fd = open(shell.temp_file, O_RDONLY);
+		if (fd == -1)
+			perror("minishell: Failed to open heredoc temp file");
 	}
 	else
 	{
-		// set_files2(shell.cmd, i);
-		printf("shell.temp_file: %s\n", shell.temp_file);
-		fd = open(shell.temp_file, O_RDONLY, 0644);
+		fd = -1;
 	}
-	// set_files2(shell.cmd, i);
-	// fd = open(shell.temp_file, O_RDONLY, 0644);
-	// printf("shell.temp_file: %s\n", shell.temp_file);
 	return (fd);
 }
 
@@ -65,9 +65,9 @@ bool	set_redirections(t_redirection *file)
 	while (file)
 	{
 		if (file->identifier == LESS)
-			fd = open_input_file(*file,i, 4);
+			fd = open_input_file(*file, i, 4);
 		else if (file->identifier == LLESS)
-			fd = open_input_file(*file,i,5);
+			fd = open_input_file(*file, i, 5);
 		else
 			fd = open_output_file(file);
 		if (fd == -1)

@@ -6,48 +6,16 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:29:37 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/21 09:32:11 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:01:54 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
 
-void	free_env(t_envvar *env)
-{
-	t_envvar	*tmp;
-
-	while (env)
-	{
-		tmp = env;
-		env = env->next;
-		// free(tmp->key);
-		// free(tmp->value);
-		// free(tmp);
-	}
-}
-
-void	env_add_back(t_envvar **env, t_envvar *new)
-{
-	t_envvar	*tmp;
-
-	if (!env || !new)
-		return ;
-	if (!*env)
-	{
-		*env = new;
-		return ;
-	}
-	tmp = *env;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-}
-
 t_envvar	*create_env_node(char *key, char *value, int is_exported)
 {
 	t_envvar	*new;
 
-	// new = (t_envvar *)malloc(sizeof(t_envvar));
 	new = ft_malloc(sizeof(t_envvar), 'm');
 	if (!new)
 		return (NULL);

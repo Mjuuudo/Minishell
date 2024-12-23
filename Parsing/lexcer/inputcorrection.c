@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputcorrection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:27:13 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 11:41:58 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:19:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	*add_spaces_around_operators(char *line, size_t write_index,
 	return (spaced_string);
 }
 
-char	*spaced_string(char *line, t_shell *shell, int spaces, int counter_2)
+char	*spaced_string(char *line, g_shell *shell, int spaces, int counter_2)
 {
 	return (add_spaces_around_operators(line, 0, 0));
 }

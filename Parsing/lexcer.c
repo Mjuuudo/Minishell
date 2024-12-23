@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   lexcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:35:03 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 12:48:03 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:33:28 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Minishell.h"
 
-void	ft_parser(t_shell *shell)
+void	ft_parser(g_shell *shell)
 {
 	ft_cmdliste(shell, 0);
 	ft_cmdliste_2(shell, shell->tokens);
 	ft_freetokenmain(shell);
 }
 
-static void	ft_lexcer(char *line, t_shell *shell)
+static void	ft_lexcer(char *line, g_shell *shell)
 {
 	int	length;
 
@@ -28,7 +28,7 @@ static void	ft_lexcer(char *line, t_shell *shell)
 	shell->commande.table = ft_split(shell->commande.commande, " \n\t\v\f\r");
 }
 
-void	ft_cmdhandler(char *line, t_shell *shell)
+void	ft_cmdhandler(char *line, g_shell *shell)
 {
 	if (ft_quotesch(line, shell) && ft_pipe(line, shell)
 		&& ft_redirections(line, shell))

@@ -6,11 +6,11 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:26:57 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/13 09:26:14 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:06:39 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/Minishell.h"
+#include "../../Includes/Minishell.h"
 
 void	print_envvar(t_envvar *env_list)
 {
@@ -19,11 +19,13 @@ void	print_envvar(t_envvar *env_list)
 		if (ft_strcmp(env_list->key, "_") != 0)
 		{
 			if (env_list->value)
-				printf("declare -x %s=\"%s\"\n", env_list->key, env_list->value);
+			{
+				printf("declare -x %s=\"%s\"\n", env_list->key,
+					env_list->value);
+			}
 			else
 				printf("declare -x %s\n", env_list->key);
 		}
-			// printf("%s=%s\n", env_list->key, env_list->value);
 		env_list = env_list->next;
 	}
 }
@@ -95,4 +97,3 @@ void	sort_the_linkedlist(t_envvar *env_list)
 		bubble_sort(env_list);
 	print_envvar(env_list);
 }
-

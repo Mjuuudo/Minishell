@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:20:56 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 12:43:19 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:19:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_token	*ft_nodecmdinit(t_cmd **node, t_token *token, int counter, int length)
 	return (token);
 }
 
-t_token	*ft_addnodecmd(t_shell *shell, t_token *token)
+t_token	*ft_addnodecmd(g_shell *shell, t_token *token)
 {
 	t_cmd	*node;
 	t_cmd	*last_node;

@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:58:32 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/21 09:28:47 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:26:38 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*ft_strdup(const char *str)
 	char	*strcp;
 
 	len_str = ft_strlen(str);
-	// strcp = (char *)malloc(len_str + 1);
 	strcp = ft_malloc(len_str + 1, 'm');
 	if (!strcp)
 		return (NULL);

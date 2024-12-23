@@ -29,8 +29,9 @@ void	ft_putstr_fd(char *s, int fd)
 char	*ft_strtok(char *string, char c)
 {
 	static char	*last_pos = NULL;
-	char		*start = NULL;
+	char		*start;
 
+	start = NULL;
 	if (string != NULL)
 		last_pos = string;
 	else if (last_pos == NULL)

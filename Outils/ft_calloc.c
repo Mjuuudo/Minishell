@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:08:49 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/20 22:53:38 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 01:36:21 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	the_size = nmemb * size;
 	if (the_size / nmemb != size)
 		return (NULL);
-	// ptr = malloc(the_size);
 	ptr = ft_malloc(the_size, 'm');
 	if (ptr != NULL)
 	{

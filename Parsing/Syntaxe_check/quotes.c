@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:25:48 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 11:39:56 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:19:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_double(char *line)
 	return (1);
 }
 
-int	ft_quotesch(char *line, t_shell *shell)
+int	ft_quotesch(char *line, g_shell *shell)
 {
 	(void)shell;
 	if (!check_double(line))

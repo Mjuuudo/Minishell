@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:38:04 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/21 10:39:36 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 22:43:47 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,26 @@ int	counte_temp(char *temp)
 
 char	**split_path(char *path_string)
 {
-	int		counter = 0;
-	char	*temp = NULL;
-	char	**paths = NULL;
-	char	*path_copy = NULL;
+	int		counter;
+	char	*temp;
+	char	**paths;
+	char	*path_copy;
 
+	counter = 0;
+	temp = NULL;
+	paths = NULL;
+	path_copy = NULL;
 	counter = 1;
 	temp = path_string;
 	counter = counte_temp(temp);
-	// paths = malloc(sizeof(char *) * (counter + 1));
 	paths = ft_malloc(sizeof(char *) * (counter + 1), 'm');
 	if (paths == NULL)
 		return (NULL);
 	path_copy = ft_strdup(path_string);
 	if (path_copy == NULL)
-	{
-		// free(paths);
 		return (NULL);
-	}
 	if (!split_path3(paths, path_copy))
-	{
-		// free(path_copy);
-		// free(paths);
 		return (NULL);
-	}
 	return (paths);
 }
 
@@ -84,7 +80,7 @@ char	*making_the_path(t_cmd *cmd)
 		return (NULL);
 	}
 	paths = split_path(path_str);
-	if(paths == NULL)
+	if (paths == NULL)
 		return (NULL);
 	result = get_full_path2(paths, cmd);
 	return (result);

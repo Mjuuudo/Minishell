@@ -6,7 +6,7 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:30:08 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/21 09:28:38 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:26:47 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static char	*ft_words(char *str, char *charset)
 
 	len = char_sep(str, charset);
 	i = 0;
-	// word = (char *)malloc(sizeof(char) * (len + 1));
 	word = (char *)ft_malloc(sizeof(char) * (len + 1), 'm');
 	while (i < len)
 	{
@@ -99,7 +98,6 @@ char	**ft_split(char *str, char *charset)
 	i = 0;
 	j = 0;
 	str_len = count_words(str, charset);
-	// strings = (char **)malloc(sizeof(char *) * (str_len + 1));
 	strings = (char **)ft_malloc(sizeof(char *) * (str_len + 1), 'm');
 	while (str[j])
 	{

@@ -6,80 +6,62 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:08:32 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/22 11:18:47 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:19:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/Minishell.h"
 
-
-int count_commands_and_flags(t_cmd *cmd)
+int	count_commands_and_flags(t_cmd *cmd)
 {
-    int count = 1; // Start with 1 for the command itself
-    int i = 0;
+	int	count;
+	int	i;
 
-    while (cmd->args[i] != NULL)
-    {
-        // Skip redirection symbols
-        if (strcmp(cmd->args[i], "<") != 0 && strcmp(cmd->args[i], "<<") != 0 &&
-            strcmp(cmd->args[i], ">") != 0 && strcmp(cmd->args[i], ">>") != 0)
-        {
-            count++;
-        }
-        i++;
-    }
-    return count;
+	count = 1;
+	i = 0;
+	while (cmd->args[i] != NULL)
+	{
+		if (strcmp(cmd->args[i], "<") != 0 && strcmp(cmd->args[i], "<<") != 0
+			&& strcmp(cmd->args[i], ">") != 0 && strcmp(cmd->args[i],
+				">>") != 0)
+		{
+			count++;
+		}
+		i++;
+	}
+	return (count);
 }
 
-// Function to construct the args array for execve
-char **construct_args(t_cmd *cmd)
+char	**construct_args(t_cmd *cmd)
 {
-    int count = count_commands_and_flags(cmd);
-    // char **args = malloc(sizeof(char *) * (count + 1));
-	char **args = ft_malloc(sizeof(char *) * (count + 1), 'm');
-    int i = 0, j = 1; // j starts at 1 to reserve args[0] for the command
+	char	**args;
 
-    if (!args)
-    {
-        perror("malloc failed");
-		ft_malloc(0, 'f');
-        exit(1);
-    }
-
-    args[0] = ft_strdup(cmd->order); // Copy the command
-    if (!args[0])
-    {
-        perror("strdup failed");
-        // free(args);
-		ft_malloc(0, 'f');
-        exit(1);
-    }
-
-    while (cmd->args[i] != NULL)
-    {
-        // Skip redirection symbols
-        if (strcmp(cmd->args[i], "<") != 0 && strcmp(cmd->args[i], "<<") != 0 &&
-            strcmp(cmd->args[i], ">") != 0 && strcmp(cmd->args[i], ">>") != 0)
-        {
-            args[j] = ft_strdup(cmd->args[i]); // Copy each valid argument
-            if (!args[j])
-            {
-                perror("strdup failed");
-                // for (int k = 0; k < j; k++)
-                //     free(args[k]);
-                // free(args);
-				ft_malloc(0, 'f');
-                exit(1);
-            }
-            j++;
-        }
-        i++;
-    }
-    args[j] = NULL; // NULL terminate the array
-    return args;
+	int (count), (i), (j);
+	count = count_commands_and_flags(cmd);
+	args = ft_malloc(sizeof(char *) * (count + 1), 'm');
+	i = -1;
+	j = 1;
+	if (!args)
+		(perror("strdup failed"), ft_malloc(0, 'f'), exit(1));
+	args[0] = ft_strdup(cmd->order);
+	if (!args[0])
+		(perror("strdup failed"), ft_malloc(0, 'f'), exit(1));
+	while (cmd->args[++i] != NULL)
+	{
+		if (strcmp(cmd->args[i], "<") != 0 && strcmp(cmd->args[i], "<<") != 0
+			&& strcmp(cmd->args[i], ">") != 0 && strcmp(cmd->args[i],
+				">>") != 0)
+		{
+			args[j] = ft_strdup(cmd->args[i]);
+			if (!args[j])
+				(perror("strdup failed"), ft_malloc(0, 'f'), exit(1));
+			j++;
+		}
+	}
+	return (args[j] = NULL, args);
 }
 
-int	count_commands_anf_flags(t_shell *shell)
+int	count_commands_anf_flags(g_shell *shell)
 {
 	int	i;
 	int	arg_count;
@@ -103,7 +85,7 @@ int	count_commands_anf_flags(t_shell *shell)
 	return (arg_count);
 }
 
-char	**copy_command_and_flags(t_shell *shell, char **only_args)
+char	**copy_command_and_flags(g_shell *shell, char **only_args)
 {
 	int	arg_index;
 	int	i;
@@ -129,13 +111,12 @@ char	**copy_command_and_flags(t_shell *shell, char **only_args)
 	return (only_args);
 }
 
-char	**parse_and_handle_redirection(t_shell *shell)
+char	**parse_and_handle_redirection(g_shell *shell)
 {
 	int		arg_count;
 	char	**only_args;
 
 	arg_count = count_commands_anf_flags(shell);
-	// only_args = (sizeof(char *) * (arg_count + 2));
 	only_args = ft_malloc(sizeof(char *) * (arg_count + 2), 'm');
 	if (!only_args)
 		return (NULL);

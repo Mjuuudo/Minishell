@@ -6,17 +6,11 @@
 /*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:30:15 by oer-refa          #+#    #+#             */
-/*   Updated: 2024/12/22 00:13:28 by oer-refa         ###   ########.fr       */
+/*   Updated: 2024/12/22 23:08:00 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/Minishell.h"
-
-typedef struct s_malloc
-{
-	void			*data;
-	struct s_malloc	*next;
-}					t_malloc;
 
 void	ft_lstadd_back_m(t_malloc **lst, t_malloc *new)
 {

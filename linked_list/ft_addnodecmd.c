@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addnodecmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:44:17 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 12:39:44 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:19:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_token	*ft_returnlastnodecmd(t_token *list)
 	return (list);
 }
 
-void	ft_morethan2(t_token *node, t_shell *shell, int counter)
+void	ft_morethan2(t_token *node, g_shell *shell, int counter)
 {
 	char	**holder;
 
@@ -64,7 +64,7 @@ void	ft_morethan2(t_token *node, t_shell *shell, int counter)
 	counter = 0;
 }
 
-void	ft_cmdliste(t_shell *shell, int counter)
+void	ft_cmdliste(g_shell *shell, int counter)
 {
 	t_token	*node;
 	t_token	*last_node;
@@ -92,7 +92,7 @@ void	ft_cmdliste(t_shell *shell, int counter)
 	}
 }
 
-void	ft_cmdliste_2(t_shell *shell, t_token *token)
+void	ft_cmdliste_2(g_shell *shell, t_token *token)
 {
 	int	length;
 

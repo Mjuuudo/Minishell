@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Environement_init.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abait-ou <abait-ou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oer-refa <oer-refa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:49:00 by abait-ou          #+#    #+#             */
-/*   Updated: 2024/12/22 11:39:38 by abait-ou         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:19:44 by oer-refa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_envlength(char **env)
 	return (length);
 }
 
-char	**ft_envholder(char **env, t_shell *shell)
+char	**ft_envholder(char **env, g_shell *shell)
 {
 	int		counter;
 	char	**new_array;

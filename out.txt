@@ -1,0 +1,25 @@
+total 204
+drwxr-xr-x  4 oer-refa candidates    227 Dec 23 00:09 Builtins
+drwxr-xr-x  2 oer-refa candidates     90 Dec 23 00:02 Error_management
+-rw-r--r--  1 oer-refa candidates      6 Dec 22 14:21 file
+-rw-r--r--  1 oer-refa candidates   1239 Dec 22 14:21 get_next_line.c
+drwxr-xr-x  2 oer-refa candidates     25 Dec 22 14:21 Includes
+drwxr-xr-x  2 oer-refa candidates    232 Dec 23 00:02 linked_list
+-rw-r--r--  1 oer-refa candidates   2158 Dec 23 00:02 Makefile
+-rwxr-xr-x  1 oer-refa candidates 150680 Dec 23 00:09 minishell
+-rw-r--r--  1 oer-refa candidates   1304 Dec 22 14:21 Minishell.c
+-rw-r--r--  1 oer-refa candidates   5576 Dec 23 00:02 Minishell.o
+-rw-r--r--  1 oer-refa candidates      0 Dec 22 14:21 mont_0
+-rw-------  1 oer-refa candidates      0 Dec 22 14:28 mont_9feM6l
+-rw-r--r--  1 oer-refa candidates      0 Dec 22 14:21 mont_qK6PL9
+-rw-------  1 oer-refa candidates      0 Dec 22 14:29 mont_taRGfv
+drwxr-xr-x 11 oer-refa candidates    150 Dec 22 14:21 Norm
+drwxr-xr-x  2 oer-refa candidates   4096 Dec 23 00:02 Outils
+-rw-r--r--  1 oer-refa candidates      0 Dec 23 00:11 out.txt
+drwxr-xr-x  7 oer-refa candidates   4096 Dec 23 00:02 Parsing
+-rw-r--r--  1 oer-refa candidates   2486 Dec 22 14:21 printf.c
+-rw-r--r--  1 oer-refa candidates    232 Dec 22 14:37 q
+-rw-r--r--  1 oer-refa candidates     88 Dec 22 14:21 readline.supp
+-rw-r--r--  1 oer-refa candidates   1936 Dec 22 14:21 Readme.md
+-rw-r--r--  1 oer-refa candidates   5058 Dec 22 23:48 todo.txt
+drwxr-xr-x  2 oer-refa candidates     68 Dec 23 00:02 Tools
