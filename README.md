@@ -1,13 +1,11 @@
 # Minishell - As beautiful as a shell 🐚
 
-![Minishell Banner](./image.png).
+<a href="https://github.com/oakoudad/badge42"><img src="https://badge.mediaplus.ma/darkgray/abait-ou" alt="abait-ou's 42 stats" /></a>
 
 ## Brief Overview
 Minishell is a 42 school project aimed at creating a simplified version of the Bourne Again SHell (`bash`). It involves parsing user input, expanding environment variables, handling quotes correctly, managing file descriptors/redirections (`<`, `>`, `<<`, `>>`), implementing pipes (`|`), and executing system binaries alongside custom built-in commands. 
 
 This project gave a comprehensive look into process creation (using `fork`), communication (using `pipe`), process synchronization (`wait`, `waitpid`), signal handling, and file manipulation.
-
-<a href="https://github.com/oakoudad/badge42"><img src="https://badge.mediaplus.ma/darkgray/abait-ou" alt="abait-ou's 42 stats" /></a>
 
 ## What We Learned
 Rebuilding a shell from scratch exposes the exact mechanisms UNIX systems use to interpret and execute commands:
