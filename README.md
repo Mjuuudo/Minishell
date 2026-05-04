@@ -1,6 +1,6 @@
 # Minishell - As beautiful as a shell 🐚
 
-![alt text](image.png)
+![Minishell Banner](./image.png).
 
 ## Brief Overview
 Minishell is a 42 school project aimed at creating a simplified version of the Bourne Again SHell (`bash`). It involves parsing user input, expanding environment variables, handling quotes correctly, managing file descriptors/redirections (`<`, `>`, `<<`, `>>`), implementing pipes (`|`), and executing system binaries alongside custom built-in commands. 
